@@ -1,70 +1,92 @@
+import Image from "next/image";
 import Link from "next/link";
-import type { Destination } from "@/data/destinations";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { formatDuration, formatTimeInZone } from "@/lib/format";
+import { imageCredit } from "@/data/images";
+import type { DestinationCircumstances } from "@/lib/eclipse/destinations";
+import { getImage } from "@/data/images";
 
-export function DestinationCard({ destination }: { destination: Destination }) {
-  const isTotal = destination.visibility === "total";
-  const maxTime = formatTimeInZone(
-    destination.circumstances.maximum,
-    destination.circumstances.timeZone,
-  );
-  const totality = formatDuration(destination.circumstances.totalitySeconds);
+function formatTotality(seconds: number | null): string | null {
+  if (seconds === null) return null;
+  const minutes = Math.floor(seconds / 60);
+  const rest = Math.round(seconds % 60);
+  return `${minutes}m ${String(rest).padStart(2, "0")}s`;
+}
+
+export function DestinationCard({
+  circumstances,
+  className,
+}: {
+  circumstances: DestinationCircumstances;
+  className?: string;
+}) {
+  const { destination } = circumstances;
+  const asset = getImage(destination.imageKey);
+  const totality = formatTotality(circumstances.centralDurationSeconds);
+  const isTotal = circumstances.visibility === "total";
 
   return (
-    <Card className="flex flex-col overflow-hidden transition-shadow hover:shadow-md">
-      <div
-        aria-hidden
-        className={`relative h-32 ${
-          isTotal
-            ? "bg-gradient-to-br from-navy via-navy-800 to-navy text-gold"
-            : "bg-gradient-to-br from-navy-800 to-navy-700 text-ivory"
-        }`}
-      >
-        <span
-          className={`absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full ${
-            isTotal ? "bg-navy shadow-[0_0_0_6px_var(--color-gold)]" : "bg-gold"
-          }`}
+    <article
+      className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift ${className ?? ""}`}
+    >
+      <div className="relative aspect-[16/10] overflow-hidden bg-sand">
+        <Image
+          src={asset.url}
+          alt={asset.alt}
+          width={asset.width}
+          height={asset.height}
+          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
-        {!isTotal ? (
-          <span
-            className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-navy-800"
-            aria-hidden
-          />
-        ) : null}
+        <div className="absolute left-3 top-3">
+          {isTotal ? (
+            <Badge tone="total">Totality {totality}</Badge>
+          ) : (
+            <Badge tone="partial">
+              Partial · {(circumstances.obscuration * 100).toFixed(0)}% covered
+            </Badge>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-lg font-semibold text-ink">
-            <Link href={`/explorer/${destination.slug}`} className="hover:text-gold-600">
-              {destination.name}
-            </Link>
-          </h3>
-          <Badge tone={isTotal ? "total" : "partial"}>
-            {isTotal ? "Totality" : "Partial"}
-          </Badge>
-        </div>
-        <p className="mt-1 text-xs font-medium uppercase tracking-wide text-muted">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-gold-600">
           {destination.region}
         </p>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
+        <h3 className="mt-1.5 font-display text-xl font-semibold tracking-tight text-ink">
+          <Link
+            href={`/destinations/${destination.slug}`}
+            className="after:absolute after:inset-0"
+          >
+            {destination.name}
+          </Link>
+        </h3>
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
           {destination.summary}
         </p>
-        <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm">
+
+        <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm">
           <div>
-            <dt className="text-xs text-muted">Maximum</dt>
-            <dd className="font-semibold text-ink">{maxTime ?? "Not verified"}</dd>
+            <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
+              Maximum at
+            </dt>
+            <dd className="mt-0.5 font-mono text-sm text-ink">
+              {circumstances.localTimes.maximum ?? "—"} local
+            </dd>
           </div>
           <div>
-            <dt className="text-xs text-muted">Totality</dt>
-            <dd className="font-semibold text-ink">
-              {totality ?? "None"}
+            <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
+              Sun altitude
+            </dt>
+            <dd className="mt-0.5 font-mono text-sm text-ink">
+              {circumstances.sunAltitude.toFixed(0)}°
             </dd>
           </div>
         </dl>
+
+        <p className="mt-4 text-[0.7rem] text-muted">
+          Photo: {imageCredit(asset)}
+        </p>
       </div>
-    </Card>
+    </article>
   );
 }

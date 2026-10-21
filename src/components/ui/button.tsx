@@ -2,18 +2,22 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost" | "inverse";
+type Variant = "primary" | "secondary" | "ghost" | "inverse" | "outline";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-gold text-navy hover:bg-gold-600",
+  primary:
+    "bg-navy text-ivory shadow-sm hover:bg-navy-800 hover:shadow-md active:translate-y-px",
   secondary:
-    "border border-line bg-white text-ink hover:border-navy hover:text-navy",
+    "border border-line-strong bg-paper text-ink hover:border-navy hover:text-navy",
   ghost: "text-ink hover:bg-black/5",
-  inverse: "bg-white text-navy hover:bg-ivory",
+  inverse:
+    "bg-paper text-navy hover:bg-gold hover:text-navy shadow-sm",
+  outline:
+    "border border-ivory/40 text-ivory hover:border-gold hover:text-gold",
 };
 
 const sizes: Record<Size, string> = {

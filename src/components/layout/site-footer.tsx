@@ -4,19 +4,21 @@ import { Logo } from "./logo";
 
 const columns = [
   {
-    title: "Explore",
+    title: "The eclipse",
     links: [
+      { href: "/eclipse", label: "How the eclipse works" },
+      { href: "/eclipse#timeline", label: "The morning timeline" },
       { href: "/explorer", label: "Eclipse Explorer" },
-      { href: "/experiences", label: "Experiences" },
-      { href: "/plan", label: "Plan My Trip" },
-      { href: "/safety", label: "Viewing Safety" },
+      { href: "/destinations", label: "Destinations" },
     ],
   },
   {
-    title: "For providers",
+    title: "Plan",
     links: [
-      { href: "/providers", label: "List your experience" },
-      { href: "/providers#how", label: "How it works" },
+      { href: "/plan", label: "Build your itinerary" },
+      { href: "/experiences", label: "Experiences" },
+      { href: "/safety", label: "Viewing safety" },
+      { href: "/providers", label: "For local providers" },
     ],
   },
   {
@@ -33,20 +35,23 @@ const columns = [
 export function SiteFooter() {
   return (
     <footer className="mt-auto bg-navy text-ivory">
-      <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+      <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8">
+        <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
             <Logo className="[&_span:last-child]:text-white" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/70">
-              {site.tagline} A planning companion for the total solar eclipse
-              of {site.eventDate} in Tunisia.
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/70">
+              {site.tagline} Every figure on this site is computed from the
+              NASA GSFC eclipse catalogue, and every photograph is licensed
+              for reuse with attribution.
             </p>
           </div>
-          {columns.map((col) => (
-            <div key={col.title}>
-              <h3 className="text-sm font-semibold text-white">{col.title}</h3>
+          {columns.map((column) => (
+            <div key={column.title}>
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                {column.title}
+              </h3>
               <ul className="mt-4 space-y-2.5">
-                {col.links.map((link) => (
+                {column.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -61,10 +66,10 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {site.copyrightYear} {site.name}. Eclipse viewing
-            information should be confirmed against official sources.
+            information should always be confirmed against official sources.
           </p>
           <p>
             Astronomical data reference:{" "}
@@ -74,7 +79,7 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              NASA Eclipse Resources
+              NASA GSFC Eclipse Catalogue
             </a>
           </p>
         </div>
