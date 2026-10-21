@@ -1,0 +1,8 @@
+{
+  "name": "Eclipse Tunisia",
+  "description": "A planning companion for the total solar eclipse of 2 August 2027 in Tunisia.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
