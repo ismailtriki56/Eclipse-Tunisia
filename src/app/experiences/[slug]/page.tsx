@@ -4,9 +4,8 @@ import { getExperience } from "@/data/experiences";
 import { getDestination } from "@/data/destinations";
 import { experiences } from "@/data/experiences";
 import { Badge } from "@/components/ui/badge";
-import { ButtonLink } from "@/components/ui/button";
 import { Card, Container } from "@/components/ui/card";
-import { formatHours, formatMoney } from "@/lib/format";
+import { BookingRequestCard } from "@/components/experiences/booking-request-card";
 
 export function generateStaticParams() {
   return experiences.map((e) => ({ slug: e.slug }));
@@ -81,30 +80,7 @@ export default async function ExperienceDetailPage({
       </div>
 
       <aside className="space-y-6">
-        <Card className="p-6">
-          <p className="font-display text-3xl font-semibold text-ink">
-            {formatMoney(experience.priceAmount, experience.priceCurrency)}
-          </p>
-          <p className="mt-1 text-sm text-muted">{experience.priceBasis}</p>
-          <dl className="mt-5 space-y-3 border-t border-line pt-5 text-sm">
-            <div className="flex justify-between gap-4">
-              <dt className="text-muted">Duration</dt>
-              <dd className="font-medium text-ink">
-                {formatHours(experience.durationHours)}
-              </dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt className="text-muted">Max group size</dt>
-              <dd className="font-medium text-ink">{experience.groupSizeMax}</dd>
-            </div>
-          </dl>
-          <ButtonLink href="/experiences" className="mt-6 w-full">
-            Request booking
-          </ButtonLink>
-          <p className="mt-3 text-center text-xs text-muted">
-            A booking request is not a confirmed reservation.
-          </p>
-        </Card>
+        <BookingRequestCard experience={experience} />
       </aside>
     </Container>
   );

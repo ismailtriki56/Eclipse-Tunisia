@@ -176,7 +176,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <ButtonLink href="/destinations">Back to destinations</ButtonLink>
-                <ButtonLink href="/plan" variant="secondary">
+                <ButtonLink href={`/plan?addDest=${destination.slug}`} variant="secondary">
                   Add to itinerary
                 </ButtonLink>
               </div>

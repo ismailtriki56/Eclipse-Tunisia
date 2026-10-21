@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { nav } from "@/lib/site";
 import { Logo } from "./logo";
 import { ButtonLink } from "@/components/ui/button";
@@ -11,19 +11,6 @@ import { cn } from "@/lib/cn";
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const [lastPathname, setLastPathname] = useState(pathname);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  if (lastPathname !== pathname) {
-    setLastPathname(pathname);
-    setOpen(false);
-  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/80 bg-ivory/90 backdrop-blur-md">
