@@ -30,6 +30,11 @@ import {
   ShieldCheck,
   Check,
   X,
+  Edit2,
+  Download,
+  Sun,
+  Moon,
+  Compass,
 } from "lucide-react";
 
 export interface Activity {
@@ -102,7 +107,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-1",
           time: "10:00",
           title: "Arrive at Tunis-Carthage & Equipment Calibration",
-          description: "Airport reception, vehicle pickup, optical equipment check, and certified solar eclipse glasses inspection.",
+          description:
+            "Airport reception, vehicle pickup, optical equipment check, and certified solar eclipse glasses inspection.",
           type: "destination",
           referenceSlug: "tunis",
         },
@@ -110,7 +116,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-2",
           time: "15:00",
           title: "Explore the Antonine Baths at Carthage",
-          description: "Visit Phoenician and Roman seaside archaeological ruins overlooking the Gulf of Tunis.",
+          description:
+            "Visit Phoenician and Roman seaside archaeological ruins overlooking the Gulf of Tunis.",
           type: "destination",
           referenceSlug: "carthage",
         },
@@ -118,7 +125,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-3",
           time: "18:00",
           title: "Sunset Mint Tea at Sidi Bou Said",
-          description: "Cobblestone stroll through the white-and-blue artists' village on the cliff.",
+          description:
+            "Cobblestone stroll through the white-and-blue artists' village on the cliff.",
           type: "destination",
           referenceSlug: "sidi-bou-said",
         },
@@ -134,7 +142,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-4",
           time: "09:00",
           title: "Great Mosque of Uqba in Kairouan",
-          description: "Tour the 9th-century courtyard, marble columns, and monumental prayer hall.",
+          description:
+            "Tour the 9th-century courtyard, marble columns, and monumental prayer hall.",
           type: "destination",
           referenceSlug: "kairouan",
         },
@@ -142,7 +151,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-5",
           time: "17:00",
           title: "Tozeur Oasis Palm Grove Walk",
-          description: "Walk beneath 200,000 date palms and finalize tomorrow's eclipse observation ground.",
+          description:
+            "Walk beneath 200,000 date palms and finalize tomorrow's eclipse observation ground.",
           type: "experience",
           referenceSlug: "tozeur-oasis-cultural-walk",
         },
@@ -159,7 +169,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-6",
           time: "07:30",
           title: "Pre-Dawn Departure to Observation Station",
-          description: "Set up tripods, certified ISO 12312-2 solar filters, shade canopies, and hydration supplies.",
+          description:
+            "Set up tripods, certified ISO 12312-2 solar filters, shade canopies, and hydration supplies.",
           type: "experience",
           referenceSlug: "desert-totality-viewing",
         },
@@ -167,7 +178,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-7",
           time: "09:50",
           title: "First Contact (C1) — Partial Eclipse Ingress",
-          description: "Lunar disc begins biting into the solar rim. Certified solar filters mandatory.",
+          description:
+            "Lunar disc begins biting into the solar rim. Certified solar filters mandatory.",
           type: "destination",
           referenceSlug: "tozeur",
         },
@@ -175,15 +187,17 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-8",
           time: "11:04",
           title: "TOTALITY (C2 to C3) — Corona Observation (2m 04s)",
-          description: "Remove solar glasses to behold the solar corona, Baily's Beads, red prominences, and daytime planets.",
+          description:
+            "Remove solar glasses to behold the solar corona, Baily's Beads, red prominences, and daytime planets.",
           type: "destination",
           referenceSlug: "tozeur",
         },
         {
           id: "act-9",
-          time: "13:00",
-          title: "Post-Eclipse Celebration & Oasis Shade Rest",
-          description: "Cool down with cold hibiscus water and fresh dates during peak 42°C afternoon sun.",
+          time: "12:20",
+          title: "Fourth Contact (C4) & Celebration Luncheon",
+          description:
+            "Sun fully uncovered. Traditional Saharan date feast and debrief with fellow astronomers.",
           type: "destination",
           referenceSlug: "tozeur",
         },
@@ -192,22 +206,24 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
     {
       dayNumber: 4,
       date: "2027-08-03",
-      title: "Chott el Jerid Salt Flats to Matmata",
+      title: "Chott el Jerid Mirage to Matmata Berber Caves",
       destinationSlug: "matmata",
       activities: [
         {
           id: "act-10",
           time: "08:30",
-          title: "Crossing Chott el Jerid Salt Lake",
-          description: "Drive the causeway across 7,000 km² of blinding Saharan salt crust with horizon mirages.",
+          title: "Chott el Jerid Giant Salt Flat Crossing",
+          description:
+            "Drive the causeway through the shimmering crystalline dry salt lake.",
           type: "destination",
           referenceSlug: "chott-el-jerid",
         },
         {
           id: "act-11",
           time: "14:00",
-          title: "Troglodyte Berber Architecture in Matmata",
-          description: "Underground circular courtyards carved into southern sandstone to maintain natural cool temperatures.",
+          title: "Troglodyte Underground Cave Dwellings of Matmata",
+          description:
+            "Subterranean courtyards carved into sandstone by indigenous Amazigh families.",
           type: "destination",
           referenceSlug: "matmata",
         },
@@ -216,14 +232,15 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
     {
       dayNumber: 5,
       date: "2027-08-04",
-      title: "Roman El Jem Amphitheatre & Return",
+      title: "El Jem Roman Colosseum & Return North",
       destinationSlug: "el-jem",
       activities: [
         {
           id: "act-12",
           time: "10:00",
           title: "El Jem Roman Amphitheatre",
-          description: "Walk the arena floor and subterranean galleries of North Africa's largest Roman colosseum.",
+          description:
+            "Walk the arena floor and subterranean galleries of North Africa's largest Roman colosseum.",
           type: "destination",
           referenceSlug: "el-jem",
         },
@@ -231,7 +248,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
           id: "act-13",
           time: "16:00",
           title: "Transfer to Coastal Hub or Tunis Airport",
-          description: "Conclude expedition with transfer to Sousse, Monastir, or Tunis for departure flights.",
+          description:
+            "Conclude expedition with transfer to Sousse, Monastir, or Tunis for departure flights.",
           type: "destination",
           referenceSlug: "tunis",
         },
@@ -272,14 +290,19 @@ export function ItineraryPlanner() {
 
   const [activeDayIndex, setActiveDayIndex] = useState(0);
   const [savedNotice, setSavedNotice] = useState<string | null>(null);
+  const [saveButtonState, setSaveButtonState] = useState<"idle" | "saved">("idle");
   const [dismissedSuggest, setDismissedSuggest] = useState(false);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editingTitleText, setEditingTitleText] = useState(plan.tripTitle);
 
   // Preference Controls State
   const [startDate, setStartDate] = useState(() => plan.days[0]?.date || "2027-07-31");
   const [endDate, setEndDate] = useState(
     () => plan.days[plan.days.length - 1]?.date || "2027-08-04"
   );
-  const [eclipsePreference, setEclipsePreference] = useState<"totality" | "flexible">("totality");
+  const [eclipsePreference, setEclipsePreference] = useState<
+    "totality" | "partial" | "flexible"
+  >("totality");
   const [aiPace, setAiPace] = useState("moderate");
   const [aiBudget, setAiBudget] = useState("moderate");
   const [aiGroupSize, setAiGroupSize] = useState(2);
@@ -311,7 +334,7 @@ export function ItineraryPlanner() {
     return [];
   });
 
-  // 4-Stage Reservation Inquiry Modal
+  // Reservation Inquiry Modal State
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [inquiryName, setInquiryName] = useState("");
   const [inquiryEmail, setInquiryEmail] = useState("");
@@ -320,23 +343,28 @@ export function ItineraryPlanner() {
   const [inquiryNotes, setInquiryNotes] = useState("");
   const [submittedInquiry, setSubmittedInquiry] = useState<BookingInquiry | null>(null);
 
-  // New Activity Modal
+  // Add Activity Modal State
   const [isAddingActivity, setIsAddingActivity] = useState(false);
   const [newActivityType, setNewActivityType] = useState<"destination" | "experience" | "custom">("destination");
   const [newActivityRefSlug, setNewActivityRefSlug] = useState<string>(destinations[0].slug);
-  const [newActivityTime, setNewActivityTime] = useState("10:00");
+  const [newActivityTime, setNewActivityTime] = useState("11:30");
   const [newActivityTitle, setNewActivityTitle] = useState("");
   const [newActivityDesc, setNewActivityDesc] = useState("");
+
+  // Edit Day Title State
+  const [isEditingDayTitle, setIsEditingDayTitle] = useState(false);
+  const [dayTitleInput, setDayTitleInput] = useState("");
 
   const suggestedDest = useMemo(() => {
     if (!addDestParam || dismissedSuggest) return null;
     return destinations.find((d) => d.slug === addDestParam) ?? null;
   }, [addDestParam, dismissedSuggest]);
 
+
   const handleAddSuggestedDest = () => {
     if (!suggestedDest) return;
     const newAct: Activity = {
-      id: `act-${Date.now()}`,
+      id: `act-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       time: "14:00",
       title: `Visit ${suggestedDest.name}`,
       description: suggestedDest.summary,
@@ -350,7 +378,10 @@ export function ItineraryPlanner() {
           : day
       );
       try {
-        localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify({ ...prev, days: updatedDays }));
+        localStorage.setItem(
+          LOCAL_STORAGE_ACTIVE_KEY,
+          JSON.stringify({ ...prev, days: updatedDays })
+        );
       } catch {}
       return { ...prev, days: updatedDays };
     });
@@ -359,15 +390,19 @@ export function ItineraryPlanner() {
     setTimeout(() => setSavedNotice(null), 3000);
   };
 
-  // Save current plan with custom or default title
+  // Save current plan to localStorage and My Saved Trips
   const handleSaveItinerary = () => {
     try {
       // 1. Save active
       localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(plan));
 
       // 2. Add to saved trips collection
-      const eclipseDay = plan.days.find((d) => d.isEclipseDay || d.date === "2027-08-02");
-      const eclipseDest = destinations.find((d) => d.slug === eclipseDay?.destinationSlug);
+      const eclipseDay = plan.days.find(
+        (d) => d.isEclipseDay || d.date === "2027-08-02"
+      );
+      const eclipseDest = destinations.find(
+        (d) => d.slug === eclipseDay?.destinationSlug
+      );
 
       const newEntry: SavedTripEntry = {
         id: `trip-${Date.now()}`,
@@ -384,17 +419,40 @@ export function ItineraryPlanner() {
         plan: JSON.parse(JSON.stringify(plan)),
       };
 
-      const updated = [newEntry, ...savedTrips.filter((t) => t.title !== newEntry.title)].slice(0, 15);
+      const updated = [
+        newEntry,
+        ...savedTrips.filter((t) => t.title !== newEntry.title),
+      ].slice(0, 15);
       setSavedTrips(updated);
-      localStorage.setItem(LOCAL_STORAGE_SAVED_TRIPS_KEY, JSON.stringify(updated));
+      localStorage.setItem(
+        LOCAL_STORAGE_SAVED_TRIPS_KEY,
+        JSON.stringify(updated)
+      );
 
-      setSavedNotice(`Saved "${plan.tripTitle}" to your browser! Accessible from My Saved Trips.`);
+      setSaveButtonState("saved");
+      setSavedNotice(`Saved "${plan.tripTitle}" to browser! Available in My Saved Trips.`);
+      setTimeout(() => setSaveButtonState("idle"), 2500);
       setTimeout(() => setSavedNotice(null), 3500);
     } catch (e) {
       console.error("Failed to save itinerary:", e);
       setSavedNotice("Could not save to localStorage (storage limit exceeded).");
       setTimeout(() => setSavedNotice(null), 3500);
     }
+  };
+
+  const handleExportJSON = () => {
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(plan, null, 2));
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute(
+      "download",
+      `eclipse-tunisia-2027-${plan.days.length}days.json`
+    );
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
   };
 
   const handleLoadSavedTrip = (entry: SavedTripEntry) => {
@@ -421,21 +479,33 @@ export function ItineraryPlanner() {
   };
 
   const handleResetToDefault = () => {
-    if (confirm("Reset current itinerary back to the verified default expedition plan?")) {
+    if (
+      confirm(
+        "Reset current itinerary back to the verified default 5-day expedition plan?"
+      )
+    ) {
       setPlan(DEFAULT_INITIAL_PLAN);
       setActiveDayIndex(0);
       setStartDate("2027-07-31");
       setEndDate("2027-08-04");
       try {
-        localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(DEFAULT_INITIAL_PLAN));
+        localStorage.setItem(
+          LOCAL_STORAGE_ACTIVE_KEY,
+          JSON.stringify(DEFAULT_INITIAL_PLAN)
+        );
       } catch {}
-      setSavedNotice("Reset to default 5-day expedition.");
+      setSavedNotice("Reset to verified default 5-day expedition.");
       setTimeout(() => setSavedNotice(null), 3000);
     }
   };
 
-  // Add Day with robust date calculation
+  // Add Day with robust sequential date calculation
   const handleAddDay = () => {
+    if (plan.days.length >= 14) {
+      alert("Maximum expedition length is 14 days.");
+      return;
+    }
+
     const lastDay = plan.days[plan.days.length - 1];
     const nextDate = lastDay ? addDaysToDate(lastDay.date, 1) : "2027-08-05";
     const nextDayNum = plan.days.length + 1;
@@ -446,19 +516,31 @@ export function ItineraryPlanner() {
     if (!priorSlugs.includes("el-jem")) defaultSlug = "el-jem";
     else if (!priorSlugs.includes("mahdia")) defaultSlug = "mahdia";
     else if (!priorSlugs.includes("djerba")) defaultSlug = "djerba";
+    else if (!priorSlugs.includes("sousse")) defaultSlug = "sousse";
     else defaultSlug = "tunis";
 
     const isEclipseDay = nextDate === "2027-08-02";
+    const dest = destinations.find((d) => d.slug === defaultSlug);
 
     const newDay: ItineraryDay = {
       dayNumber: nextDayNum,
       date: nextDate,
       title: isEclipseDay
         ? `Day ${nextDayNum}: TOTALITY ECLIPSE OBSERVATION`
-        : `Day ${nextDayNum} Discovery & Excursions`,
+        : `Day ${nextDayNum}: Excursions in ${dest?.name ?? "Tunisia"}`,
       destinationSlug: defaultSlug,
       isEclipseDay,
-      activities: [],
+      activities: [
+        {
+          id: `act-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+          time: "10:00",
+          title: `Discover ${dest?.name ?? "Tunisia"}`,
+          description:
+            dest?.summary ?? "Morning exploration and regional cultural visit.",
+          type: "destination",
+          referenceSlug: defaultSlug,
+        },
+      ],
     };
 
     const updatedPlan = {
@@ -471,9 +553,12 @@ export function ItineraryPlanner() {
     try {
       localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(updatedPlan));
     } catch {}
+
+    setSavedNotice(`Added Day ${nextDayNum} (${nextDate})!`);
+    setTimeout(() => setSavedNotice(null), 3000);
   };
 
-  // Delete Day with re-indexing
+  // Delete Day with clean re-indexing
   const handleDeleteDay = (indexToDelete: number) => {
     if (plan.days.length <= 1) {
       alert("An expedition must contain at least 1 day.");
@@ -516,10 +601,17 @@ export function ItineraryPlanner() {
     try {
       localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(updatedPlan));
     } catch {}
+
+    setSavedNotice(`Deleted day. Remaining: ${updatedDays.length} days.`);
+    setTimeout(() => setSavedNotice(null), 3000);
   };
 
   // Reorder activities
-  const moveActivity = (dayIdx: number, actIdx: number, direction: "up" | "down") => {
+  const moveActivity = (
+    dayIdx: number,
+    actIdx: number,
+    direction: "up" | "down"
+  ) => {
     setPlan((prev) => {
       const targetDay = prev.days[dayIdx];
       const newActs = [...targetDay.activities];
@@ -541,10 +633,13 @@ export function ItineraryPlanner() {
     });
   };
 
-  const removeActivity = (dayIdx: number, actIdx: number) => {
+  // Targeted stop deletion by unique activity.id — guaranteed not to delete unrelated stops
+  const removeActivityById = (dayIdx: number, activityId: string) => {
     setPlan((prev) => {
       const targetDay = prev.days[dayIdx];
-      const newActs = targetDay.activities.filter((_, idx) => idx !== actIdx);
+      const deletedActivity = targetDay.activities.find((a) => a.id === activityId);
+      const newActs = targetDay.activities.filter((a) => a.id !== activityId);
+
       const updatedDays = prev.days.map((day, idx) =>
         idx === dayIdx ? { ...day, activities: newActs } : day
       );
@@ -552,14 +647,19 @@ export function ItineraryPlanner() {
       try {
         localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(updatedPlan));
       } catch {}
+
+      if (deletedActivity) {
+        setSavedNotice(`Removed "${deletedActivity.title}" from Day ${targetDay.dayNumber}`);
+        setTimeout(() => setSavedNotice(null), 3000);
+      }
       return updatedPlan;
     });
   };
 
   const handleAddActivitySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let finalTitle = newActivityTitle;
-    let finalDesc = newActivityDesc;
+    let finalTitle = newActivityTitle.trim();
+    let finalDesc = newActivityDesc.trim();
 
     if (newActivityType === "destination") {
       const d = destinations.find((x) => x.slug === newActivityRefSlug);
@@ -576,9 +676,10 @@ export function ItineraryPlanner() {
     }
 
     if (!finalTitle) finalTitle = "Planned Activity";
+    if (!finalDesc) finalDesc = "Custom scheduled stop.";
 
     const newAct: Activity = {
-      id: `act-${Date.now()}`,
+      id: `act-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       time: newActivityTime || "12:00",
       title: finalTitle,
       description: finalDesc,
@@ -602,6 +703,8 @@ export function ItineraryPlanner() {
     setIsAddingActivity(false);
     setNewActivityTitle("");
     setNewActivityDesc("");
+    setSavedNotice(`Added "${finalTitle}" to Day ${activeDayIndex + 1}!`);
+    setTimeout(() => setSavedNotice(null), 3000);
   };
 
   // Generate Itinerary through API with all state parameters
@@ -640,7 +743,9 @@ export function ItineraryPlanner() {
         if (data.notice) {
           setAiNotice(data.notice);
         } else {
-          setAiNotice(`Successfully synthesized a ${data.plan.days.length}-day expedition plan.`);
+          setAiNotice(
+            `Successfully architected a verified ${data.plan.days.length}-day expedition with totality on 2 August 2027.`
+          );
         }
       } else {
         throw new Error("Invalid plan schema returned by server");
@@ -648,7 +753,9 @@ export function ItineraryPlanner() {
     } catch (err: unknown) {
       console.error("AI Generation error:", err);
       const message = err instanceof Error ? err.message : "Network error";
-      setAiErrorNotice(`Could not generate plan (${message}). Preserving your active itinerary.`);
+      setAiErrorNotice(
+        `Could not complete generation (${message}). Preserving your current plan.`
+      );
     } finally {
       setIsAiLoading(false);
     }
@@ -663,8 +770,12 @@ export function ItineraryPlanner() {
     }
 
     const refCode = `ET-2027-${Math.floor(1000 + Math.random() * 9000)}`;
-    const eclipseDay = plan.days.find((d) => d.isEclipseDay || d.date === "2027-08-02");
-    const eclipseDest = destinations.find((d) => d.slug === eclipseDay?.destinationSlug);
+    const eclipseDay = plan.days.find(
+      (d) => d.isEclipseDay || d.date === "2027-08-02"
+    );
+    const eclipseDest = destinations.find(
+      (d) => d.slug === eclipseDay?.destinationSlug
+    );
 
     const inquiry: BookingInquiry = {
       id: `inquiry-${Date.now()}`,
@@ -694,13 +805,18 @@ export function ItineraryPlanner() {
       const stored = localStorage.getItem(LOCAL_STORAGE_INQUIRIES_KEY);
       const list = stored ? JSON.parse(stored) : [];
       list.unshift(inquiry);
-      localStorage.setItem(LOCAL_STORAGE_INQUIRIES_KEY, JSON.stringify(list.slice(0, 10)));
+      localStorage.setItem(
+        LOCAL_STORAGE_INQUIRIES_KEY,
+        JSON.stringify(list.slice(0, 10))
+      );
     } catch {}
   };
 
   // Inspect August 2 (Eclipse Day) viewing circumstances
   const eclipseDayCircumstances = useMemo(() => {
-    const eclipseDay = plan.days.find((d) => d.date === "2027-08-02" || d.isEclipseDay);
+    const eclipseDay = plan.days.find(
+      (d) => d.date === "2027-08-02" || d.isEclipseDay
+    );
     if (!eclipseDay) return null;
     const dest = destinations.find((d) => d.slug === eclipseDay.destinationSlug);
     if (!dest) return null;
@@ -712,33 +828,74 @@ export function ItineraryPlanner() {
     return {
       destination: dest,
       isTotal,
-      durationStr: isTotal ? `${m}m ${s.toString().padStart(2, "0")}s` : "Partial only",
+      durationStr: isTotal
+        ? `${m}m ${s.toString().padStart(2, "0")}s`
+        : "Partial only",
       obscuration: (circ.obscuration * 100).toFixed(0),
       maxTime: circ.localTimes.maximum ?? "11:05",
     };
   }, [plan]);
 
   const activeDay = plan.days[activeDayIndex] || plan.days[0];
-  const activeDayDest = destinations.find((d) => d.slug === activeDay?.destinationSlug);
+  const activeDayDest = destinations.find(
+    (d) => d.slug === activeDay?.destinationSlug
+  );
   const activeDayAsset = activeDayDest ? getImage(activeDayDest.imageKey) : null;
 
   return (
     <div className="space-y-10">
-      {/* Top Banner: Status & Controls */}
+      {/* Top Banner: Status & Action Controls */}
       <div className="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-6 shadow-card lg:flex-row lg:items-center lg:justify-between">
-        <div>
+        <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-gold-600">
               Interactive Itinerary Builder
             </span>
             <span className="text-xs text-muted">·</span>
             <span className="text-xs font-medium text-muted">
-              {plan.days.length} Days Planned
+              {plan.days.length} Days Planned ({startDate} &rarr; {endDate})
             </span>
           </div>
-          <h2 className="mt-1 font-display text-2xl font-semibold text-ink">
-            {plan.tripTitle}
-          </h2>
+
+          {isEditingTitle ? (
+            <div className="mt-1 flex items-center gap-2">
+              <input
+                type="text"
+                value={editingTitleText}
+                onChange={(e) => setEditingTitleText(e.target.value)}
+                className="rounded-lg border border-line bg-ivory px-3 py-1 font-display text-xl font-semibold text-ink focus:border-navy focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const updated = { ...plan, tripTitle: editingTitleText.trim() || plan.tripTitle };
+                  setPlan(updated);
+                  setIsEditingTitle(false);
+                  try {
+                    localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(updated));
+                  } catch {}
+                }}
+                className="rounded-lg bg-navy px-3 py-1 text-xs font-semibold text-ivory hover:bg-navy-800"
+              >
+                Save Title
+              </button>
+            </div>
+          ) : (
+            <div className="mt-1 flex items-center gap-2">
+              <h2 className="font-display text-2xl font-semibold text-ink">
+                {plan.tripTitle}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setIsEditingTitle(true)}
+                className="p-1 text-muted hover:text-navy"
+                title="Edit trip title"
+              >
+                <Edit2 className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
           <p className="mt-1 text-sm text-muted max-w-2xl">{plan.summary}</p>
         </div>
 
@@ -746,11 +903,25 @@ export function ItineraryPlanner() {
           <button
             type="button"
             onClick={handleSaveItinerary}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-navy px-4 py-2.5 text-xs font-semibold text-ivory hover:bg-navy-800 transition-colors shadow-xs"
-            title="Save this itinerary to your browser"
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all shadow-xs",
+              saveButtonState === "saved"
+                ? "bg-success text-ivory"
+                : "bg-navy text-ivory hover:bg-navy-800"
+            )}
+            title="Save this itinerary to your browser's localStorage"
           >
-            <Save className="h-4 w-4" />
-            <span>Save Itinerary</span>
+            {saveButtonState === "saved" ? (
+              <>
+                <Check className="h-4 w-4" />
+                <span>Saved!</span>
+              </>
+            ) : (
+              <>
+                <Save className="h-4 w-4" />
+                <span>Save Itinerary</span>
+              </>
+            )}
           </button>
 
           <button
@@ -761,6 +932,16 @@ export function ItineraryPlanner() {
           >
             <FolderOpen className="h-4 w-4 text-gold-600" />
             <span>My Saved Trips ({savedTrips.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleExportJSON}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-paper px-3 py-2.5 text-xs font-medium text-navy hover:bg-sand transition-colors"
+            title="Export itinerary as JSON file"
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">Export</span>
           </button>
 
           <button
@@ -784,7 +965,7 @@ export function ItineraryPlanner() {
         </div>
       </div>
 
-      {/* Persistent Notification Toasts */}
+      {/* Persistent Notification Toast */}
       {savedNotice ? (
         <div className="rounded-xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-success flex items-center justify-between gap-2 animate-in fade-in">
           <div className="flex items-center gap-2">
@@ -801,7 +982,7 @@ export function ItineraryPlanner() {
         </div>
       ) : null}
 
-      {/* Suggested Destination prompt from URL */}
+      {/* Suggested Destination prompt from URL query parameter */}
       {suggestedDest ? (
         <div className="flex items-center justify-between rounded-xl border border-gold-600/40 bg-gold/10 p-4 text-xs text-ink shadow-xs">
           <div className="flex items-center gap-2.5">
@@ -863,13 +1044,15 @@ export function ItineraryPlanner() {
                       : "bg-danger/20 text-danger"
                   )}
                 >
-                  {eclipseDayCircumstances.isTotal ? "Totality Confirmed (100%)" : "Outside Totality (Partial)"}
+                  {eclipseDayCircumstances.isTotal
+                    ? "Totality Confirmed (100% Umbra)"
+                    : "Outside Totality (Deep Partial)"}
                 </span>
               </div>
               <p className="mt-1 text-sm text-muted">
                 {eclipseDayCircumstances.isTotal
                   ? `Your itinerary positions you in ${eclipseDayCircumstances.destination.name} for ${eclipseDayCircumstances.durationStr} of total eclipse darkness at ${eclipseDayCircumstances.maxTime} local time.`
-                  : `Warning: ${eclipseDayCircumstances.destination.name} is outside the umbra path (${eclipseDayCircumstances.obscuration}% partial). Switch August 2 to Tozeur, Chott el Jerid, Djerba, Mahdia, or Kairouan to view the solar corona.`}
+                  : `Notice: ${eclipseDayCircumstances.destination.name} sees ${eclipseDayCircumstances.obscuration}% solar obscuration. To view the full solar corona and daytime darkness, station your August 2 base in Tozeur, Djerba, Mahdia, or El Jem.`}
               </p>
             </div>
           </div>
@@ -895,7 +1078,7 @@ export function ItineraryPlanner() {
                 Expedition Architect & AI Trip Planner
               </h3>
               <p className="text-xs text-muted">
-                Customizes dates, pacing, group size, and totality focus using server-side Gemini 3.8-flash and NASA eclipse calculations.
+                Generates a complete day-by-day expedition tailored to your exact dates, eclipse preference, and pacing.
               </p>
             </div>
           </div>
@@ -909,7 +1092,7 @@ export function ItineraryPlanner() {
             {isAiLoading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin text-gold" />
-                <span>Architecting Expedition...</span>
+                <span>Generating Itinerary...</span>
               </>
             ) : (
               <>
@@ -953,41 +1136,61 @@ export function ItineraryPlanner() {
             </div>
           </div>
 
-          {/* Totality Focus */}
+          {/* Totality & Partial Eclipse Selection */}
           <div>
             <label className="text-xs font-semibold uppercase tracking-wider text-muted">
               Eclipse Viewing Priority
             </label>
-            <div className="mt-1.5 flex rounded-lg border border-line bg-ivory p-1">
+            <div className="mt-1.5 grid grid-cols-3 gap-1 rounded-lg border border-line bg-ivory p-1">
               <button
                 type="button"
                 onClick={() => setEclipsePreference("totality")}
                 className={cn(
-                  "flex-1 rounded-md py-1.5 text-xs font-semibold transition-colors",
+                  "rounded-md py-1.5 text-[0.7rem] font-semibold transition-colors flex items-center justify-center gap-1",
                   eclipsePreference === "totality"
                     ? "bg-gold text-navy shadow-xs font-bold"
                     : "text-muted hover:text-navy"
                 )}
+                title="Inside 100% Umbra Totality Path"
               >
-                Totality 100%
+                <Sun className="h-3 w-3 shrink-0" />
+                <span>Totality</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEclipsePreference("partial")}
+                className={cn(
+                  "rounded-md py-1.5 text-[0.7rem] font-semibold transition-colors flex items-center justify-center gap-1",
+                  eclipsePreference === "partial"
+                    ? "bg-navy text-ivory shadow-xs font-bold"
+                    : "text-muted hover:text-navy"
+                )}
+                title="Deep Partial Eclipse (>97%) on Coast"
+              >
+                <Moon className="h-3 w-3 shrink-0" />
+                <span>Partial</span>
               </button>
               <button
                 type="button"
                 onClick={() => setEclipsePreference("flexible")}
                 className={cn(
-                  "flex-1 rounded-md py-1.5 text-xs font-semibold transition-colors",
+                  "rounded-md py-1.5 text-[0.7rem] font-semibold transition-colors flex items-center justify-center gap-1",
                   eclipsePreference === "flexible"
-                    ? "bg-navy text-ivory shadow-xs"
+                    ? "bg-navy text-ivory shadow-xs font-bold"
                     : "text-muted hover:text-navy"
                 )}
+                title="Flexible Route across Tunisia"
               >
-                Flexible / Coast
+                <Compass className="h-3 w-3 shrink-0" />
+                <span>Flexible</span>
               </button>
             </div>
             <p className="mt-1 text-[0.68rem] text-muted">
               {eclipsePreference === "totality"
-                ? "Guarantees positioning inside the 100% umbra on Aug 2."
-                : "Allows coastal resorts with 97–99% deep partial eclipse."}
+                ? "Prioritizes 100% umbra totality in Tozeur, Djerba, or El Jem."
+                : eclipsePreference === "partial"
+                ? "Stations at northern or coastal resort hubs with deep partial eclipse."
+                : "Balances scenic highlights and flexible astronomical positioning."}
             </p>
           </div>
 
@@ -1002,9 +1205,9 @@ export function ItineraryPlanner() {
                 onChange={(e) => setAiPace(e.target.value)}
                 className="w-full rounded-lg border border-line bg-ivory px-2.5 py-1.5 text-xs font-medium text-ink focus:border-navy focus:outline-none"
               >
-                <option value="relaxed">Relaxed</option>
-                <option value="moderate">Moderate</option>
-                <option value="intensive">Intensive</option>
+                <option value="relaxed">Relaxed Pace</option>
+                <option value="moderate">Moderate Pace</option>
+                <option value="intensive">Intensive Pace</option>
               </select>
 
               <select
@@ -1046,9 +1249,14 @@ export function ItineraryPlanner() {
 
         {/* Multi-Select Interests Tags */}
         <div className="mt-5 pt-4 border-t border-line/60">
-          <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-            Expedition Highlights & Themes
-          </label>
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted">
+              Expedition Highlights & Themes
+            </label>
+            <span className="text-[0.7rem] text-muted">
+              {aiInterests.length} selected
+            </span>
+          </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {[
               { id: "desert", label: "Sahara Dunes & Salt Flats" },
@@ -1057,6 +1265,8 @@ export function ItineraryPlanner() {
               { id: "troglodyte", label: "Berber Cave Architecture" },
               { id: "food", label: "Tunisian Gastronomy & Dates" },
               { id: "totality", label: "Dark Sky Totality Grounds" },
+              { id: "astronomy", label: "Solar Optics & Filters" },
+              { id: "photography", label: "Astrophotography & Landscape" },
             ].map((interest) => {
               const active = aiInterests.includes(interest.id);
               return (
@@ -1071,13 +1281,17 @@ export function ItineraryPlanner() {
                     );
                   }}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                    "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer",
                     active
-                      ? "bg-navy text-ivory shadow-xs"
+                      ? "bg-navy text-ivory shadow-xs font-semibold"
                       : "border border-line bg-ivory text-muted hover:text-navy hover:bg-sand/40"
                   )}
                 >
-                  {active ? <Check className="h-3 w-3 text-gold" /> : null}
+                  {active ? (
+                    <Check className="h-3 w-3 text-gold" />
+                  ) : (
+                    <Plus className="h-3 w-3 text-muted/60" />
+                  )}
                   <span>{interest.label}</span>
                 </button>
               );
@@ -1122,7 +1336,7 @@ export function ItineraryPlanner() {
 
               return (
                 <div
-                  key={day.dayNumber}
+                  key={`day-${day.dayNumber}-${day.date}`}
                   className={cn(
                     "group relative rounded-xl border transition-all duration-200",
                     isSelected
@@ -1204,7 +1418,7 @@ export function ItineraryPlanner() {
           <div className="space-y-6">
             <div className="rounded-2xl border border-line bg-paper p-6 shadow-card">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
+                <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-semibold uppercase tracking-wider text-gold-600">
                       Day {activeDay.dayNumber} of {plan.days.length} · {activeDay.date}
@@ -1215,9 +1429,56 @@ export function ItineraryPlanner() {
                       </span>
                     ) : null}
                   </div>
-                  <h3 className="mt-1 font-display text-2xl font-semibold text-ink">
-                    {activeDay.title}
-                  </h3>
+
+                  {isEditingDayTitle ? (
+                    <div className="mt-1 flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={dayTitleInput}
+                        onChange={(e) => setDayTitleInput(e.target.value)}
+                        className="rounded-lg border border-line bg-ivory px-2.5 py-1 text-sm font-semibold text-ink focus:border-navy focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updatedDays = plan.days.map((d, i) =>
+                            i === activeDayIndex
+                              ? { ...d, title: dayTitleInput.trim() || d.title }
+                              : d
+                          );
+                          const updated = { ...plan, days: updatedDays };
+                          setPlan(updated);
+                          setIsEditingDayTitle(false);
+                          try {
+                            localStorage.setItem(
+                              LOCAL_STORAGE_ACTIVE_KEY,
+                              JSON.stringify(updated)
+                            );
+                          } catch {}
+                        }}
+                        className="rounded-lg bg-navy px-2.5 py-1 text-xs font-semibold text-ivory hover:bg-navy-800"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="mt-1 flex items-center gap-2">
+                      <h3 className="font-display text-2xl font-semibold text-ink">
+                        {activeDay.title}
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDayTitleInput(activeDay.title);
+                          setIsEditingDayTitle(true);
+                        }}
+                        className="p-1 text-muted hover:text-navy"
+                        title="Edit day title"
+                      >
+                        <Edit2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Base Location Picker for this day */}
@@ -1235,7 +1496,10 @@ export function ItineraryPlanner() {
                         );
                         const updated = { ...prev, days: updatedDays };
                         try {
-                          localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(updated));
+                          localStorage.setItem(
+                            LOCAL_STORAGE_ACTIVE_KEY,
+                            JSON.stringify(updated)
+                          );
                         } catch {}
                         return updated;
                       });
@@ -1289,7 +1553,7 @@ export function ItineraryPlanner() {
                     Scheduled Stops & Activities ({activeDay.activities.length})
                   </h4>
                   <p className="text-xs text-muted">
-                    Reorder stops, specify times, or insert guided desert experiences.
+                    Reorder stops, customize times, or insert guided experiences.
                   </p>
                 </div>
                 <button
@@ -1388,7 +1652,9 @@ export function ItineraryPlanner() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => removeActivity(activeDayIndex, actIdx)}
+                          onClick={() =>
+                            removeActivityById(activeDayIndex, activity.id)
+                          }
                           className="rounded-md p-1.5 text-muted hover:bg-danger/10 hover:text-danger"
                           title="Remove activity"
                         >
@@ -1404,7 +1670,7 @@ export function ItineraryPlanner() {
         ) : null}
       </div>
 
-      {/* 4-Stage Reservation Readiness & Booking Inquiry System (Rule 4) */}
+      {/* 4-Stage Reservation Readiness & Booking Inquiry System */}
       <div className="rounded-2xl border border-line bg-gradient-to-br from-paper via-sand/20 to-paper p-6 sm:p-8 shadow-card">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -1626,7 +1892,10 @@ export function ItineraryPlanner() {
                 </div>
 
                 <p className="text-xs text-muted leading-relaxed">
-                  This inquiry has been logged locally with reference code <strong>{submittedInquiry.referenceNumber}</strong>. Participating Tunisian incoming agencies review inquiries within 48 hours to confirm driver permits and accommodation allocations.
+                  This inquiry has been logged locally with reference code{" "}
+                  <strong>{submittedInquiry.referenceNumber}</strong>. Participating
+                  Tunisian incoming agencies review inquiries within 48 hours to
+                  confirm driver permits and accommodation allocations.
                 </p>
 
                 <div className="pt-2">
@@ -1650,7 +1919,8 @@ export function ItineraryPlanner() {
                       Request Operator Proposal
                     </h3>
                     <p className="text-xs text-muted">
-                      Transmit &ldquo;{plan.tripTitle}&rdquo; ({plan.days.length} Days) to local operators
+                      Transmit &ldquo;{plan.tripTitle}&rdquo; ({plan.days.length} Days)
+                      to local operators
                     </p>
                   </div>
                   <button
@@ -1662,7 +1932,10 @@ export function ItineraryPlanner() {
                   </button>
                 </div>
 
-                <form onSubmit={handleBookingInquirySubmit} className="mt-5 space-y-4 text-xs">
+                <form
+                  onSubmit={handleBookingInquirySubmit}
+                  className="mt-5 space-y-4 text-xs"
+                >
                   <div>
                     <label className="font-semibold uppercase tracking-wider text-muted block">
                       Lead Traveler Name *
@@ -1714,10 +1987,18 @@ export function ItineraryPlanner() {
                       onChange={(e) => setInquiryStayType(e.target.value)}
                       className="mt-1.5 w-full rounded-lg border border-line bg-ivory p-2.5 font-medium text-ink focus:border-navy focus:outline-none"
                     >
-                      <option value="desert-camp">Authentic Saharan Bivouac & Desert Camp</option>
-                      <option value="oasis-riad">Traditional Medina Riad & Oasis Hotel</option>
-                      <option value="premium-5star">5-Star Luxury Resort (Tozeur / Djerba)</option>
-                      <option value="budget-guesthouse">Budget Berber Guesthouse / Maison d&apos;hôtes</option>
+                      <option value="desert-camp">
+                        Authentic Saharan Bivouac & Desert Camp
+                      </option>
+                      <option value="oasis-riad">
+                        Traditional Medina Riad & Oasis Hotel
+                      </option>
+                      <option value="premium-5star">
+                        5-Star Luxury Resort (Tozeur / Djerba)
+                      </option>
+                      <option value="budget-guesthouse">
+                        Budget Berber Guesthouse / Maison d&apos;hôtes
+                      </option>
                     </select>
                   </div>
 
@@ -1735,7 +2016,9 @@ export function ItineraryPlanner() {
                   </div>
 
                   <div className="rounded-lg border border-line bg-sand/20 p-3 text-[0.7rem] text-muted leading-relaxed">
-                    <strong>Sample Reservation Notice:</strong> Submitting this inquiry creates a realistic booking request for review. No payment or credit card is processed at this stage.
+                    <strong>Sample Reservation Notice:</strong> Submitting this
+                    inquiry creates a realistic booking request for review. No
+                    payment or credit card is processed at this stage.
                   </div>
 
                   <div className="flex items-center justify-end gap-2 pt-3 border-t border-line">
@@ -1765,7 +2048,7 @@ export function ItineraryPlanner() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy/60 p-4 backdrop-blur-xs">
           <div className="w-full max-w-lg rounded-2xl bg-paper p-6 shadow-lift border border-line">
             <h3 className="font-display text-xl font-semibold text-ink">
-              Add Activity to Day {activeDay.dayNumber}
+              Add Activity to Day {activeDay.dayNumber} ({activeDay.date})
             </h3>
             <p className="mt-1 text-xs text-muted">
               Choose from verified Tunisian destinations, excursions, or write a custom activity.
@@ -1783,9 +2066,9 @@ export function ItineraryPlanner() {
                       type="button"
                       onClick={() => setNewActivityType(t)}
                       className={cn(
-                        "rounded-lg py-2 text-xs font-medium capitalize border transition-colors",
+                        "rounded-lg py-2 text-xs font-medium capitalize border transition-colors cursor-pointer",
                         newActivityType === t
-                          ? "bg-navy text-ivory border-navy"
+                          ? "bg-navy text-ivory border-navy font-semibold"
                           : "border-line bg-ivory text-muted hover:text-ink"
                       )}
                     >
@@ -1798,7 +2081,7 @@ export function ItineraryPlanner() {
               {newActivityType === "destination" ? (
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-                    Select Destination
+                    Select Destination Stop
                   </label>
                   <select
                     value={newActivityRefSlug}
@@ -1815,7 +2098,7 @@ export function ItineraryPlanner() {
               ) : newActivityType === "experience" ? (
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-                    Select Experience
+                    Select Guided Experience
                   </label>
                   <select
                     value={newActivityRefSlug}

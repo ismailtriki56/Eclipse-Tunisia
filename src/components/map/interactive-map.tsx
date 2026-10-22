@@ -16,6 +16,7 @@ import {
   ZoomOut,
   AlertTriangle,
   RotateCcw,
+  RefreshCw,
 } from "lucide-react";
 
 import "leaflet/dist/leaflet.css";
@@ -35,7 +36,7 @@ interface InteractiveMapProps {
   onSelectDestination?: (dest: Destination) => void;
 }
 
-// Compute NASA path geometry once at module level
+// Compute NASA path geometry once at module level using project coordinates
 function getPathCoordinates() {
   const northFeature = pathData.find((f) => f.properties.id === "northern-limit");
   const southFeature = pathData.find((f) => f.properties.id === "southern-limit");
@@ -44,8 +45,7 @@ function getPathCoordinates() {
   const minLon = 4.5;
   const maxLon = 14.5;
 
-  // Filter coordinates in Tunisia / North Africa window
-  // Leaflet uses [latitude, longitude] for polygons and polylines!
+  // Leaflet uses [latitude, longitude]
   const northLatLngs: [number, number][] = (
     (northFeature?.geometry.coordinates as [number, number][]) || []
   )
@@ -64,7 +64,7 @@ function getPathCoordinates() {
     .filter(([lon]) => lon >= minLon && lon <= maxLon)
     .map(([lon, lat]) => [lat, lon]);
 
-  // Polygon boundary: north limit forward, south limit backward
+  // Polygon boundary: northern limit forward, southern limit backward
   const bandPolygon: [number, number][] = [
     ...northLatLngs,
     ...[...southLatLngs].reverse(),
@@ -89,19 +89,21 @@ export function InteractiveMap({
   const layersRef = useRef<{ [key: string]: any }>({});
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const markersGroupRef = useRef<any>(null);
+  const initializedRef = useRef(false);
 
   const [selectedSlug, setSelectedSlug] = useState<string>(initialSlug);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [mapReady, setMapReady] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [retryKey, setRetryKey] = useState(0);
 
   // Layer Toggles
   const [showTotalityBand, setShowTotalityBand] = useState(true);
   const [showCenterLine, setShowCenterLine] = useState(true);
   const [showLimitLines, setShowLimitLines] = useState(true);
 
-  // Pre-calculate circumstances for all destinations
+  // Pre-calculate verified circumstances for all destinations
   const destinationsData = useMemo(() => {
     return destinations.map((d) => {
       const circ = circumstancesFor(d);
@@ -162,7 +164,7 @@ export function InteractiveMap({
     );
   }, [selectedSlug, destinationsData]);
 
-  // Select destination and fly map
+  // Select destination and smoothly fly map
   const selectDestination = useCallback(
     (dest: Destination, openPopup = true) => {
       setSelectedSlug(dest.slug);
@@ -175,7 +177,6 @@ export function InteractiveMap({
         });
 
         if (openPopup && markersGroupRef.current) {
-          // Find marker and open popup
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           markersGroupRef.current.eachLayer((layer: any) => {
             if (layer.destinationSlug === dest.slug) {
@@ -188,111 +189,151 @@ export function InteractiveMap({
     [onSelectDestination]
   );
 
-  // Initialize Leaflet Map
+  // Initialize Leaflet 2D Map with rock-solid lifecycle and OSM tiles
   useEffect(() => {
+    // Prevent multiple initializations in React 19 / StrictMode
+    if (initializedRef.current && mapInstanceRef.current) {
+      return;
+    }
+
     let isMounted = true;
-    let map: any = null; // eslint-disable-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let map: any = null;
+    let safetyTimer: NodeJS.Timeout | null = null;
+    const container = mapContainerRef.current;
 
     async function initMap() {
-      if (!mapContainerRef.current) return;
+      if (!container || !isMounted) return;
 
       try {
-        const L = (await import("leaflet")).default;
+        setLoadError(null);
+        const leafletModule = await import("leaflet");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const L = ((leafletModule as any).default || leafletModule) as any;
         if (!isMounted || !mapContainerRef.current) return;
 
-        // Clean any existing leaflet instance on container
+        // Clean any existing Leaflet instances or leftover DOM state
         if (mapInstanceRef.current) {
-          mapInstanceRef.current.remove();
+          try {
+            mapInstanceRef.current.remove();
+          } catch (e) {
+            console.warn("Cleanup previous map instance:", e);
+          }
           mapInstanceRef.current = null;
         }
 
-        // Center on Central Tunisia
-        map = L.map(mapContainerRef.current, {
-          center: [34.5, 9.5],
+        // Prevent "Map container is already initialized" crash
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((container as any)._leaflet_id) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          delete (container as any)._leaflet_id;
+        }
+
+        // Initialize map centered on central Tunisia (34.0° N, 9.5° E)
+        map = L.map(container, {
+          center: [34.0, 9.5],
           zoom: 6.5,
           minZoom: 5,
           maxZoom: 14,
-          zoomControl: false, // We add custom positioned zoom buttons
+          zoomControl: false,
           attributionControl: true,
         });
 
-        // Robust CartoDB Voyager raster tiles with OpenStreetMap fallback
-        const tileLayer = L.tileLayer(
-          "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        // OpenStreetMap standard raster tiles
+        const osmTiles = L.tileLayer(
+          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           {
+            maxZoom: 18,
+            subdomains: ["a", "b", "c"],
             attribution:
-              '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: "abcd",
-            maxZoom: 19,
+              '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
           }
         );
 
-        tileLayer.on("tileerror", () => {
-          // Fallback directly to standard OSM tiles if Carto is slow
-          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution: "&copy; OpenStreetMap contributors",
-          }).addTo(map);
-        });
+        osmTiles.addTo(map);
 
-        tileLayer.addTo(map);
-
-        // Add Totality Band Polygon
+        // Totality Band (Shaded Polygon)
         const bandLayer = L.polygon(bandPolygon, {
           color: "#c9932d",
-          weight: 1.5,
+          weight: 2,
           fillColor: "#e9b64d",
-          fillOpacity: 0.26,
+          fillOpacity: 0.28,
           dashArray: "4, 4",
         }).addTo(map);
         layersRef.current.band = bandLayer;
 
-        // Add Center Line
+        // Center Line (Maximum Duration Polyline)
         const centerLineLayer = L.polyline(centerLatLngs, {
           color: "#0d1826",
-          weight: 3.2,
-          opacity: 0.9,
+          weight: 3.5,
+          opacity: 0.95,
         }).addTo(map);
         layersRef.current.centerLine = centerLineLayer;
 
-        // Add Northern & Southern Limits
+        // Northern & Southern Limits
         const northLine = L.polyline(northLatLngs, {
           color: "#c9932d",
           weight: 2,
           dashArray: "5, 4",
           opacity: 0.85,
-        }).addTo(map);
+        });
         const southLine = L.polyline(southLatLngs, {
           color: "#c9932d",
           weight: 2,
           dashArray: "5, 4",
           opacity: 0.85,
-        }).addTo(map);
-        layersRef.current.limits = L.layerGroup([northLine, southLine]).addTo(map);
+        });
+        const limitsGroup = L.layerGroup([northLine, southLine]).addTo(map);
+        layersRef.current.limits = limitsGroup;
 
-        // Create Marker Group
+        // Marker Group for Destinations
         const markersGroup = L.layerGroup().addTo(map);
         markersGroupRef.current = markersGroup;
 
         mapInstanceRef.current = map;
-        setMapReady(true);
+        initializedRef.current = true;
 
-        // Ensure canvas bounds are properly calculated
+        // Dismiss spinner immediately as map layers are configured
+        if (isMounted) {
+          setMapReady(true);
+          setLoadError(null);
+        }
+
+        // Trigger resize calculation to prevent grey/blank canvas tiles
         setTimeout(() => {
-          if (map) {
+          if (map && isMounted) {
             map.invalidateSize();
           }
         }, 150);
+
+        setTimeout(() => {
+          if (map && isMounted) {
+            map.invalidateSize();
+          }
+        }, 450);
       } catch (err: unknown) {
         console.error("Map initialization failed:", err);
-        const msg = err instanceof Error ? err.message : "Map loading failed";
-        setLoadError(msg);
+        const msg =
+          err instanceof Error
+            ? err.message
+            : "Could not initialize map canvas";
+        if (isMounted) {
+          setLoadError(msg);
+          // Still dismiss loading spinner so user is never stuck
+          setMapReady(true);
+        }
       }
     }
 
+    // Safety fallback: ensure loading spinner never hangs indefinitely
+    safetyTimer = setTimeout(() => {
+      if (isMounted) {
+        setMapReady(true);
+      }
+    }, 1200);
+
     initMap();
 
-    // Resize listener
     const handleResize = () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.invalidateSize();
@@ -302,19 +343,31 @@ export function InteractiveMap({
 
     return () => {
       isMounted = false;
+      initializedRef.current = false;
+      if (safetyTimer) clearTimeout(safetyTimer);
       window.removeEventListener("resize", handleResize);
       if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
+        try {
+          mapInstanceRef.current.remove();
+        } catch (e) {
+          console.warn("Cleanup on unmount:", e);
+        }
         mapInstanceRef.current = null;
       }
+      if (container) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        delete (container as any)._leaflet_id;
+      }
     };
-  }, []);
+  }, [retryKey]);
 
-  // Update Markers whenever filtered destinations change
+  // Update Markers whenever filtered destinations or selection change
   useEffect(() => {
     async function updateMarkers() {
       if (!mapReady || !markersGroupRef.current) return;
-      const L = (await import("leaflet")).default;
+      const leafletModule = await import("leaflet");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const L = ((leafletModule as any).default || leafletModule) as any;
 
       markersGroupRef.current.clearLayers();
 
@@ -325,7 +378,7 @@ export function InteractiveMap({
 
         if (!isVisible) return;
 
-        // Custom HTML DivIcon for maximum visual crispness and reliability
+        // Custom HTML DivIcon for maximum visual clarity
         const iconHtml = `
           <div class="relative group cursor-pointer" style="transform: translate(-50%, -50%);">
             ${
@@ -364,11 +417,11 @@ export function InteractiveMap({
           icon: customIcon,
         });
 
-        // Attach slug for lookup
+        // Attach slug for programmatic lookups
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (marker as any).destinationSlug = dest.slug;
 
-        // Rich Popup Content
+        // Detailed popup content with astronomical data
         const popupContent = `
           <div class="p-1 max-w-[240px] font-sans">
             <div class="flex items-center justify-between gap-2 border-b border-gray-200 pb-1.5">
@@ -388,9 +441,9 @@ export function InteractiveMap({
               dest.summary
             }</p>
             <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
-              <span class="text-gray-500">Max Eclipse: <strong>${
+              <span class="text-gray-500">Max: <strong>${
                 dest.circumstances.localTimes.maximum ?? "11:05"
-              }</strong></span>
+              }</strong> · Alt: <strong>${dest.circumstances.sunAltitude.toFixed(0)}°</strong></span>
               <a href="/destinations/${dest.slug}" class="text-indigo-900 font-semibold hover:underline">Details &rarr;</a>
             </div>
           </div>
@@ -427,7 +480,7 @@ export function InteractiveMap({
 
     if (layersRef.current.band) {
       if (showTotalityBand) {
-        layersRef.current.band.setStyle({ opacity: 1, fillOpacity: 0.26 });
+        layersRef.current.band.setStyle({ opacity: 1, fillOpacity: 0.28 });
       } else {
         layersRef.current.band.setStyle({ opacity: 0, fillOpacity: 0 });
       }
@@ -435,7 +488,7 @@ export function InteractiveMap({
 
     if (layersRef.current.centerLine) {
       if (showCenterLine) {
-        layersRef.current.centerLine.setStyle({ opacity: 0.9 });
+        layersRef.current.centerLine.setStyle({ opacity: 0.95 });
       } else {
         layersRef.current.centerLine.setStyle({ opacity: 0 });
       }
@@ -451,7 +504,7 @@ export function InteractiveMap({
 
   const resetView = () => {
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo([34.5, 9.5], 6.5, { duration: 1 });
+      mapInstanceRef.current.flyTo([34.0, 9.5], 6.5, { duration: 1 });
     }
   };
 
@@ -467,6 +520,13 @@ export function InteractiveMap({
     }
   };
 
+  const handleRetry = () => {
+    initializedRef.current = false;
+    setLoadError(null);
+    setMapReady(false);
+    setRetryKey((k) => k + 1);
+  };
+
   const asset = selectedDestination
     ? getImage(selectedDestination.imageKey)
     : null;
@@ -478,35 +538,46 @@ export function InteractiveMap({
         className
       )}
     >
-      {/* Map Viewport Area */}
+      {/* Map Viewport Area with Guaranteed Height */}
       <div className="relative min-h-[500px] h-[580px] flex-1">
-        {/* Actual Map Canvas Container */}
-        <div ref={mapContainerRef} className="h-full w-full bg-[#f4ece1]" />
+        {/* Actual Map Canvas Container with inline style guarantee */}
+        <div
+          ref={mapContainerRef}
+          style={{ height: "580px", minHeight: "500px", width: "100%" }}
+          className="h-full w-full bg-[#f4ece1]"
+        />
 
-        {/* Loading Spinner */}
+        {/* Loading Spinner with automatic dismissal */}
         {!mapReady && !loadError ? (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-sand/80 backdrop-blur-xs">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-navy border-t-gold" />
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-sand/85 backdrop-blur-xs">
+            <div className="h-9 w-9 animate-spin rounded-full border-4 border-navy border-t-gold" />
             <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-navy">
-              Initializing Eclipse Geospatial Layers...
+              Loading 2027 Eclipse Geospatial Map...
+            </p>
+            <p className="mt-1 text-[0.7rem] text-muted">
+              Rendering OpenStreetMap tiles and NASA Besselian coordinates
             </p>
           </div>
         ) : null}
 
-        {/* Error Fallback */}
+        {/* Error Fallback with non-blocking retry */}
         {loadError ? (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-sand/90 p-6 text-center">
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-sand/90 p-6 text-center">
             <AlertTriangle className="h-10 w-10 text-danger" />
             <h3 className="mt-3 font-display text-lg font-semibold text-ink">
-              Interactive Map Error
+              Interactive Map Notice
             </h3>
-            <p className="mt-1 max-w-md text-sm text-muted">{loadError}</p>
+            <p className="mt-1 max-w-md text-xs text-muted leading-relaxed">
+              {loadError}. You can still browse and select all viewing destinations
+              from the list below.
+            </p>
             <button
               type="button"
-              onClick={() => window.location.reload()}
-              className="mt-4 rounded-xl bg-navy px-4 py-2 text-xs font-semibold text-ivory hover:bg-navy-800"
+              onClick={handleRetry}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-navy px-4 py-2 text-xs font-semibold text-ivory hover:bg-navy-800 transition-colors shadow-xs"
             >
-              Retry Loading Map
+              <RefreshCw className="h-3.5 w-3.5" />
+              <span>Retry Loading Map</span>
             </button>
           </div>
         ) : null}
@@ -602,19 +673,19 @@ export function InteractiveMap({
           <div className="mt-2 space-y-1.5 text-muted">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-5 rounded-full bg-[#0d1826]" />
-              <span>Center Line (Greatest Duration)</span>
+              <span>Center Line (Longest Totality Duration)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-5 rounded-xs border border-gold-600 border-dashed bg-gold/30" />
-              <span>Totality Path (100% Corona Visibility)</span>
+              <span>Totality Path (100% Umbra Coverage)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-gold ring-2 ring-gold/40" />
-              <span>Totality Town (Up to 4m 37s in Djerba)</span>
+              <span>Totality Destination (Up to 4m 37s)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-muted" />
-              <span>Partial Eclipse Town (&lt;100% Coverage)</span>
+              <span>Partial Eclipse Destination (&lt;100%)</span>
             </div>
           </div>
         </div>
