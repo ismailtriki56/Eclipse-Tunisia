@@ -17,22 +17,35 @@ reference for all work on this project.
 
 ## Current status
 
-This is an early foundation, not a finished product. What exists today:
+This is a working prototype, not a finished commercial product. What exists
+today:
 
-- A responsive homepage with brand identity, hero, explorer preview,
-  experiences, how-it-works, viewing safety and provider sections.
-- An Eclipse Explorer listing total and partial eclipse locations, plus
-  per-location detail pages with contact times.
-- Experience listing pages and detail pages using clearly labelled **sample**
-  data.
-- A viewing safety guide.
-- Layout shell (header, footer, navigation) and reusable UI components.
+- A responsive homepage with brand identity, hero, interactive explorer
+  preview, experiences, how-it-works, viewing safety and provider sections.
+- A verified eclipse engine (`src/lib/eclipse`) that computes Besselian
+  circumstances for Tunisian locations. `npm run verify:eclipse` passes 37
+  checks against NASA GSFC published data.
+- An Eclipse Explorer with an interactive **Leaflet + OpenStreetMap** map:
+  totality band, centre line, limits, destination markers, search/filters and
+  synchronised destination cards. The full location list remains usable if
+  map tiles cannot load, and a visible error/retry state is shown.
+- Destinations, explorer and experiences listing/detail pages. Experience
+  inventory is clearly labelled **sample** data.
+- An interactive itinerary planner (`/plan`) with add/delete/reorder stops,
+  add/delete days, eclipse-day verification, themes/priority controls, local
+  save/load, JSON/print export and an operator inquiry form (no fake bookings).
+- A server-side Gemini itinerary endpoint (`/api/plan/generate`) with a
+  deterministic fallback when `GEMINI_API_KEY` is not configured.
+- A viewing safety guide and static policy/placeholder pages.
 
 What does **not** exist yet (do not assume otherwise):
 
-- Verified eclipse data — current values are development placeholders.
-- An interactive map (MapLibre GL JS is planned).
-- A database, authentication, booking workflow, AI planner or payments.
+- A database, authentication, real provider inventory, payments or a real
+  booking workflow.
+- Authoritative provider partnerships — every listed experience is a sample.
+- Production-grade map hosting: the app uses the public OpenStreetMap tile
+  service, which is suitable for development and light traffic but not for a
+  large-scale launch.
 
 ## Getting started
 
@@ -45,13 +58,22 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Scripts
 
-| Command             | Purpose                        |
-| ------------------- | ------------------------------ |
-| `npm run dev`       | Start the development server   |
-| `npm run build`     | Production build               |
-| `npm run start`     | Serve the production build     |
-| `npm run lint`      | Run ESLint                     |
-| `npm run typecheck` | Run the TypeScript compiler    |
+| Command                | Purpose                                      |
+| ---------------------- | -------------------------------------------- |
+| `npm run dev`          | Start the development server                 |
+| `npm run build`        | Production build + standalone asset copy     |
+| `npm run start`        | Serve the standalone build on port 3000      |
+| `npm run lint`         | Run ESLint                                   |
+| `npm run typecheck`    | Run the TypeScript compiler                  |
+| `npm run verify:eclipse` | Validate the eclipse engine against NASA   |
+
+The project uses `output: "standalone"`. `npm run build` runs
+`scripts/prepare-standalone.mjs` automatically, which copies `.next/static`
+and `public/` into `.next/standalone/`. Without those copies the server
+returns the HTML shell but every `/_next/static/*.js` request 404s, so client
+components never hydrate (the map spinner never clears and planner buttons do
+nothing). Use `npm start` or `node .next/standalone/server.js`; plain
+`next start` is incompatible with standalone output.
 
 ## Configuration
 
@@ -61,12 +83,18 @@ required to run the current foundation.
 
 ## Data and trust
 
+- Eclipse circumstances are computed from NASA Besselian elements rather than
+  hardcoded, and are checked by `npm run verify:eclipse`. See
+  [`docs/eclipse-data.md`](./docs/eclipse-data.md) and
+  [`docs/PROGRESS.md`](./docs/PROGRESS.md).
 - Sample listings are labelled "Sample" in the interface and are not real
-  providers.
-- Eclipse circumstances are unverified placeholders. See
-  [`docs/eclipse-data.md`](./docs/eclipse-data.md) for the verification
-  process before any data is presented as authoritative.
+  providers. The inquiry form records a local prototype request; it does not
+  transmit a real booking or take payment.
+- Destination photographs are credited to their Wikimedia Commons sources in
+  the interface.
 
 ## Tech stack
 
-Next.js (App Router), React, TypeScript, Tailwind CSS.
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Leaflet with
+OpenStreetMap raster tiles, `@google/genai` (server-side only). `maplibre-gl`
+is still declared as a dependency but is no longer used by the map component.

@@ -1,5 +1,88 @@
 # Eclipse Tunisia — Progress Tracking
 
+## Map Failure Diagnosis & Fix (current session)
+
+### Root cause
+
+The map component was not failing in development. In a real browser it
+initialised Leaflet, rendered 16 OpenStreetMap tiles and 13 destination
+markers. The stuck-loading screen reproduced only in the **production
+standalone deployment**:
+
+- `next.config.ts` sets `output: "standalone"`.
+- `npm start` was `next start`, which refuses to run with standalone output.
+- Running `.next/standalone/server.js` directly returned the HTML page with
+  `200`, but every `/_next/static/*.js` request returned `404`. Next.js does
+  not copy `.next/static` or `public/` into `.next/standalone/` automatically.
+- With no client bundle, the server-rendered "Loading 2027 Eclipse Geospatial
+  Map…" overlay never clears, and every client-side control (map + planner) is
+  inert. This matches the reported combination of a stuck map and dead
+  Add/Delete/Generate/Save controls.
+
+A second, independent click-target bug was found: `DestinationCard` used a
+stretched link (`after:absolute after:inset-0`) without a positioned ancestor.
+On `/explorer`, the Tunis card's overlay escaped its card and intercepted
+pointer events over the toolbar, making the map/grid toggle unclickable.
+
+### Changes made
+
+- `package.json`: added a `postbuild` step and changed `start` to run the
+  standalone server.
+- `scripts/prepare-standalone.mjs` (new): copies `.next/static` and `public/`
+  into `.next/standalone/` after every build.
+- `src/components/map/interactive-map.tsx`:
+  - Spinner now clears only after the first real map tile renders.
+  - 10-second tile watchdog shows a visible OpenStreetMap error with a Retry
+    button if every tile request fails.
+  - 8-second init watchdog prevents an indefinite loading screen if Leaflet
+    itself never initialises.
+  - Retry resets tile counters and rebuilds the map cleanly.
+  - Timers and layer/marker refs are cleared on unmount.
+  - Popups are reopened after the marker layer is rebuilt on selection.
+- `src/components/explorer/explorer-view.tsx`: toolbar raised above cards
+  (`relative z-10`).
+- `src/components/destination-card.tsx`: card is now a positioned stacking
+  context (`relative z-0`) so its stretched link stays inside the card.
+
+### Verification performed
+
+- `npm run typecheck`, `npm run lint`, `npm run build`: pass.
+- `npm run verify:eclipse`: 37/37 checks pass.
+- Production standalone build tested in headless Chrome:
+  - `/explorer`: 580 px map, 16 tiles loaded, 13 markers, OSM attribution,
+    no spinner and no error. Zoom changed tiles from z7 to z8.
+  - Dragging changed `.leaflet-map-pane` transform and tile set.
+  - Sidebar selection switched the active destination to Djerba and opened
+    its popup; clicking the Matmata marker selected Matmata and opened its
+    popup.
+  - Grid ↔ map toggle remounted exactly one map with no console errors.
+  - Homepage embedded map loaded correctly.
+  - Tile failure: blocking `tile.openstreetmap.org` showed the visible error
+    and Retry after ~9.4 s, hid the spinner, and kept the destination list
+    usable. Unblocking and clicking Retry recovered to 16 tiles.
+- Planner tested against the same production build:
+  - Add Day: 5 → 6 days.
+  - Add Stop: 3 → 4 stops.
+  - Delete Stop: 4 → 3 stops.
+  - Eclipse Viewing Priority: Partial selected and its hint updated.
+  - Expedition Highlights & Themes: theme toggled.
+  - Save Itinerary: wrote a saved trip to `localStorage`.
+  - Generate Itinerary: API returned `200` and replaced the plan.
+  - Delete Day: 6 → 5 days.
+  - No page errors during these interactions.
+
+### Remaining limitations
+
+- Browser verification used temporary Playwright scripts outside the
+  repository; there is no committed end-to-end test suite yet.
+- Public OpenStreetMap tiles are appropriate for development and light
+  traffic but not for launch-scale usage; use a commercial or self-hosted
+  tile provider before launch.
+- `maplibre-gl` remains declared in `package.json` but is no longer used by
+  the map.
+- No database, authentication, payments or real provider inventory exists.
+  Booking/inquiry submissions are local prototype records only.
+
 ## Audit & Verification Baseline
 - **Original Repo**: https://github.com/ismailtriki56/Eclipse-Tunisia
 - **Framework**: Next.js 16.4.2 (App Router), React 19.3.0, Tailwind CSS v4, TypeScript 5
@@ -66,6 +149,12 @@
 - Real backend database (PostgreSQL via Cloud SQL) for persistent user accounts and saved trips.
 - Authentic provider onboarding portal (`/providers`) for local Tunisian guides and 4x4 drivers.
 - Secure payment gateway integration for real bookings.
+- Committed end-to-end browser tests for the map and itinerary planner.
+- Replace public OSM tiles with a production tile provider before launch.
 
 ## Exact Next Task
-- Ready for user review of the interactive map, astronomical guide, itinerary planner, and AI travel assistant.
+- Map and planner controls have been verified in a production standalone build.
+  Next: commit the standalone asset fix, then review remaining placeholder
+  pages (`/about`, `/contact`, `/providers`, `/privacy`, `/terms`) and decide
+  whether to add a provider onboarding flow or a database-backed saved-trip
+  store.

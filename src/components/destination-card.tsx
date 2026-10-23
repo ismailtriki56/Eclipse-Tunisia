@@ -26,7 +26,7 @@ export function DestinationCard({
 
   return (
     <article
-      className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift ${className ?? ""}`}
+      className={`group relative z-0 flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift ${className ?? ""}`}
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-sand">
         <Image

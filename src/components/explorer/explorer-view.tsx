@@ -38,7 +38,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
   return (
     <Container className="py-12 sm:py-16">
       {/* Search & Filter Toolbar */}
-      <div className="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-4 shadow-card sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative z-10 flex flex-col gap-4 rounded-2xl border border-line bg-paper p-4 shadow-card sm:flex-row sm:items-center sm:justify-between">
         {/* Search Input */}
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />

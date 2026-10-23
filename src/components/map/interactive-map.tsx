@@ -90,6 +90,9 @@ export function InteractiveMap({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const markersGroupRef = useRef<any>(null);
   const initializedRef = useRef(false);
+  const tileLoadCountRef = useRef(0);
+  const tileErrorCountRef = useRef(0);
+  const openPopupAfterRenderRef = useRef(false);
 
   const [selectedSlug, setSelectedSlug] = useState<string>(initialSlug);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
@@ -167,6 +170,7 @@ export function InteractiveMap({
   // Select destination and smoothly fly map
   const selectDestination = useCallback(
     (dest: Destination, openPopup = true) => {
+      openPopupAfterRenderRef.current = openPopup;
       setSelectedSlug(dest.slug);
       if (onSelectDestination) {
         onSelectDestination(dest);
@@ -199,14 +203,19 @@ export function InteractiveMap({
     let isMounted = true;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let map: any = null;
-    let safetyTimer: NodeJS.Timeout | null = null;
+    let initTimer: ReturnType<typeof setTimeout> | null = null;
+    let tileTimer: ReturnType<typeof setTimeout> | null = null;
     const container = mapContainerRef.current;
+
+    setLoadError(null);
+    setMapReady(false);
+    tileLoadCountRef.current = 0;
+    tileErrorCountRef.current = 0;
 
     async function initMap() {
       if (!container || !isMounted) return;
 
       try {
-        setLoadError(null);
         const leafletModule = await import("leaflet");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const L = ((leafletModule as any).default || leafletModule) as any;
@@ -250,7 +259,34 @@ export function InteractiveMap({
           }
         );
 
+        // Only leave the loading state once a real tile has rendered. If every
+        // tile request fails (blocked network, tile provider outage, CSP), show
+        // a visible error and retry instead of leaving a blank map or spinner.
+        osmTiles.on("tileload", () => {
+          tileLoadCountRef.current += 1;
+          if (tileTimer) {
+            clearTimeout(tileTimer);
+            tileTimer = null;
+          }
+          if (isMounted) {
+            setMapReady(true);
+            setLoadError(null);
+          }
+        });
+
+        osmTiles.on("tileerror", () => {
+          tileErrorCountRef.current += 1;
+        });
+
         osmTiles.addTo(map);
+
+        tileTimer = setTimeout(() => {
+          if (!isMounted || tileLoadCountRef.current > 0) return;
+          setLoadError(
+            "OpenStreetMap tiles could not be loaded. Check your internet connection and retry. The destination list below still works."
+          );
+          setMapReady(true);
+        }, 10000);
 
         // Totality Band (Shaded Polygon)
         const bandLayer = L.polygon(bandPolygon, {
@@ -292,11 +328,9 @@ export function InteractiveMap({
 
         mapInstanceRef.current = map;
         initializedRef.current = true;
-
-        // Dismiss spinner immediately as map layers are configured
-        if (isMounted) {
-          setMapReady(true);
-          setLoadError(null);
+        if (initTimer) {
+          clearTimeout(initTimer);
+          initTimer = null;
         }
 
         // Trigger resize calculation to prevent grey/blank canvas tiles
@@ -317,6 +351,10 @@ export function InteractiveMap({
           err instanceof Error
             ? err.message
             : "Could not initialize map canvas";
+        if (initTimer) {
+          clearTimeout(initTimer);
+          initTimer = null;
+        }
         if (isMounted) {
           setLoadError(msg);
           // Still dismiss loading spinner so user is never stuck
@@ -325,12 +363,16 @@ export function InteractiveMap({
       }
     }
 
-    // Safety fallback: ensure loading spinner never hangs indefinitely
-    safetyTimer = setTimeout(() => {
-      if (isMounted) {
+    // Watchdog: if Leaflet itself never initialises, surface an error instead
+    // of leaving the loading spinner on screen forever.
+    initTimer = setTimeout(() => {
+      if (isMounted && !mapInstanceRef.current) {
+        setLoadError(
+          "The map engine did not finish loading. Check your connection and retry. The destination list below still works."
+        );
         setMapReady(true);
       }
-    }, 1200);
+    }, 8000);
 
     initMap();
 
@@ -344,7 +386,8 @@ export function InteractiveMap({
     return () => {
       isMounted = false;
       initializedRef.current = false;
-      if (safetyTimer) clearTimeout(safetyTimer);
+      if (initTimer) clearTimeout(initTimer);
+      if (tileTimer) clearTimeout(tileTimer);
       window.removeEventListener("resize", handleResize);
       if (mapInstanceRef.current) {
         try {
@@ -354,6 +397,8 @@ export function InteractiveMap({
         }
         mapInstanceRef.current = null;
       }
+      markersGroupRef.current = null;
+      layersRef.current = {};
       if (container) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         delete (container as any)._leaflet_id;
@@ -455,6 +500,7 @@ export function InteractiveMap({
         });
 
         marker.on("click", () => {
+          openPopupAfterRenderRef.current = true;
           setSelectedSlug(dest.slug);
           if (onSelectDestination) {
             onSelectDestination(dest);
@@ -462,7 +508,15 @@ export function InteractiveMap({
         });
 
         marker.addTo(markersGroupRef.current);
+
+        // Selection rebuilds the marker layer, which closes any popup the
+        // marker just opened. Re-open it once the new marker is on the map.
+        if (openPopupAfterRenderRef.current && isSelected) {
+          marker.openPopup();
+        }
       });
+
+      openPopupAfterRenderRef.current = false;
     }
 
     updateMarkers();
@@ -522,6 +576,8 @@ export function InteractiveMap({
 
   const handleRetry = () => {
     initializedRef.current = false;
+    tileLoadCountRef.current = 0;
+    tileErrorCountRef.current = 0;
     setLoadError(null);
     setMapReady(false);
     setRetryKey((k) => k + 1);
