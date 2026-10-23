@@ -17,11 +17,18 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const standalone = path.join(root, ".next", "standalone");
 const serverEntry = path.join(standalone, "server.js");
 
-if (!fs.existsSync(serverEntry)) {
-  console.error(
-    "[prepare-standalone] .next/standalone/server.js not found. Run `next build` first."
+if (process.env.VERCEL) {
+  console.log(
+    "[prepare-standalone] Vercel detected; its build system handles static assets, so no standalone copy is needed."
   );
-  process.exit(1);
+  process.exit(0);
+}
+
+if (!fs.existsSync(serverEntry)) {
+  console.warn(
+    "[prepare-standalone] .next/standalone/server.js not found. Skipping; this is expected when standalone output is disabled."
+  );
+  process.exit(0);
 }
 
 function copyInto(source, destination, label) {

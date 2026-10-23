@@ -15,18 +15,37 @@ import { dirname, resolve as resolvePath } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const EXTENSIONS = [".ts", ".tsx", ".mts", ".js", ".mjs"];
+const root = resolvePath(dirname(fileURLToPath(import.meta.url)), "..");
+
+function resolveCandidates(basePath) {
+  for (const extension of EXTENSIONS) {
+    const candidate = `${basePath}${extension}`;
+    if (existsSync(candidate)) return candidate;
+  }
+  return null;
+}
 
 export function resolve(specifier, context, nextResolve) {
   const isRelative = specifier.startsWith("./") || specifier.startsWith("../");
+  const isAlias = specifier.startsWith("@/");
   const hasExtension = /\.[cm]?[jt]sx?$/.test(specifier);
 
   if (isRelative && !hasExtension && context.parentURL) {
     const parentDirectory = dirname(fileURLToPath(context.parentURL));
-    for (const extension of EXTENSIONS) {
-      const candidate = resolvePath(parentDirectory, `${specifier}${extension}`);
-      if (existsSync(candidate)) {
-        return nextResolve(pathToFileURL(candidate).href, context);
-      }
+    const candidate = resolveCandidates(
+      resolvePath(parentDirectory, specifier),
+    );
+    if (candidate) {
+      return nextResolve(pathToFileURL(candidate).href, context);
+    }
+  }
+
+  if (isAlias && !hasExtension) {
+    const candidate = resolveCandidates(
+      resolvePath(root, "src", specifier.slice(2)),
+    );
+    if (candidate) {
+      return nextResolve(pathToFileURL(candidate).href, context);
     }
   }
 

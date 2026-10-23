@@ -1,6 +1,99 @@
 # Eclipse Tunisia — Progress Tracking
 
-## Map Failure Diagnosis & Fix (current session)
+## Itinerary Preference Matching & Vercel Prep (current session)
+
+### Root cause
+
+- `src/app/api/plan/generate/route.ts` did not use the selected interests to
+  choose destinations. Its fallback produced a fixed day-by-day template, so
+  Coastal could still return Kairouan, Chott el Jerid, or Matmata.
+- Several UI interests were ignored entirely: `nature` was not a selectable
+  UI option, while `troglodyte`, `totality`, `astronomy`, and `photography`
+  had no destination metadata or ranking effect.
+- The Gemini path sent the entire catalogue and prose interests without a
+  validated shortlist. The client received `isFallback` but never displayed it.
+- A rotation bug in `src/lib/itinerary/recommend.ts` could place the wrong
+  destination on 2 August 2027. A "partial" eclipse priority could therefore
+  show a total-eclipse location on eclipse day. This is now fixed and covered
+  by tests.
+
+### Changes made
+
+- `src/data/destinations.ts`: added a required `themes` array to every one of
+  the 13 destinations (`coast`, `history`, `nature`, `culture`, `desert`,
+  `family`, `food`, `troglodyte`, `photography`).
+- Added the shared itinerary engine:
+  - `src/lib/itinerary/types.ts` — preference, recommendation, plan and API
+    outcome types.
+  - `src/lib/itinerary/dates.ts` — date ranges and the fixed eclipse date.
+  - `src/lib/itinerary/metadata.ts` — interest aliases, labels, family/theme
+    helpers.
+  - `src/lib/itinerary/recommend.ts` — preference filtering, eclipse
+    eligibility, theme balancing, geographic ordering and transparent warnings.
+  - `src/lib/itinerary/plan-builder.ts` — verified activities and computed
+    eclipse contact times; no invented timings.
+  - `src/lib/itinerary/service.ts` — Gemini ordering of a validated shortlist,
+    response validation, and local fallback.
+- `src/app/api/plan/generate/route.ts`: now a thin validated API wrapper around
+  the service. `GEMINI_API_KEY` is read only on the server.
+- `src/components/plan/itinerary-planner.tsx`: added History and Nature theme
+  controls, renamed the theme labels, removed the two non-destination theme
+  buttons (`totality`, `astronomy`), and displays API notices/warnings. Eclipse
+  viewing stays controlled by the dedicated Eclipse Viewing Priority setting.
+- `tests/itinerary.test.ts` (new): 13 preference, eclipse-priority, fallback and
+  Gemini-validation tests.
+- `package.json`: added `npm test`.
+- `next.config.ts`: enables `output: "standalone"` locally but not on Vercel.
+- `scripts/prepare-standalone.mjs`: skips safely on Vercel or when standalone
+  output is disabled.
+- `.env.example`: documents only the optional `GEMINI_API_KEY`; removed unused
+  platform/Supabase placeholders.
+
+### What the planner now does
+
+- Coastal, History, Nature, Culture, Desert, and the other themes are matched
+  from structured destination data, not guessed from prose.
+- If there are not enough matches, the API returns a clear warning and labels
+  the extra stops as alternatives. It does not silently swap in unrelated
+  destinations.
+- Legacy eclipse/astronomy interest values are no longer silent no-ops: they
+  produce a warning explaining that Eclipse Viewing Priority controls this.
+- Eclipse priority is explicit: `totality` requires a total-eclipse location,
+  `partial` requires a partial location, and `flexible` accepts either.
+- Gemini may only reorder a validated shortlist. Unknown destinations, missing
+  dates, repeated dates, or an eclipse day that violates the selected priority
+  are rejected, and the local engine is used instead.
+- Local fallback notices explain why Gemini was not used and confirm that the
+  selected preferences were still applied.
+
+### Verification performed
+
+- `npm test`: **13/13 passed**.
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run verify:eclipse`: **37/37 checks passed**.
+- `npm run build`: pass; standalone assets copied for local `npm start`.
+- `VERCEL=1 npm run build`: pass; prepare script skipped as intended.
+- Production standalone API smoke test without a key:
+  `POST /api/plan/generate` returned `200`, `generationMethod: "local"`,
+  five unique coastal stops, and Mahdia (total eclipse) on 2 August 2027.
+- Not verified: a live Gemini call (no real API key in this workspace) and a
+  full browser click-through after the UI label changes. Gemini success,
+  failure, and rejection paths are covered with mocked clients; the UI/build
+  compiles successfully.
+
+### Environment and deployment
+
+- `GEMINI_API_KEY` is the only application environment variable. It is
+  optional; without it the local engine runs.
+- Keep it server-side. Never expose it with a `NEXT_PUBLIC_` prefix.
+- Vercel: import the repository, optionally add `GEMINI_API_KEY`, and deploy.
+  Vercel uses its own build output; the local standalone copy is disabled
+  automatically.
+- Local production: `npm run build` then `npm start` (runs
+  `.next/standalone/server.js`).
+
+## Map Failure Diagnosis & Fix (previous session)
 
 ### Root cause
 
@@ -153,8 +246,11 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Replace public OSM tiles with a production tile provider before launch.
 
 ## Exact Next Task
-- Map and planner controls have been verified in a production standalone build.
-  Next: commit the standalone asset fix, then review remaining placeholder
-  pages (`/about`, `/contact`, `/providers`, `/privacy`, `/terms`) and decide
-  whether to add a provider onboarding flow or a database-backed saved-trip
-  store.
+- Review the uncommitted itinerary-preference changes, then run a browser
+  click-through of `/plan` with History/Nature selected if visual confirmation
+  is required. A real Gemini call still needs a valid `GEMINI_API_KEY`.
+- After approval, deploy to Vercel and spot-check the API. Do not push or
+  deploy without explicit permission.
+- Later: review the remaining placeholder pages (`/about`, `/contact`,
+  `/providers`, `/privacy`, `/terms`) and decide whether to add a provider
+  onboarding flow or a database-backed saved-trip store.

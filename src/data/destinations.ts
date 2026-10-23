@@ -16,11 +16,24 @@ import { images } from "./images";
 
 export type EclipseVisibility = "total" | "partial" | "none";
 
+export type DestinationTheme =
+  | "coast"
+  | "history"
+  | "culture"
+  | "nature"
+  | "desert"
+  | "food"
+  | "troglodyte"
+  | "photography"
+  | "family";
+
 export interface Destination {
   slug: string;
   name: string;
   region: string;
   summary: string;
+  /** Editorial categories used by the preference-aware itinerary engine. */
+  themes: DestinationTheme[];
   latitude: number;
   longitude: number;
   /** IANA time zone used to display local times. */
@@ -43,6 +56,7 @@ export const destinations: Destination[] = [
     region: "South West",
     summary:
       "The oasis town at the edge of Chott el Jerid, and the best-connected base for the desert: hotels, restaurants and fuel in one place, with the salt flats a short drive away.",
+    themes: ["desert", "nature", "culture", "history", "photography"],
     latitude: 33.9197,
     longitude: 8.1084,
     timeZone: "Africa/Tunis",
@@ -71,6 +85,7 @@ export const destinations: Destination[] = [
     region: "South West",
     summary:
       "A small palm-grove town at the edge of the Algerian border, quieter than Tozeur and close to some of the most dramatic oasis scenery in the country.",
+    themes: ["desert", "nature", "culture", "history", "photography"],
     latitude: 33.8736,
     longitude: 7.8769,
     timeZone: "Africa/Tunis",
@@ -93,6 +108,7 @@ export const destinations: Destination[] = [
     region: "South West",
     summary:
       "The largest salt pan in the Sahara, with a surface area above 7,000 km². Wide horizons, hard light and almost no infrastructure — the purest available sky.",
+    themes: ["desert", "nature", "photography"],
     latitude: 33.5605,
     longitude: 8.35,
     timeZone: "Africa/Tunis",
@@ -115,6 +131,7 @@ export const destinations: Destination[] = [
     region: "South East",
     summary:
       "A coastal city with a palm-lined oasis and the Gulf of Gabès, and the southern end of the Tunisian rail line.",
+    themes: ["coast", "nature", "culture", "food"],
     latitude: 33.8815,
     longitude: 10.0982,
     timeZone: "Africa/Tunis",
@@ -141,6 +158,7 @@ export const destinations: Destination[] = [
     region: "South East",
     summary:
       "The island of Djerba, joined to the mainland by the Roman causeway, with a UNESCO-listed medina, whitewashed Houmt Souk and long, quiet beaches.",
+    themes: ["coast", "culture", "history", "food", "photography", "family"],
     latitude: 33.8781,
     longitude: 10.775,
     timeZone: "Africa/Tunis",
@@ -167,6 +185,7 @@ export const destinations: Destination[] = [
     region: "Central East",
     summary:
       "A small town built around the best-preserved Roman amphitheatre in North Africa, and a useful stop on the route between Tunis and the southern salt lakes.",
+    themes: ["history", "culture", "family"],
     latitude: 35.2981,
     longitude: 10.7069,
     timeZone: "Africa/Tunis",
@@ -193,6 +212,7 @@ export const destinations: Destination[] = [
     region: "Central",
     summary:
       "One of the oldest cities in the world and the spiritual centre of Tunisian Islam, built around the Great Mosque of Uqba.",
+    themes: ["history", "culture", "family"],
     latitude: 35.6781,
     longitude: 10.0963,
     timeZone: "Africa/Tunis",
@@ -220,6 +240,7 @@ export const destinations: Destination[] = [
     region: "Central East",
     summary:
       "A resort city built around a ribat fortress and a UNESCO-listed medina, with a long, developed beachfront.",
+    themes: ["coast", "history", "culture", "family"],
     latitude: 35.8256,
     longitude: 10.636,
     timeZone: "Africa/Tunis",
@@ -247,6 +268,7 @@ export const destinations: Destination[] = [
     region: "Central East",
     summary:
       "A historic port on a peninsula, with a cobbled medina, a cliff-top lighthouse and long beaches on the Gulf of Hammamet.",
+    themes: ["coast", "history", "culture", "photography", "family"],
     latitude: 35.5044,
     longitude: 11.0622,
     timeZone: "Africa/Tunis",
@@ -273,6 +295,7 @@ export const destinations: Destination[] = [
     region: "North East",
     summary:
       "A cliffside village of white houses and blue doors above the Gulf of Tunis, twenty minutes from the capital.",
+    themes: ["coast", "culture", "photography", "family"],
     latitude: 36.8828,
     longitude: 10.1898,
     timeZone: "Africa/Tunis",
@@ -299,6 +322,7 @@ export const destinations: Destination[] = [
     region: "North East",
     summary:
       "The Phoenician and Roman city whose ruins — the Antonine Baths, the villas, the theatre — are scattered across the hills above the gulf.",
+    themes: ["coast", "history", "culture", "family"],
     latitude: 36.8528,
     longitude: 10.3233,
     timeZone: "Africa/Tunis",
@@ -325,6 +349,7 @@ export const destinations: Destination[] = [
     region: "South",
     summary:
       "A Berber hill town of pit dwellings carved into the hillsides, and the closest thing to a traditional Tunisian village in the south.",
+    themes: ["history", "culture", "nature", "desert", "troglodyte", "photography"],
     latitude: 33.6503,
     longitude: 10.0975,
     timeZone: "Africa/Tunis",
@@ -350,6 +375,7 @@ export const destinations: Destination[] = [
     region: "North East",
     summary:
       "The capital, with the country's main airport, the medina and the museums, and the quickest road out of the path of totality for anyone with a short trip.",
+    themes: ["history", "culture", "food", "family"],
     latitude: 36.8065,
     longitude: 10.1815,
     timeZone: "Africa/Tunis",

@@ -307,7 +307,6 @@ export function ItineraryPlanner() {
   const [aiBudget, setAiBudget] = useState("moderate");
   const [aiGroupSize, setAiGroupSize] = useState(2);
   const [aiInterests, setAiInterests] = useState<string[]>([
-    "totality",
     "desert",
     "culture",
   ]);
@@ -740,13 +739,14 @@ export function ItineraryPlanner() {
           localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, JSON.stringify(data.plan));
         } catch {}
 
-        if (data.notice) {
-          setAiNotice(data.notice);
-        } else {
-          setAiNotice(
+        const warnings = Array.isArray(data.warnings)
+          ? data.warnings.filter((warning: unknown): warning is string => typeof warning === "string")
+          : [];
+        const notice = [data.notice, ...warnings].filter(Boolean).join(" ");
+        setAiNotice(
+          notice ||
             `Successfully architected a verified ${data.plan.days.length}-day expedition with totality on 2 August 2027.`
-          );
-        }
+        );
       } else {
         throw new Error("Invalid plan schema returned by server");
       }
@@ -1259,13 +1259,13 @@ export function ItineraryPlanner() {
           </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {[
-              { id: "desert", label: "Sahara Dunes & Salt Flats" },
-              { id: "culture", label: "Roman Antiquities & UNESCO Sites" },
               { id: "coast", label: "Mediterranean Coast & Islands" },
+              { id: "history", label: "History & Roman Ruins" },
+              { id: "nature", label: "Nature & Landscapes" },
+              { id: "culture", label: "Culture & UNESCO Medinas" },
+              { id: "desert", label: "Sahara Dunes & Salt Flats" },
               { id: "troglodyte", label: "Berber Cave Architecture" },
               { id: "food", label: "Tunisian Gastronomy & Dates" },
-              { id: "totality", label: "Dark Sky Totality Grounds" },
-              { id: "astronomy", label: "Solar Optics & Filters" },
               { id: "photography", label: "Astrophotography & Landscape" },
             ].map((interest) => {
               const active = aiInterests.includes(interest.id);

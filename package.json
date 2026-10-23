@@ -8,6 +8,7 @@
     "postbuild": "node scripts/prepare-standalone.mjs",
     "start": "node .next/standalone/server.js",
     "lint": "eslint",
+    "test": "node --import ./scripts/register-ts.mjs --test tests/itinerary.test.ts",
     "typecheck": "tsc --noEmit",
     "verify:eclipse": "node --import ./scripts/register-ts.mjs scripts/verify-eclipse.ts"
   },
