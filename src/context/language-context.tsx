@@ -18,18 +18,20 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const STORAGE_KEY = "eclipse-tunisia-locale";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
-
-  useEffect(() => {
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") {
+      return defaultLocale;
+    }
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
       if (stored && (stored === "en" || stored === "fr" || stored === "ar")) {
-        setLocaleState(stored);
+        return stored;
       }
     } catch {
       // ignore
     }
-  }, []);
+    return defaultLocale;
+  });
 
   useEffect(() => {
     const dir = localeDirections[locale];

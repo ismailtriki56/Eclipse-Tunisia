@@ -56,13 +56,13 @@ export function Hero() {
             </ButtonLink>
           </div>
 
-          {(t.hero as any).whyTravel && (
+          {(t.hero as unknown as { whyTravel?: string; whyTravelDesc?: string }).whyTravel && (
             <div className="mt-8 max-w-xl rounded-2xl border border-white/20 bg-black/20 px-5 py-4 backdrop-blur-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-                {(t.hero as any).whyTravel}
+                {(t.hero as unknown as { whyTravel?: string }).whyTravel}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-ivory/80">
-                {(t.hero as any).whyTravelDesc}
+                {(t.hero as unknown as { whyTravelDesc?: string }).whyTravelDesc}
               </p>
             </div>
           )}
