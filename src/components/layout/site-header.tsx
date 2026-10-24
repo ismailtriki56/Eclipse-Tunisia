@@ -7,17 +7,30 @@ import { nav } from "@/lib/site";
 import { Logo } from "./logo";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { useLanguage } from "@/context/language-context";
+import { LanguageSwitcher } from "@/components/language/language-switcher";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const navLabels: Record<string, string> = {
+    "/eclipse": t.nav.eclipse,
+    "/explorer": t.nav.explorer,
+    "/destinations": t.nav.destinations,
+    "/packages": t.nav.packages,
+    "/stays": t.nav.stays,
+    "/flights": t.nav.flights,
+    "/plan": t.nav.plan,
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/80 bg-ivory/90 backdrop-blur-md">
       <div className="mx-auto flex h-[4.5rem] w-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label="Primary" className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const href = item.href as string;
@@ -35,7 +48,7 @@ export function SiteHeader() {
                       active ? "text-navy" : "text-muted hover:text-navy",
                     )}
                   >
-                    {item.label}
+                    {navLabels[href] || item.label}
                     {active ? (
                       <span
                         aria-hidden
@@ -49,59 +62,66 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
+          <LanguageSwitcher />
           <ButtonLink href="/plan" size="sm" variant="primary">
-            Plan your trip
+            {t.header.planTrip}
           </ButtonLink>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-navy transition-colors hover:border-navy lg:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">Menu</span>
-          <div className="space-y-1.5">
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-transform",
-                open && "translate-y-2 rotate-45",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-opacity",
-                open && "opacity-0",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-transform",
-                open && "-translate-y-2 -rotate-45",
-              )}
-            />
-          </div>
-        </button>
+        <div className="flex items-center gap-2 xl:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-navy transition-colors hover:border-navy"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? t.header.closeMenu : t.header.openMenu}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="sr-only">{t.header.menu}</span>
+            <div className="space-y-1.5">
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-transform",
+                  open && "translate-y-2 rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-opacity",
+                  open && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-transform",
+                  open && "-translate-y-2 -rotate-45",
+                )}
+              />
+            </div>
+          </button>
+        </div>
       </div>
 
       {open ? (
-        <div id="mobile-menu" className="border-t border-line bg-ivory lg:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-ivory xl:hidden">
           <nav aria-label="Mobile" className="px-5 py-4">
             <ul className="flex flex-col gap-1">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-black/5"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {nav.map((item) => {
+                const href = item.href as string;
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-lg px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-black/5"
+                    >
+                      {navLabels[href] || item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
             <div className="mt-4 px-1">
               <ButtonLink
@@ -109,7 +129,7 @@ export function SiteHeader() {
                 className="w-full"
                 onClick={() => setOpen(false)}
               >
-                Plan your trip
+                {t.header.planTrip}
               </ButtonLink>
             </div>
           </nav>

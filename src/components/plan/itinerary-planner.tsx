@@ -95,7 +95,7 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
   summary:
     "A 5-day route through historic Carthage, Kairouan's spiritual landmarks, and totality across the Tozeur oasis and Chott el Jerid salt desert.",
   eclipseDayNotes:
-    "On Monday, 2 August 2027, you are stationed in Tozeur inside the path of totality for 2 minutes and 4 seconds of midday darkness at 11:05 local time.",
+    "On Monday, 2 August 2027, you are stationed in Tozeur inside the path of totality for 1 minute and 39 seconds of midday darkness at 10:07 local time.",
   days: [
     {
       dayNumber: 1,
@@ -176,7 +176,7 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
         },
         {
           id: "act-7",
-          time: "09:50",
+          time: "08:52",
           title: "First Contact (C1) — Partial Eclipse Ingress",
           description:
             "Lunar disc begins biting into the solar rim. Certified solar filters mandatory.",
@@ -185,8 +185,8 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
         },
         {
           id: "act-8",
-          time: "11:04",
-          title: "TOTALITY (C2 to C3) — Corona Observation (2m 04s)",
+          time: "10:06",
+          title: "TOTALITY (C2 to C3) — Corona Observation (1m 39s)",
           description:
             "Remove solar glasses to behold the solar corona, Baily's Beads, red prominences, and daytime planets.",
           type: "destination",
@@ -194,7 +194,7 @@ const DEFAULT_INITIAL_PLAN: ItineraryPlan = {
         },
         {
           id: "act-9",
-          time: "12:20",
+          time: "11:26",
           title: "Fourth Contact (C4) & Celebration Luncheon",
           description:
             "Sun fully uncovered. Traditional Saharan date feast and debrief with fellow astronomers.",
@@ -296,20 +296,53 @@ export function ItineraryPlanner() {
   const [editingTitleText, setEditingTitleText] = useState(plan.tripTitle);
 
   // Preference Controls State
-  const [startDate, setStartDate] = useState(() => plan.days[0]?.date || "2027-07-31");
-  const [endDate, setEndDate] = useState(
-    () => plan.days[plan.days.length - 1]?.date || "2027-08-04"
-  );
+  const requestedStart = searchParams.get("startDate");
+  const requestedEnd = searchParams.get("endDate");
+  const requestedGroup = Number(searchParams.get("groupSize"));
+  const requestedPreference = searchParams.get("eclipsePreference");
+  const requestedPace = searchParams.get("pace");
+  const requestedBudget = searchParams.get("budget");
+  const requestedFamily = searchParams.get("family") === "1";
+
+  const [startDate, setStartDate] = useState(() => {
+    if (requestedStart && /^\d{4}-\d{2}-\d{2}$/.test(requestedStart)) {
+      return requestedStart;
+    }
+    return plan.days[0]?.date || "2027-07-31";
+  });
+  const [endDate, setEndDate] = useState(() => {
+    if (requestedEnd && /^\d{4}-\d{2}-\d{2}$/.test(requestedEnd)) {
+      return requestedEnd;
+    }
+    return plan.days[plan.days.length - 1]?.date || "2027-08-04";
+  });
   const [eclipsePreference, setEclipsePreference] = useState<
     "totality" | "partial" | "flexible"
-  >("totality");
-  const [aiPace, setAiPace] = useState("moderate");
-  const [aiBudget, setAiBudget] = useState("moderate");
-  const [aiGroupSize, setAiGroupSize] = useState(2);
-  const [aiInterests, setAiInterests] = useState<string[]>([
-    "desert",
-    "culture",
-  ]);
+  >(() =>
+    requestedPreference === "partial" || requestedPreference === "flexible"
+      ? requestedPreference
+      : "totality",
+  );
+  const [aiPace, setAiPace] = useState(() =>
+    requestedPace === "relaxed" ||
+    requestedPace === "moderate" ||
+    requestedPace === "intensive"
+      ? requestedPace
+      : "moderate",
+  );
+  const [aiBudget, setAiBudget] = useState(() =>
+    requestedBudget === "economy" || requestedBudget === "luxury"
+      ? requestedBudget
+      : "moderate",
+  );
+  const [aiGroupSize, setAiGroupSize] = useState(() =>
+    Number.isFinite(requestedGroup) && requestedGroup >= 1 && requestedGroup <= 20
+      ? requestedGroup
+      : 2,
+  );
+  const [aiInterests, setAiInterests] = useState<string[]>(() =>
+    requestedFamily ? ["desert", "culture", "family"] : ["desert", "culture"],
+  );
 
   // AI & Generator State
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -1267,6 +1300,7 @@ export function ItineraryPlanner() {
               { id: "troglodyte", label: "Berber Cave Architecture" },
               { id: "food", label: "Tunisian Gastronomy & Dates" },
               { id: "photography", label: "Astrophotography & Landscape" },
+              { id: "family", label: "Family-Friendly Pacing" },
             ].map((interest) => {
               const active = aiInterests.includes(interest.id);
               return (

@@ -10,8 +10,8 @@ export function FeaturedExperiences() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             eyebrow="Experiences"
-            title="Bookable experiences, clearly presented"
-            description="Browse excursions, transfers, cultural walks and food experiences. Prices, inclusions and provider details are shown upfront."
+            title="Experiences, clearly labelled"
+            description="Browse sample excursions, transfers, cultural walks and food concepts. Each listing is a development example, not a live provider or a bookable product."
           />
           <ButtonLink
             href="/experiences"

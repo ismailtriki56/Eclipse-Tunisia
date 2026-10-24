@@ -12,7 +12,7 @@ export function DestinationsPreview() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             eyebrow="Where to stand"
-            title="The longest totality in Tunisia"
+            title="Where totality lasts longest"
             description="These are the places with the most time in the umbra, ordered by the duration of totality computed from the NASA elements. Times are local Tunis time (UTC+1)."
           />
           <ButtonLink href="/destinations" variant="secondary">

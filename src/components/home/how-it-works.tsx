@@ -13,8 +13,8 @@ const steps = [
   },
   {
     number: "03",
-    title: "Book with confidence",
-    body: "Send booking requests and track their status. We clearly distinguish a request from a confirmed reservation.",
+    title: "Verify before you go",
+    body: "Use the eclipse checklist, real hotel links and external flight search. This site has no booking engine or payment flow; every reservation is made elsewhere.",
   },
 ];
 
@@ -24,8 +24,8 @@ export function HowItWorks() {
       <Container>
         <SectionHeading
           eyebrow="How it works"
-          title="From curiosity to a confirmed plan"
-          description="Every feature is designed to help you make a real decision — not just to look impressive."
+          title="From curiosity to a workable plan"
+          description="We help you compare, calculate and prepare. The final booking always happens with the hotel, airline or licensed provider."
           align="center"
         />
         <ol className="mt-12 grid gap-6 md:grid-cols-3">

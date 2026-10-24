@@ -1,12 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/button";
 import { Countdown } from "@/components/home/countdown";
 import { images } from "@/data/images";
 import { site } from "@/lib/site";
-import { eclipseFacts } from "@/lib/eclipse/destinations";
+import {
+  eclipseFacts,
+  totalityDestinations,
+} from "@/lib/eclipse/destinations";
+import { formatDuration } from "@/lib/format";
+import { useLanguage } from "@/context/language-context";
 
 export function Hero() {
-  const hero = images.tozeurSunset;
+  const hero = images.djerbaBeach;
+  const longest = totalityDestinations()[0];
+  const { t } = useLanguage();
 
   return (
     <section className="relative isolate overflow-hidden bg-navy">
@@ -24,55 +33,61 @@ export function Hero() {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
             <span aria-hidden className="h-px w-10 rule-gradient" />
-            {site.eventDate}
+            {t.hero.eventDate}
           </p>
 
-          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ivory text-balance sm:text-6xl lg:text-7xl">
-            Six minutes and twenty-three seconds of totality, straight across
-            Tunisia.
+          <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.03] tracking-tight text-ivory text-balance sm:text-6xl lg:text-7xl">
+            {t.hero.headline}
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ivory/80 text-pretty">
-            The path of totality crosses the country from the Algerian border
-            to the Gulf of Gabès. This site computes the exact circumstances
-            for every location in Tunisia from the NASA GSFC eclipse
-            catalogue — no guesswork, no approximations.
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ivory/85 text-pretty">
+            {t.hero.description}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <ButtonLink href="/explorer" size="lg" variant="inverse">
-              Open the Eclipse Explorer
+            <ButtonLink href="/packages" size="lg" variant="inverse">
+              {t.hero.planTrip}
             </ButtonLink>
-            <ButtonLink href="/destinations" size="lg" variant="outline">
-              Compare destinations
+            <ButtonLink href="/explorer" size="lg" variant="outline">
+              {t.hero.discoverTunisia}
             </ButtonLink>
           </div>
+
+          {(t.hero as any).whyTravel && (
+            <div className="mt-8 max-w-xl rounded-2xl border border-white/20 bg-black/20 px-5 py-4 backdrop-blur-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+                {(t.hero as any).whyTravel}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ivory/80">
+                {(t.hero as any).whyTravelDesc}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mt-16 grid gap-10 border-t border-white/15 pt-10 sm:mt-20 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ivory/50">
-              Time remaining until greatest eclipse
+              {t.hero.timeRemaining}
             </p>
-            <Countdown
-              target={site.greatestEclipseUtc}
-              className="mt-4"
-            />
+            <Countdown target={site.greatestEclipseUtc} className="mt-4" />
             <p className="mt-3 text-sm text-ivory/60">
-              Greatest eclipse at {eclipseFacts.greatestEclipseUT} over Egypt
-              and the Middle East — {eclipseFacts.greatestEclipseLocal}.
+              {t.hero.greatestEclipseNote} Eclipse is in the morning in Tunisia.
             </p>
           </div>
 
           <dl className="grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4 lg:gap-x-14">
             {[
-              { term: "Magnitude", detail: eclipseFacts.magnitude.toFixed(3) },
-              { term: "Path width", detail: `${eclipseFacts.pathWidthKm} km` },
-              { term: "Longest totality", detail: eclipseFacts.centralDuration },
-              { term: "Saros series", detail: `#${eclipseFacts.saros}` },
+              {
+                term: t.hero.djerbaLongest,
+                detail: formatDuration(longest?.centralDurationSeconds ?? null),
+              },
+              { term: t.hero.pathWidth, detail: eclipseFacts.pathWidthKm + " km" },
+              { term: t.hero.greatestEclipse, detail: "11:06:34 Tunis" },
+              { term: t.hero.saros, detail: "#" + eclipseFacts.saros },
             ].map((item) => (
               <div key={item.term}>
                 <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ivory/50">

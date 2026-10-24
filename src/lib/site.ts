@@ -17,7 +17,8 @@ export const nav = [
   { href: "/eclipse", label: "The Eclipse" },
   { href: "/explorer", label: "Explorer" },
   { href: "/destinations", label: "Destinations" },
-  { href: "/experiences", label: "Experiences" },
+  { href: "/packages", label: "Packages" },
+  { href: "/stays", label: "Stays" },
+  { href: "/flights", label: "Flights" },
   { href: "/plan", label: "Plan" },
-  { href: "/safety", label: "Safety" },
 ] as const;

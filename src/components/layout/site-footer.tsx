@@ -15,10 +15,12 @@ const columns = [
   {
     title: "Plan",
     links: [
+      { href: "/packages", label: "Eclipse packages" },
+      { href: "/stays", label: "Stays" },
+      { href: "/flights", label: "Flights" },
       { href: "/plan", label: "Build your itinerary" },
       { href: "/experiences", label: "Experiences" },
       { href: "/safety", label: "Viewing safety" },
-      { href: "/providers", label: "For local providers" },
     ],
   },
   {
@@ -43,6 +45,11 @@ export function SiteFooter() {
               {site.tagline} Every figure on this site is computed from the
               NASA GSFC eclipse catalogue, and every photograph is licensed
               for reuse with attribution.
+            </p>
+            <p className="mt-4 max-w-sm text-xs leading-relaxed text-ivory/45">
+              Packages, prices and campaigns are illustrative demonstrations,
+              not live offers. Hotel and flight links lead to independent
+              third-party sites.
             </p>
           </div>
           {columns.map((column) => (
