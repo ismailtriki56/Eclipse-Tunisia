@@ -254,3 +254,14 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Later: review the remaining placeholder pages (`/about`, `/contact`,
   `/providers`, `/privacy`, `/terms`) and decide whether to add a provider
   onboarding flow or a database-backed saved-trip store.
+
+## 2026 Redesign — Phase 0 (baseline)
+
+- Audited routes, i18n, data files, map and CTA surfaces. Full notes in
+  `docs/PLAN.md`.
+- Baseline `npm run build` passes: 56 pages, `/api/plan/generate` dynamic.
+  Log: `docs/build-baseline.log`.
+- Decision: move all pages under `/[locale]`, add middleware redirects, and
+  keep `api` outside the locale segment.
+- Assumption: secondary editorial pages remain English this pass; primary
+  surfaces are fully translated. Recorded in `docs/PLAN.md`.
