@@ -358,6 +358,174 @@
     disclaimer:
       "This page provides general guidance only. It does not replace official safety instructions or the advice of qualified professionals.",
   },
+  flightText: {
+    airports: {
+      TUN: {
+        name: "Tunis–Carthage International Airport",
+        city: "Tunis",
+        role: "Primary international gateway",
+        bestFor: "Year-round arrivals and the northern coast",
+        note: "The capital's main airport, with the widest choice of onward road and rail connections.",
+      },
+      MIR: {
+        name: "Monastir Habib Bourguiba International Airport",
+        city: "Monastir",
+        role: "Closest gateway to Mahdia",
+        bestFor: "Mahdia, Sousse and the central coast",
+        note: "The practical arrival point for a Mahdia package: the transfer is much shorter than from Tunis.",
+      },
+      NBE: {
+        name: "Enfidha–Hammamet International Airport",
+        city: "Enfidha",
+        role: "Central coast gateway",
+        bestFor: "Sousse, Hammamet and the A1 corridor",
+        note: "A modern airport serving the central coast, with direct access to the motorway network.",
+      },
+      DJE: {
+        name: "Djerba–Zarzis International Airport",
+        city: "Djerba",
+        role: "Southern island gateway",
+        bestFor: "Djerba, Gabès and the south-east",
+        note: "The most direct arrival point for Djerba, where the island sees some of the longest totality in Tunisia.",
+      },
+      TOE: {
+        name: "Tozeur–Nefta International Airport",
+        city: "Tozeur",
+        role: "Desert gateway",
+        bestFor: "Tozeur, Nefta and Chott el Jerid",
+        note: "A smaller airport with limited service. Check current routes before building a desert itinerary around it.",
+      },
+      SFA: {
+        name: "Sfax–Thyna International Airport",
+        city: "Sfax",
+        role: "Central-east gateway",
+        bestFor: "Sfax, Kerkennah and the central coast",
+        note: "A useful alternative for the central coast, with fewer international connections than Tunis.",
+      },
+      GAE: {
+        name: "Gabès–Matmata International Airport",
+        city: "Gabès",
+        role: "Southern alternative",
+        bestFor: "Gabès, Matmata and the southern coast",
+        note: "A small regional airport. Confirm schedules before relying on it for an eclipse arrival.",
+      },
+    },
+    origins: {
+      LHR: "London Heathrow",
+      LGW: "London Gatwick",
+      CDG: "Paris Charles de Gaulle",
+      ORY: "Paris Orly",
+      FRA: "Frankfurt",
+      FCO: "Rome Fiumicino",
+      MAD: "Madrid",
+      AMS: "Amsterdam",
+      IST: "Istanbul",
+      DXB: "Dubai",
+      JFK: "New York JFK",
+      YUL: "Montréal",
+    },
+  },
+  experienceText: {
+    categories: {
+      "eclipse-viewing": "Eclipse viewing",
+      transport: "Transport",
+      culture: "Culture",
+      history: "History",
+      food: "Food & drink",
+      package: "Package",
+      accommodation: "Accommodation",
+    },
+    priceBasis: {
+      perPerson: "per person",
+      perGroup: "per group",
+    },
+    sampleListing: "Sample Listing",
+    details: "Details",
+    cardMax: "max",
+    catalog: {
+      transparencyTitle: "Transparency Notice:",
+      transparencyBody:
+        "All listings below are curated sample prototypes created to demonstrate the booking and planning architecture for local Tunisian operators, 4x4 drivers, and oasis guides. Real partner inventory will be onboarded as agreements finalize.",
+      searchPlaceholder: "Search experiences, desert tours, or guides...",
+      all: "All Experiences",
+      noMatchTitle: "No experiences match your search",
+      noMatchBody:
+        "Try searching with a different term or select “All Experiences”.",
+      reset: "Reset Filters",
+    },
+    detail: {
+      includedTitle: "What’s included",
+      notIncludedTitle: "Not included",
+      backToExperiences: "Back to experiences",
+    },
+    booking: {
+      duration: "Duration",
+      maxGroup: "Max group size",
+      guests: "guests",
+      request: "Request Booking",
+      requestReceived: "Booking Request Received",
+      thankYou:
+        "Thank you, {name}. Your request for {guests} travelers on {date} has been logged in development preview mode.",
+      nameFallback: "Traveler",
+      noPayment:
+        "Because this is a development sample, no payment was charged. You can add this stop to your trip plan.",
+      addItinerary: "Add to Itinerary Planner",
+      addItineraryShort: "Add to Itinerary",
+      submitAnother: "Submit another inquiry",
+      selectDate: "Select Date",
+      travelers: "Travelers",
+      contactName: "Contact Name",
+      namePlaceholder: "e.g. Leila Bouazizi",
+      emailAddress: "Email Address",
+      emailPlaceholder: "name@example.com",
+      submit: "Submit Booking Inquiry",
+      cancel: "Cancel",
+      note: "Inquiries are non-binding requests. No payment is charged today.",
+    },
+    items: {
+      "desert-totality-viewing": {
+        title: "Desert Totality Viewing with Local Guide",
+        providerName: "Sample Provider — Sahara Sky Tours",
+        summary:
+          "A guided pre-dawn departure to a selected viewing point on the salt flats, with transport and shaded seating.",
+        includes: ["Return transport", "Local guide", "Water and snacks"],
+        excludes: ["Solar viewing glasses", "Personal insurance"],
+      },
+      "tozeur-oasis-cultural-walk": {
+        title: "Tozeur Oasis Cultural Walk",
+        providerName: "Sample Provider — Oasis Walks",
+        summary:
+          "A half-day walk through the palm groves and old town, covering irrigation traditions and local crafts.",
+        includes: ["Guide", "Mint tea stop"],
+        excludes: ["Transport to meeting point", "Meals"],
+      },
+      "gabes-seafront-food-tour": {
+        title: "Gabès Seafront Food Tour",
+        providerName: "Sample Provider — Coastal Flavours",
+        summary:
+          "An evening tasting walk along the seafront featuring local seafood and southern Tunisian specialities.",
+        includes: ["Tastings at five stops", "Guide"],
+        excludes: ["Drinks outside the set menu", "Transport"],
+      },
+      "douz-desert-transfer": {
+        title: "Private Transfer to Douz Viewing Area",
+        providerName: "Sample Provider — Southern Transfers",
+        summary:
+          "A private vehicle and driver for the eclipse morning, with flexible pick-up from selected southern hotels.",
+        includes: ["Vehicle and driver", "Fuel"],
+        excludes: ["Viewing equipment", "Guide"],
+      },
+    },
+  },
+  experiencePage: {
+    metadataTitle: "Experiences — Bookable Tours & Desert Excursions",
+    metadataDescription:
+      "Browse eclipse viewing excursions, desert 4x4 transfers, cultural oasis walks and culinary tastings across Tunisia.",
+    eyebrow: "Experiences",
+    title: "Experiences to book around the eclipse",
+    description:
+      "Desert observation camps, private 4x4 transfers, historic medina walks and culinary tasting tours. Transparent pricing, inclusions, and provider details.",
+  },
   footer: {
     theEclipse: "The eclipse",
     howEclipseWorks: "How the eclipse works",
@@ -1344,6 +1512,9 @@
 };
 
 export type Dictionary = typeof en;
+
+
+
 
 
 

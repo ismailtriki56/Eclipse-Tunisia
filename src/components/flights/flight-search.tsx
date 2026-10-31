@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ArrowUpRight, CalendarDays, Plane, Search, Users } from "lucide-react";
 import { airports, commonOrigins, flightSearchUrl, timetableUrl } from "@/data/flights";
 import { useLanguage } from "@/context/language-context";
+import { airportText, originText } from "@/lib/flight-text";
 
 export function FlightSearch() {
   const { t } = useLanguage();
@@ -47,7 +48,7 @@ export function FlightSearch() {
             >
               {commonOrigins.map((item) => (
                 <option key={item.iata} value={item.iata}>
-                  {item.city} ({item.iata})
+                  {originText(t, item.iata, item.city)} ({item.iata})
                 </option>
               ))}
             </select>
@@ -62,11 +63,14 @@ export function FlightSearch() {
               onChange={(event) => setDestination(event.target.value)}
               className="mt-2 w-full rounded-xl border border-line bg-ivory px-3 py-3 text-sm font-medium text-ink focus:border-navy focus:outline-none"
             >
-              {airports.map((airport) => (
-                <option key={airport.iata} value={airport.iata}>
-                  {airport.city} - {airport.name} ({airport.iata})
-                </option>
-              ))}
+              {airports.map((airport) => {
+                const copy = airportText(t, airport);
+                return (
+                  <option key={airport.iata} value={airport.iata}>
+                    {copy.city} - {copy.name} ({airport.iata})
+                  </option>
+                );
+              })}
             </select>
           </label>
 
@@ -139,7 +143,7 @@ export function FlightSearch() {
               {t.flights.whyAirport.replace("{iata}", selectedAirport.iata)}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-muted">
-              {selectedAirport.note}
+              {airportText(t, selectedAirport).note}
             </p>
             <a
               href={timetableUrl(origin, destination)}
@@ -158,27 +162,32 @@ export function FlightSearch() {
           {t.flights.gateways}
         </p>
         <div className="mt-4 space-y-2.5">
-          {airports.map((airport) => (
-            <a
-              key={airport.iata}
-              href={airport.searchUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-start justify-between gap-4 rounded-xl border border-line bg-white p-4 transition-colors hover:border-navy"
-            >
-              <div>
-                <p className="font-display text-base font-semibold text-ink">
-                  {airport.city}{" "}
-                  <span className="font-mono text-xs font-medium text-muted">
-                    {airport.iata}
-                  </span>
-                </p>
-                <p className="mt-0.5 text-xs text-muted">{airport.name}</p>
-                <p className="mt-2 text-xs font-medium text-clay">{airport.bestFor}</p>
-              </div>
-              <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-navy" />
-            </a>
-          ))}
+          {airports.map((airport) => {
+            const copy = airportText(t, airport);
+            return (
+              <a
+                key={airport.iata}
+                href={airport.searchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start justify-between gap-4 rounded-xl border border-line bg-white p-4 transition-colors hover:border-navy"
+              >
+                <div>
+                  <p className="font-display text-base font-semibold text-ink">
+                    {copy.city}{" "}
+                    <span className="font-mono text-xs font-medium text-muted">
+                      {airport.iata}
+                    </span>
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted">{copy.name}</p>
+                  <p className="mt-2 text-xs font-medium text-clay">
+                    {copy.bestFor}
+                  </p>
+                </div>
+                <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-navy" />
+              </a>
+            );
+          })}
         </div>
         <p className="mt-4 text-xs leading-relaxed text-muted">
           {t.flights.gatewayNote}
@@ -187,3 +196,4 @@ export function FlightSearch() {
     </div>
   );
 }
+

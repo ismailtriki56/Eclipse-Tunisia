@@ -413,3 +413,19 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   characters in all locale files.
 - Remaining: experiences and flights editorial data are still English; only the
   Iberostar has licensed photos.
+
+## 2026 Redesign — Phase 7 (experiences and flights localized)
+
+- Added `flightText` (7 airports and 12 common origins) and wired the flight
+  search, airport selector and gateway list to localized names and notes.
+- Added `experienceText` (4 sample experiences, categories, price basis, detail
+  copy and the sample booking card) and `experiencePage` header metadata.
+- Experiences catalog search, filters, transparency notice, empty state, cards
+  and detail pages now follow the active locale; the inquiry card is fully
+  localized and still clearly marked as a development sample.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (767
+  keys), `npm test` (6/6) and `npm run build` (200 pages); 0 replacement
+  characters in all locale files.
+- Remaining: package/hotel data is localized, but only the Iberostar has
+  licensed photos; `/plan?addExp=` and `/plan?addDest=` links still point at the
+  enquiry page and need a cleanup.

@@ -358,6 +358,174 @@
     disclaimer:
       "Cette page fournit uniquement des conseils généraux. Elle ne remplace pas les consignes de sécurité officielles ni l'avis de professionnels qualifiés.",
   },
+  flightText: {
+    airports: {
+      TUN: {
+        name: "Aéroport international Tunis–Carthage",
+        city: "Tunis",
+        role: "Principale porte d'entrée internationale",
+        bestFor: "Arrivées toute l'année et côte nord",
+        note: "Le principal aéroport de la capitale, avec le plus grand choix de correspondances routières et ferroviaires.",
+      },
+      MIR: {
+        name: "Aéroport international Monastir Habib Bourguiba",
+        city: "Monastir",
+        role: "Porte d'entrée la plus proche de Mahdia",
+        bestFor: "Mahdia, Sousse et la côte centrale",
+        note: "Le point d'arrivée pratique pour un forfait à Mahdia : le transfert est bien plus court que depuis Tunis.",
+      },
+      NBE: {
+        name: "Aéroport international d'Enfidha–Hammamet",
+        city: "Enfidha",
+        role: "Porte d'entrée de la côte centrale",
+        bestFor: "Sousse, Hammamet et l'axe A1",
+        note: "Un aéroport moderne desservant la côte centrale, avec un accès direct au réseau autoroutier.",
+      },
+      DJE: {
+        name: "Aéroport international de Djerba–Zarzis",
+        city: "Djerba",
+        role: "Porte d'entrée du sud insulaire",
+        bestFor: "Djerba, Gabès et le sud-est",
+        note: "Le point d'arrivée le plus direct pour Djerba, où l'île connaît l'une des plus longues totalités de Tunisie.",
+      },
+      TOE: {
+        name: "Aéroport international de Tozeur–Nefta",
+        city: "Tozeur",
+        role: "Porte d'entrée du désert",
+        bestFor: "Tozeur, Nefta et Chott el Jerid",
+        note: "Un aéroport plus petit avec un service limité. Vérifiez les liaisons actuelles avant de construire un itinéraire dans le désert.",
+      },
+      SFA: {
+        name: "Aéroport international de Sfax–Thyna",
+        city: "Sfax",
+        role: "Porte d'entrée du centre-est",
+        bestFor: "Sfax, Kerkennah et la côte centrale",
+        note: "Une alternative utile pour la côte centrale, avec moins de liaisons internationales que Tunis.",
+      },
+      GAE: {
+        name: "Aéroport international de Gabès–Matmata",
+        city: "Gabès",
+        role: "Alternative du sud",
+        bestFor: "Gabès, Matmata et la côte sud",
+        note: "Un petit aéroport régional. Vérifiez les horaires avant de compter sur lui pour arriver pour l'éclipse.",
+      },
+    },
+    origins: {
+      LHR: "Londres Heathrow",
+      LGW: "Londres Gatwick",
+      CDG: "Paris Charles de Gaulle",
+      ORY: "Paris Orly",
+      FRA: "Francfort",
+      FCO: "Rome Fiumicino",
+      MAD: "Madrid",
+      AMS: "Amsterdam",
+      IST: "Istanbul",
+      DXB: "Dubaï",
+      JFK: "New York JFK",
+      YUL: "Montréal",
+    },
+  },
+  experienceText: {
+    categories: {
+      "eclipse-viewing": "Observation de l'éclipse",
+      transport: "Transport",
+      culture: "Culture",
+      history: "Histoire",
+      food: "Gastronomie",
+      package: "Forfait",
+      accommodation: "Hébergement",
+    },
+    priceBasis: {
+      perPerson: "par personne",
+      perGroup: "par groupe",
+    },
+    sampleListing: "Annonce exemple",
+    details: "Détails",
+    cardMax: "max",
+    catalog: {
+      transparencyTitle: "Avis de transparence :",
+      transparencyBody:
+        "Toutes les annonces ci-dessous sont des prototypes d'exemple conçus pour démontrer l'architecture de réservation et de planification pour les opérateurs tunisiens, les chauffeurs de 4x4 et les guides des oasis. L'inventaire réel des partenaires sera intégré au fur et à mesure de la finalisation des accords.",
+      searchPlaceholder: "Rechercher des expériences, circuits dans le désert ou guides…",
+      all: "Toutes les expériences",
+      noMatchTitle: "Aucune expérience ne correspond à votre recherche",
+      noMatchBody:
+        "Essayez un autre terme ou sélectionnez « Toutes les expériences ».",
+      reset: "Réinitialiser les filtres",
+    },
+    detail: {
+      includedTitle: "Ce qui est inclus",
+      notIncludedTitle: "Non inclus",
+      backToExperiences: "Retour aux expériences",
+    },
+    booking: {
+      duration: "Durée",
+      maxGroup: "Taille maximale du groupe",
+      guests: "personnes",
+      request: "Demander une réservation",
+      requestReceived: "Demande de réservation reçue",
+      thankYou:
+        "Merci, {name}. Votre demande pour {guests} personnes le {date} a été enregistrée en mode aperçu de développement.",
+      nameFallback: "Voyageur",
+      noPayment:
+        "Comme il s'agit d'un exemple de développement, aucun paiement n'a été débité. Vous pouvez ajouter cette étape à votre programme.",
+      addItinerary: "Ajouter au planificateur d'itinéraire",
+      addItineraryShort: "Ajouter à l'itinéraire",
+      submitAnother: "Envoyer une autre demande",
+      selectDate: "Choisir une date",
+      travelers: "Voyageurs",
+      contactName: "Nom du contact",
+      namePlaceholder: "ex. Leïla Bouazizi",
+      emailAddress: "Adresse e-mail",
+      emailPlaceholder: "nom@exemple.com",
+      submit: "Envoyer la demande de réservation",
+      cancel: "Annuler",
+      note: "Les demandes ne sont pas contraignantes. Aucun paiement n'est débité aujourd'hui.",
+    },
+    items: {
+      "desert-totality-viewing": {
+        title: "Observation de la totalité dans le désert avec guide local",
+        providerName: "Prestataire exemple — Sahara Sky Tours",
+        summary:
+          "Départ guidé avant l'aube vers un point d'observation choisi sur les chotts, avec transport et sièges à l'ombre.",
+        includes: ["Transport aller-retour", "Guide local", "Eau et collations"],
+        excludes: ["Lunettes d'observation solaire", "Assurance personnelle"],
+      },
+      "tozeur-oasis-cultural-walk": {
+        title: "Promenade culturelle dans l'oasis de Tozeur",
+        providerName: "Prestataire exemple — Oasis Walks",
+        summary:
+          "Une demi-journée de marche dans les palmeraies et la vieille ville, entre traditions d'irrigation et artisanat local.",
+        includes: ["Guide", "Pause thé à la menthe"],
+        excludes: ["Transport jusqu'au point de rendez-vous", "Repas"],
+      },
+      "gabes-seafront-food-tour": {
+        title: "Circuit gastronomique sur le front de mer de Gabès",
+        providerName: "Prestataire exemple — Coastal Flavours",
+        summary:
+          "Une balade gourmande en soirée le long du front de mer, à la découverte des produits de la mer et des spécialités du sud tunisien.",
+        includes: ["Dégustations à cinq étapes", "Guide"],
+        excludes: ["Boissons hors menu", "Transport"],
+      },
+      "douz-desert-transfer": {
+        title: "Transfert privé vers la zone d'observation de Douz",
+        providerName: "Prestataire exemple — Southern Transfers",
+        summary:
+          "Un véhicule privé avec chauffeur pour la matinée de l'éclipse, avec prise en charge souple depuis certains hôtels du sud.",
+        includes: ["Véhicule et chauffeur", "Carburant"],
+        excludes: ["Matériel d'observation", "Guide"],
+      },
+    },
+  },
+  experiencePage: {
+    metadataTitle: "Expériences — Circuits et excursions dans le désert",
+    metadataDescription:
+      "Parcourez les excursions d'observation de l'éclipse, les transferts en 4x4 dans le désert, les balades culturelles dans les oasis et les dégustations culinaires en Tunisie.",
+    eyebrow: "Expériences",
+    title: "Des expériences à réserver autour de l'éclipse",
+    description:
+      "Camps d'observation dans le désert, transferts privés en 4x4, balades dans les médinas historiques et circuits de dégustation culinaire. Prix transparents, prestations incluses et détails du prestataire.",
+  },
   footer: {
     theEclipse: "L'éclipse",
     howEclipseWorks: "Comment fonctionne l'éclipse",
@@ -1350,6 +1518,9 @@
     },
   },
 };
+
+
+
 
 
 

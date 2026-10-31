@@ -8,6 +8,7 @@ import { Card, Container } from "@/components/ui/card";
 import { BookingRequestCard } from "@/components/experiences/booking-request-card";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import { destinationText } from "@/lib/destination-text";
+import { categoryText, experienceText } from "@/lib/experience-text";
 
 export function generateStaticParams() {
   return experiences.map((e) => ({ slug: e.slug }));
@@ -18,10 +19,13 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale: localeParam, slug } = await params;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const t = getDictionary(locale);
   const experience = getExperience(slug);
   if (!experience) return { title: "Experience not found" };
-  return { title: experience.title, description: experience.summary };
+  const copy = experienceText(t, experience);
+  return { title: copy.title, description: copy.summary };
 }
 
 export default async function ExperienceDetailPage({
@@ -34,6 +38,7 @@ export default async function ExperienceDetailPage({
   const t = getDictionary(locale);
   const experience = getExperience(slug);
   if (!experience) notFound();
+  const copy = experienceText(t, experience);
 
   const destination = getDestination(experience.destinationSlug);
   const destinationName = destination
@@ -44,25 +49,27 @@ export default async function ExperienceDetailPage({
     <Container className="grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.6fr_1fr]">
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <Badge>{experience.category.replace("-", " ")}</Badge>
-          {experience.isSample ? <Badge tone="sample">Sample listing</Badge> : null}
+          <Badge>{categoryText(t, experience.category)}</Badge>
+          {experience.isSample ? (
+            <Badge tone="sample">{t.experienceText.sampleListing}</Badge>
+          ) : null}
         </div>
         <h1 className="mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-          {experience.title}
+          {copy.title}
         </h1>
         <p className="mt-3 text-sm text-muted">
           {destinationName} &middot;{" "}
-          {experience.providerName}
+          {copy.providerName}
         </p>
-        <p className="mt-6 leading-relaxed text-muted">{experience.summary}</p>
+        <p className="mt-6 leading-relaxed text-muted">{copy.summary}</p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           <Card className="p-6">
             <h2 className="font-display text-lg font-semibold text-ink">
-              What&rsquo;s included
+              {t.experienceText.detail.includedTitle}
             </h2>
             <ul className="mt-3 space-y-2 text-sm text-muted">
-              {experience.includes.map((item) => (
+              {copy.includes.map((item) => (
                 <li key={item} className="flex gap-3">
                   <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
                   {item}
@@ -72,10 +79,10 @@ export default async function ExperienceDetailPage({
           </Card>
           <Card className="p-6">
             <h2 className="font-display text-lg font-semibold text-ink">
-              Not included
+              {t.experienceText.detail.notIncludedTitle}
             </h2>
             <ul className="mt-3 space-y-2 text-sm text-muted">
-              {experience.excludes.map((item) => (
+              {copy.excludes.map((item) => (
                 <li key={item} className="flex gap-3">
                   <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-danger" />
                   {item}
@@ -92,4 +99,5 @@ export default async function ExperienceDetailPage({
     </Container>
   );
 }
+
 

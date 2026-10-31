@@ -1,20 +1,33 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-shell";
 import { ExperienceCatalog } from "@/components/experiences/experience-catalog";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 
-export const metadata: Metadata = {
-  title: "Experiences — Bookable Tours & Desert Excursions",
-  description:
-    "Browse eclipse viewing excursions, desert 4x4 transfers, cultural oasis walks and culinary tastings across Tunisia.",
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function ExperiencesPage() {
+function dictionaryFor(locale: string) {
+  return getDictionary(isLocale(locale) ? locale : defaultLocale);
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = dictionaryFor(locale);
+  return {
+    title: t.experiencePage.metadataTitle,
+    description: t.experiencePage.metadataDescription,
+  };
+}
+
+export default async function ExperiencesPage({ params }: Props) {
+  const { locale } = await params;
+  const t = dictionaryFor(locale);
+
   return (
     <>
       <PageHeader
-        eyebrow="Experiences"
-        title="Experiences to book around the eclipse"
-        description="Desert observation camps, private 4x4 transfers, historic medina walks and culinary tasting tours. Transparent pricing, inclusions, and provider details."
+        eyebrow={t.experiencePage.eyebrow}
+        title={t.experiencePage.title}
+        description={t.experiencePage.description}
       />
       <ExperienceCatalog />
     </>
