@@ -1,3 +1,25 @@
+export type StayAmenity =
+  | "beachfront"
+  | "pool"
+  | "rooftopPool"
+  | "spa"
+  | "thalasso"
+  | "kidsClub"
+  | "restaurant"
+  | "bar"
+  | "wifi"
+  | "parking"
+  | "fitness"
+  | "airConditioning"
+  | "breakfast"
+  | "terrace"
+  | "seaView"
+  | "garden"
+  | "golf"
+  | "casino"
+  | "allInclusive"
+  | "familyRooms";
+
 export interface Stay {
   slug: string;
   name: string;
@@ -8,6 +30,9 @@ export interface Stay {
   summary: string;
   highlights: string[];
   bestFor: string[];
+  stars: number | null;
+  amenities: StayAmenity[];
+  photoKeys: string[];
   officialUrl: string;
   bookingSearchUrl: string;
   verifiedOn: string;
@@ -33,6 +58,22 @@ export const stays: Stay[] = [
       "All-inclusive option",
     ],
     bestFor: ["Families", "Beach days", "Mahdia old town"],
+    stars: 5,
+    amenities: [
+      "beachfront",
+      "thalasso",
+      "spa",
+      "pool",
+      "kidsClub",
+      "allInclusive",
+      "restaurant",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [
+      "iberostarRoyalElMansourExterior",
+      "iberostarRoyalElMansourGrounds",
+    ],
     officialUrl:
       "https://www.iberostar.com/en/hotels/mahdia/iberostar-selection-royal-el-mansour",
     bookingSearchUrl: bookingSearch("Mahdia"),
@@ -54,6 +95,18 @@ export const stays: Stay[] = [
       "Family rooms",
     ],
     bestFor: ["Resort stays", "Families", "Pool time"],
+    stars: 5,
+    amenities: [
+      "pool",
+      "garden",
+      "seaView",
+      "thalasso",
+      "familyRooms",
+      "restaurant",
+      "spa",
+      "wifi",
+    ],
+    photoKeys: [],
     officialUrl: "https://mahdiapalace.tn/en-gb/",
     bookingSearchUrl: bookingSearch("Mahdia"),
     verifiedOn: "Official hotel website",
@@ -74,6 +127,18 @@ export const stays: Stay[] = [
       "All-inclusive stays",
     ],
     bestFor: ["All-inclusive", "Families", "Mixed-age groups"],
+    stars: 5,
+    amenities: [
+      "beachfront",
+      "pool",
+      "spa",
+      "familyRooms",
+      "allInclusive",
+      "restaurant",
+      "bar",
+      "wifi",
+    ],
+    photoKeys: [],
     officialUrl: "https://nourpalace.tn/en-gb/",
     bookingSearchUrl: bookingSearch("Mahdia"),
     verifiedOn: "Official hotel website",
@@ -94,6 +159,19 @@ export const stays: Stay[] = [
       "Close to Houmt Souk",
     ],
     bestFor: ["Families", "Spa breaks", "Djerba's medina"],
+    stars: 5,
+    amenities: [
+      "beachfront",
+      "thalasso",
+      "spa",
+      "pool",
+      "kidsClub",
+      "restaurant",
+      "fitness",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
     officialUrl:
       "https://www.radissonhotels.com/en-us/hotels/radisson-blu-resort-djerba",
     bookingSearchUrl: bookingSearch("Djerba"),
@@ -115,6 +193,19 @@ export const stays: Stay[] = [
       "Golf nearby",
     ],
     bestFor: ["Couples", "Suites", "Spa time"],
+    stars: 5,
+    amenities: [
+      "beachfront",
+      "spa",
+      "thalasso",
+      "seaView",
+      "golf",
+      "casino",
+      "restaurant",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
     officialUrl: "https://hasdrubalprestige.tn/en-gb",
     bookingSearchUrl: bookingSearch("Djerba"),
     verifiedOn: "Official hotel website",
@@ -135,6 +226,17 @@ export const stays: Stay[] = [
       "Spa and dining",
     ],
     bestFor: ["Desert stays", "Couples", "Oasis excursions"],
+    stars: 5,
+    amenities: [
+      "spa",
+      "pool",
+      "restaurant",
+      "bar",
+      "airConditioning",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
     officialUrl: "https://www.anantara.com/en/sahara-tozeur",
     bookingSearchUrl: bookingSearch("Tozeur"),
     verifiedOn: "Official hotel website",
@@ -155,10 +257,139 @@ export const stays: Stay[] = [
       "Medina access",
     ],
     bestFor: ["Resort stays", "Families", "Sousse medina"],
+    stars: 5,
+    amenities: [
+      "beachfront",
+      "spa",
+      "pool",
+      "kidsClub",
+      "restaurant",
+      "fitness",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
     officialUrl:
       "https://movenpick.accor.com/en/africa/tunisia/sousse/hotel-sousse.html",
     bookingSearchUrl: bookingSearch("Sousse"),
     verifiedOn: "Official hotel website",
+  },
+  {
+    slug: "radisson-hotel-sfax",
+    name: "Radisson Hotel Sfax",
+    city: "Sfax",
+    destinationSlug: "sfax",
+    setting: "City centre, near the medina and the Ribat",
+    character: "International five-star city hotel",
+    summary:
+      "A central Sfax hotel with a rooftop pool and city views, a spa, a fitness centre and a restaurant. The medina, the Ribat and the Archaeological Museum are within easy reach.",
+    highlights: [
+      "Rooftop pool",
+      "Spa and fitness centre",
+      "Central location",
+      "Parking on site",
+    ],
+    bestFor: ["City stays", "Comfort", "Medina access"],
+    stars: 5,
+    amenities: [
+      "rooftopPool",
+      "spa",
+      "fitness",
+      "restaurant",
+      "bar",
+      "airConditioning",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
+    officialUrl: "https://radissonsfax.tn/",
+    bookingSearchUrl: bookingSearch("Sfax"),
+    verifiedOn: "Official hotel website",
+  },
+  {
+    slug: "borj-dhiafa-sfax",
+    name: "Borj Dhiafa",
+    city: "Sfax",
+    destinationSlug: "sfax",
+    setting: "Route de Soukra, between the centre and the airport",
+    character: "Five-star boutique hotel with a spa",
+    summary:
+      "A boutique five-star hotel in a modern Tunisian building, with a spa and pool, two restaurants and a lounge bar. A quiet base south of the city with straightforward road access.",
+    highlights: [
+      "Spa and pool",
+      "Two restaurants",
+      "Boutique scale",
+      "Road access",
+    ],
+    bestFor: ["Quiet stays", "Couples", "Spa time"],
+    stars: 5,
+    amenities: [
+      "spa",
+      "pool",
+      "restaurant",
+      "bar",
+      "garden",
+      "airConditioning",
+      "wifi",
+      "parking",
+    ],
+    photoKeys: [],
+    officialUrl: "https://www.hotelborjdhiafa.com/",
+    bookingSearchUrl: bookingSearch("Sfax"),
+    verifiedOn: "Official hotel website",
+  },
+  {
+    slug: "hotel-cercina-kerkennah",
+    name: "Cercina Hotel",
+    city: "Kerkennah",
+    destinationSlug: "kerkennah",
+    setting: "Beachfront at Sidi Fredj, Ouled Yaneg",
+    character: "Family-run island hotel",
+    summary:
+      "A simple beachfront hotel on the Sidi Fredj shore, with air-conditioned rooms, a terrace restaurant and direct access to one of Kerkennah's quietest beaches.",
+    highlights: [
+      "Beachfront setting",
+      "Family-run",
+      "Seafood restaurant",
+      "Quiet shore",
+    ],
+    bestFor: ["Island stays", "Beach time", "Slow travel"],
+    stars: 2,
+    amenities: [
+      "beachfront",
+      "restaurant",
+      "bar",
+      "terrace",
+      "airConditioning",
+      "wifi",
+    ],
+    photoKeys: [],
+    officialUrl: "https://www.hotel-cercina.com/",
+    bookingSearchUrl: bookingSearch("Kerkennah"),
+    verifiedOn: "Official hotel website",
+  },
+  {
+    slug: "beit-el-ezz-kerkennah",
+    name: "Beit El Ezz",
+    city: "Kerkennah",
+    destinationSlug: "kerkennah",
+    setting: "Island guesthouse in a traditional house",
+    character: "Guesthouse with a courtyard",
+    summary:
+      "A small guesthouse in a traditional Kerkennah house, with a courtyard, breakfast and a handful of rooms. Best for travellers who want an island stay at a slower scale.",
+    highlights: [
+      "Traditional house",
+      "Courtyard",
+      "Breakfast",
+      "Small scale",
+    ],
+    bestFor: ["Slow travel", "Couples", "Island life"],
+    stars: null,
+    amenities: ["terrace", "breakfast", "airConditioning", "wifi"],
+    photoKeys: [],
+    officialUrl: "http://www.beitelezz-kerkennah.com/",
+    bookingSearchUrl: bookingSearch("Kerkennah"),
+    verifiedOn: "Official guesthouse website",
   },
 ];
 

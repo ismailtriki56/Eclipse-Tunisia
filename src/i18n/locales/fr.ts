@@ -326,7 +326,47 @@
     beforeBookBody:
       "Confirmez la chambre, les conditions d'annulation et la politique de la semaine de l'éclipse directement avec l'établissement.",
     noHotels: "Aucun hôtel vérifié n'est encore publié pour cette base.",
+    all: "Tous",
+    results: "{count} établissements",
+    compareStatus: "{selected}/3 sélectionnés pour comparer",
+    noRates: "Aucun tarif stocké",
+    compareTitle: "Comparer {count} établissements",
+    clearComparison: "Effacer la comparaison",
+    compareColumn: "Comparer",
+    city: "Ville",
+    setting: "Cadre",
+    character: "Style",
+    bestFor: "Idéal pour",
+    highlights: "Points forts",
+    visitSite: "Voir le site",
+    searchRates: "Rechercher les tarifs actuels",
+    addToCompare: "Ajouter {name} à la comparaison",
+    removeFromCompare: "Retirer {name} de la comparaison",
+    stars: "{count} étoiles",
+    guesthouse: "Maison d'hôtes",
     note: "{count} établissements sont listés. Un référencement n'est ni une recommandation ni un partenariat.",
+  },
+  stayAmenities: {
+    beachfront: "Bord de mer",
+    pool: "Piscine",
+    rooftopPool: "Piscine sur le toit",
+    spa: "Spa",
+    thalasso: "Thalassothérapie",
+    kidsClub: "Club enfants",
+    restaurant: "Restaurant",
+    bar: "Bar",
+    wifi: "Wi-Fi",
+    parking: "Parking",
+    fitness: "Salle de sport",
+    airConditioning: "Climatisation",
+    breakfast: "Petit-déjeuner",
+    terrace: "Terrasse",
+    seaView: "Vue mer",
+    garden: "Jardin",
+    golf: "Golf à proximité",
+    casino: "Casino à proximité",
+    allInclusive: "Tout compris",
+    familyRooms: "Chambres familiales",
   },
   availability: {
     open: "Disponible",
@@ -399,6 +439,22 @@
     "movenpick-resort-marine-spa-sousse": {
       whyEclipse:
         "Une base complète pour la phase partielle, avec un trajet simple vers le sud pour la totalité.",
+    },
+    "radisson-hotel-sfax": {
+      whyEclipse:
+        "Une base centrale avec un départ matinal facile vers l'ouest de la ville, loin des grands immeubles.",
+    },
+    "borj-dhiafa-sfax": {
+      whyEclipse:
+        "Une base calme au sud de la ville, avec un accès routier simple pour un trajet matinal le jour de l'éclipse.",
+    },
+    "hotel-cercina-kerkennah": {
+      whyEclipse:
+        "Une côte insulaire tournée vers l'ouest et un court transfert simplifient la matinée de l'éclipse.",
+    },
+    "beit-el-ezz-kerkennah": {
+      whyEclipse:
+        "Une petite base insulaire pour ceux qui veulent une semaine d'éclipse calme, à un rythme plus lent.",
     },
   },
 };

@@ -321,3 +321,23 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   excluded lists still render from English data; secondary editorial pages and
   the stays directory are not yet translated.
 
+## 2026 Redesign — Phase 3 (verified stays directory)
+
+- Extended `Stay` with `stars`, `amenities`, `photoKeys` and added four verified
+  properties: Radisson Hotel Sfax, Borj Dhiafa (Sfax), Cercina Hotel and Beit
+  El Ezz (Kerkennah). Every entry links to an official site.
+- Added local Iberostar photos to `src/data/images.ts`
+  (`iberostarRoyalElMansourExterior`, `iberostarRoyalElMansourGrounds`,
+  CC BY 2.0, Sharon Hahn Darlin) with required attribution.
+- Rebuilt `StaysDirectory` around `t.stays`: localized filters, counts, compare
+  panel and card chrome, star/guesthouse labels, amenity labels, official-site
+  and rate-search actions, photo or “photo coming soon” placeholder, and the
+  per-hotel eclipse note from `hotelText`.
+- Added `stayAmenities` and new `stays` keys to `en`, `fr` and `ar`; added
+  eclipse notes for the four new properties.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (333
+  keys), `npm test` (6/6) and `npm run build` (200 pages).
+- Remaining: hotel summaries, settings, characters, highlights and best-for
+  lists are still English data; only the Iberostar has licensed photos. The
+  package itinerary/included/excluded lists, destination editorial data and
+  secondary editorial pages are still English.

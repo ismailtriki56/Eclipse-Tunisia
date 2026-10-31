@@ -326,7 +326,47 @@
     beforeBookBody:
       "أكّد الغرفة وشروط الإلغاء وسياسة أسبوع الكسوف مباشرة مع المنشأة.",
     noHotels: "لا يوجد فندق موثّق منشور لهذه القاعدة بعد.",
+    all: "الكل",
+    results: "{count} منشآت",
+    compareStatus: "{selected}/3 مختارة للمقارنة",
+    noRates: "لا أسعار مخزّنة",
+    compareTitle: "قارن {count} منشآت",
+    clearComparison: "مسح المقارنة",
+    compareColumn: "قارن",
+    city: "المدينة",
+    setting: "الموقع",
+    character: "الطابع",
+    bestFor: "الأنسب لـ",
+    highlights: "أبرز المزايا",
+    visitSite: "زيارة الموقع",
+    searchRates: "ابحث عن الأسعار الحالية",
+    addToCompare: "أضف {name} إلى المقارنة",
+    removeFromCompare: "أزل {name} من المقارنة",
+    stars: "{count} نجوم",
+    guesthouse: "بيت ضيافة",
     note: "{count} منشآت مدرجة. الإدراج ليس توصية ولا شراكة.",
+  },
+  stayAmenities: {
+    beachfront: "على الشاطئ",
+    pool: "مسبح",
+    rooftopPool: "مسبح على السطح",
+    spa: "سبا",
+    thalasso: "العلاج بمياه البحر",
+    kidsClub: "نادي أطفال",
+    restaurant: "مطعم",
+    bar: "بار",
+    wifi: "واي فاي",
+    parking: "موقف سيارات",
+    fitness: "صالة رياضة",
+    airConditioning: "تكييف",
+    breakfast: "فطور",
+    terrace: "تراس",
+    seaView: "إطلالة على البحر",
+    garden: "حديقة",
+    golf: "غولف قريب",
+    casino: "كازينو قريب",
+    allInclusive: "شامل كلياً",
+    familyRooms: "غرف عائلية",
   },
   availability: {
     open: "متاح",
@@ -399,6 +439,22 @@
     "movenpick-resort-marine-spa-sousse": {
       whyEclipse:
         "قاعدة متكاملة للمرحلة الجزئية، مع قيادة مباشرة جنوباً نحو الكسوف الكلي.",
+    },
+    "radisson-hotel-sfax": {
+      whyEclipse:
+        "قاعدة مركزية مع انطلاق صباحي سهل غرب المدينة، بعيداً عن المباني العالية.",
+    },
+    "borj-dhiafa-sfax": {
+      whyEclipse:
+        "قاعدة هادئة جنوب المدينة مع وصول سهل بالطريق لانطلاق صباح يوم الكسوف.",
+    },
+    "hotel-cercina-kerkennah": {
+      whyEclipse:
+        "ساحل جزيري يواجه الغرب ونقل قصير يجعلان صباح الكسوف سهلاً.",
+    },
+    "beit-el-ezz-kerkennah": {
+      whyEclipse:
+        "قاعدة جزيرية صغيرة لمن يريدون أسبوع كسوف هادئاً بإيقاع أبطأ.",
     },
   },
 };

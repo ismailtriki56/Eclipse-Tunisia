@@ -325,7 +325,47 @@
     beforeBookBody:
       "Confirm the room, cancellation terms and eclipse-week policy directly with the property.",
     noHotels: "No verified hotel is published for this base yet.",
+    all: "All",
+    results: "{count} properties",
+    compareStatus: "{selected}/3 selected to compare",
+    noRates: "No rates stored",
+    compareTitle: "Compare {count} stays",
+    clearComparison: "Clear comparison",
+    compareColumn: "Compare",
+    city: "City",
+    setting: "Setting",
+    character: "Character",
+    bestFor: "Best for",
+    highlights: "Highlights",
+    visitSite: "Visit site",
+    searchRates: "Search current rates",
+    addToCompare: "Add {name} to comparison",
+    removeFromCompare: "Remove {name} from comparison",
+    stars: "{count}-star",
+    guesthouse: "Guesthouse",
     note: "{count} properties are listed. Listing a property is not an endorsement or a partnership.",
+  },
+  stayAmenities: {
+    beachfront: "Beachfront",
+    pool: "Pool",
+    rooftopPool: "Rooftop pool",
+    spa: "Spa",
+    thalasso: "Thalassotherapy",
+    kidsClub: "Kids' club",
+    restaurant: "Restaurant",
+    bar: "Bar",
+    wifi: "Wi-Fi",
+    parking: "Parking",
+    fitness: "Fitness centre",
+    airConditioning: "Air conditioning",
+    breakfast: "Breakfast",
+    terrace: "Terrace",
+    seaView: "Sea view",
+    garden: "Garden",
+    golf: "Golf nearby",
+    casino: "Casino nearby",
+    allInclusive: "All-inclusive",
+    familyRooms: "Family rooms",
   },
   availability: {
     open: "Open",
@@ -398,6 +438,22 @@
     "movenpick-resort-marine-spa-sousse": {
       whyEclipse:
         "A full-service base for the partial phase, with a straightforward drive south for totality.",
+    },
+    "radisson-hotel-sfax": {
+      whyEclipse:
+        "A central base with an easy early departure west of the city, away from tall buildings.",
+    },
+    "borj-dhiafa-sfax": {
+      whyEclipse:
+        "A quiet base south of the city, with straightforward road access for an early eclipse-morning drive.",
+    },
+    "hotel-cercina-kerkennah": {
+      whyEclipse:
+        "A west-facing island shore and a short transfer make eclipse morning straightforward.",
+    },
+    "beit-el-ezz-kerkennah": {
+      whyEclipse:
+        "A small island base for travellers who want a quiet eclipse week at a slower scale.",
     },
   },
 };
