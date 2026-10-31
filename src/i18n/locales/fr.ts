@@ -469,8 +469,8 @@
       nameFallback: "Voyageur",
       noPayment:
         "Comme il s'agit d'un exemple de développement, aucun paiement n'a été débité. Vous pouvez ajouter cette étape à votre programme.",
-      addItinerary: "Ajouter au planificateur d'itinéraire",
-      addItineraryShort: "Ajouter à l'itinéraire",
+      addItinerary: "Demander un devis",
+      addItineraryShort: "Demander un devis",
       submitAnother: "Envoyer une autre demande",
       selectDate: "Choisir une date",
       travelers: "Voyageurs",
@@ -525,6 +525,58 @@
     title: "Des expériences à réserver autour de l'éclipse",
     description:
       "Camps d'observation dans le désert, transferts privés en 4x4, balades dans les médinas historiques et circuits de dégustation culinaire. Prix transparents, prestations incluses et détails du prestataire.",
+  },
+  eclipsePage: {
+    metadataTitle: "L'éclipse de 2027 en Tunisie — heures locales vérifiées",
+    metadataDescription:
+      "Heures de totalité vérifiées par lieu pour la Tunisie le 2 août 2027, calculées à partir des éléments besseliens de la NASA.",
+    eyebrow: "Aperçu astronomique",
+    title: "L'éclipse totale de soleil de 2027 en Tunisie",
+    description:
+      "Le lundi 2 août 2027, l'ombre de la Lune traverse le sud de la Tunisie. Cette page se concentre sur la Tunisie avec des heures locales vérifiées (Africa/Tunis).",
+    greatestLabel: "Plus grande éclipse (mondiale)",
+    greatestNote: "{time}. L'éclipse se produit le matin en Tunisie.",
+    magnitudeLabel: "Magnitude de l'éclipse",
+    magnitudeNote:
+      "Le diamètre apparent de la Lune dépasse celui du Soleil au maximum de l'éclipse.",
+    widthLabel: "Largeur maximale de la bande",
+    widthNote: "Largeur du corridor au maximum de l'éclipse.",
+    sourceLabel: "Source",
+    viewNasa: "Voir les données de la NASA",
+    timesEyebrow: "Heures locales vérifiées",
+    timesTitle: "La totalité en Tunisie (Africa/Tunis)",
+    timesDescription:
+      "Les heures ci-dessous sont propres à chaque lieu. Les durées varient selon la destination.",
+    buildItinerary: "Créer un itinéraire",
+    columns: {
+      location: "Lieu",
+      firstContact: "Début de la phase partielle",
+      secondContact: "Début de la totalité",
+      maximum: "Maximum",
+      thirdContact: "Fin de la totalité",
+      fourthContact: "Fin de la phase partielle",
+      duration: "Durée de la totalité",
+    },
+    allTimes: "Toutes les heures sont en Africa/Tunis (UTC+1).",
+    explorerEyebrow: "Exploreur interactif de la bande",
+    explorerTitle: "Là où l'ombre traverse la Tunisie",
+    explorerDescription:
+      "Explorez des lieux vérifiés avec la bande de totalité.",
+    sourcesTitle: "Sources",
+    sources: {
+      timeanddateTunisia: "Timeanddate.com - Éclipse en Tunisie",
+      timeanddateMahdia: "Timeanddate.com - Mahdia",
+      timeanddateDjerba: "Timeanddate.com - Houmt Souk (Djerba)",
+      nasaFuture: "NASA - Prochaines éclipses",
+      nasaData: "NASA GSFC - Données d'éclipse",
+    },
+  },
+  notFound: {
+    title: "Page introuvable",
+    description:
+      "La page que vous cherchez n'existe pas ou a été déplacée.",
+    home: "Retour à l'accueil",
+    explorer: "Ouvrir l'Explorateur d'éclipse",
   },
   footer: {
     theEclipse: "L'éclipse",
@@ -1070,7 +1122,7 @@
     facilities: "Équipements",
     practicalities: "Aspects pratiques",
     viewExplorer: "Voir dans l'explorateur",
-    addItinerary: "Ajouter à l'itinéraire",
+    addItinerary: "Demander un devis",
     allDestinations: "Toutes les destinations",
     backToDestinations: "Retour aux destinations",
     backToAll: "Retour à tous les lieux",
@@ -1518,6 +1570,9 @@
     },
   },
 };
+
+
+
 
 
 

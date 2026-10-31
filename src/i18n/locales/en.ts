@@ -469,8 +469,8 @@
       nameFallback: "Traveler",
       noPayment:
         "Because this is a development sample, no payment was charged. You can add this stop to your trip plan.",
-      addItinerary: "Add to Itinerary Planner",
-      addItineraryShort: "Add to Itinerary",
+      addItinerary: "Request a quote",
+      addItineraryShort: "Request a quote",
       submitAnother: "Submit another inquiry",
       selectDate: "Select Date",
       travelers: "Travelers",
@@ -525,6 +525,56 @@
     title: "Experiences to book around the eclipse",
     description:
       "Desert observation camps, private 4x4 transfers, historic medina walks and culinary tasting tours. Transparent pricing, inclusions, and provider details.",
+  },
+  eclipsePage: {
+    metadataTitle: "The 2027 Eclipse in Tunisia — Verified Local Times",
+    metadataDescription:
+      "Verified location-specific totality times for Tunisia on 2 August 2027, computed from NASA Besselian elements.",
+    eyebrow: "Astronomical Overview",
+    title: "The 2027 Total Solar Eclipse in Tunisia",
+    description:
+      "On Monday, 2 August 2027, the Moon's umbral shadow crosses southern Tunisia. This page focuses on Tunisia with verified local (Africa/Tunis) times.",
+    greatestLabel: "Greatest eclipse (global)",
+    greatestNote: "{time}. Eclipse occurs in the morning in Tunisia.",
+    magnitudeLabel: "Eclipse magnitude",
+    magnitudeNote:
+      "Moon apparent diameter exceeds the Sun at greatest eclipse.",
+    widthLabel: "Maximum path width",
+    widthNote: "Corridor width at greatest eclipse.",
+    sourceLabel: "Source",
+    viewNasa: "View NASA data",
+    timesEyebrow: "Verified local times",
+    timesTitle: "Totality in Tunisia (Africa/Tunis)",
+    timesDescription:
+      "Times below are location-specific. Durations differ across destinations.",
+    buildItinerary: "Build an Itinerary",
+    columns: {
+      location: "Location",
+      firstContact: "Start of partial",
+      secondContact: "Totality start",
+      maximum: "Maximum",
+      thirdContact: "Totality end",
+      fourthContact: "End of partial",
+      duration: "Totality duration",
+    },
+    allTimes: "All times are in Africa/Tunis (UTC+1).",
+    explorerEyebrow: "Interactive Path Explorer",
+    explorerTitle: "Where the Umbra Crosses Tunisia",
+    explorerDescription: "Explore verified locations with the path of totality.",
+    sourcesTitle: "Sources",
+    sources: {
+      timeanddateTunisia: "Timeanddate.com - Eclipse in Tunisia",
+      timeanddateMahdia: "Timeanddate.com - Mahdia",
+      timeanddateDjerba: "Timeanddate.com - Houmt Souk (Djerba)",
+      nasaFuture: "NASA - Future eclipses",
+      nasaData: "NASA GSFC - Eclipse data",
+    },
+  },
+  notFound: {
+    title: "Page not found",
+    description: "The page you were looking for doesn’t exist or has moved.",
+    home: "Back to home",
+    explorer: "Open the Eclipse Explorer",
   },
   footer: {
     theEclipse: "The eclipse",
@@ -1067,7 +1117,7 @@
     facilities: "Facilities",
     practicalities: "Practicalities",
     viewExplorer: "View in Explorer",
-    addItinerary: "Add to itinerary",
+    addItinerary: "Request a quote",
     allDestinations: "All destinations",
     backToDestinations: "Back to destinations",
     backToAll: "Back to all locations",
@@ -1512,6 +1562,9 @@
 };
 
 export type Dictionary = typeof en;
+
+
+
 
 
 

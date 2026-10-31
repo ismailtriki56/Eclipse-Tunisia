@@ -190,7 +190,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
                 <ButtonLink href="/destinations">
                   {t.destinationPage.backToDestinations}
                 </ButtonLink>
-                <ButtonLink href={`/plan?addDest=${destination.slug}`} variant="secondary">
+                <ButtonLink href="/plan" variant="secondary">
                   {t.destinationPage.addItinerary}
                 </ButtonLink>
               </div>
@@ -210,6 +210,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
     </>
   );
 }
+
 
 
 

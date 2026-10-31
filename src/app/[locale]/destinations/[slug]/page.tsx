@@ -211,7 +211,7 @@ export default async function DestinationDetailPage({ params }: Props) {
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <ButtonLink href="/explorer">{t.destinationPage.viewExplorer}</ButtonLink>
-                <ButtonLink href={`/plan?addDest=${destination.slug}`} variant="secondary">
+                <ButtonLink href="/plan" variant="secondary">
                   {t.destinationPage.addItinerary}
                 </ButtonLink>
                 <Link
@@ -228,6 +228,7 @@ export default async function DestinationDetailPage({ params }: Props) {
     </>
   );
 }
+
 
 
 

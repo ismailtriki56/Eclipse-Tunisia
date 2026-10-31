@@ -72,7 +72,7 @@ export function BookingRequestCard({ experience }: { experience: Experience }) {
           </p>
           <div className="mt-4 flex flex-col gap-2">
             <Link
-              href={`/plan?addExp=${experience.slug}`}
+              href="/plan"
               className="rounded-lg bg-navy py-2 text-center text-xs font-semibold text-ivory hover:bg-navy-800 transition-colors"
             >
               {t.experienceText.booking.addItinerary}
@@ -172,7 +172,7 @@ export function BookingRequestCard({ experience }: { experience: Experience }) {
             {t.experienceText.booking.request}
           </button>
           <Link
-            href={`/plan?addExp=${experience.slug}`}
+            href="/plan"
             className="flex items-center justify-center gap-1.5 w-full rounded-xl border border-line bg-sand/50 py-2.5 text-center text-xs font-semibold text-navy hover:bg-sand transition-colors"
           >
             <Plus className="h-4 w-4" />
@@ -187,4 +187,5 @@ export function BookingRequestCard({ experience }: { experience: Experience }) {
     </Card>
   );
 }
+
 

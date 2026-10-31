@@ -466,8 +466,8 @@
       nameFallback: "مسافر",
       noPayment:
         "لأن هذا نموذج تطويري، لم يُخصم أي مبلغ. يمكنك إضافة هذه المحطة إلى خطة رحلتك.",
-      addItinerary: "أضف إلى مخطط الرحلة",
-      addItineraryShort: "أضف إلى المسار",
+      addItinerary: "اطلب عرض سعر",
+      addItineraryShort: "اطلب عرض سعر",
       submitAnother: "إرسال استفسار آخر",
       selectDate: "اختر التاريخ",
       travelers: "المسافرون",
@@ -522,6 +522,54 @@
     title: "تجارب يمكن حجزها حول الكسوف",
     description:
       "مخيمات مشاهدة في الصحراء، ونقل خاص بالدفع الرباعي، وجولات في المدن العتيقة، وجولات تذوق المأكولات. أسعار شفافة وتفاصيل ما يشمله العرض ومعلومات المزود.",
+  },
+  eclipsePage: {
+    metadataTitle: "كسوف 2027 في تونس — أوقات محلية موثقة",
+    metadataDescription:
+      "أوقات الكسوف الكلي الموثقة لكل موقع في تونس يوم 2 أغسطس 2027، محسوبة من عناصر بيسيل التابعة لناسا.",
+    eyebrow: "نظرة فلكية",
+    title: "الكسوف الكلي للشمس 2027 في تونس",
+    description:
+      "يوم الاثنين 2 أغسطس 2027، يعبر ظل القمر جنوب تونس. تركز هذه الصفحة على تونس مع أوقات محلية موثقة (Africa/Tunis).",
+    greatestLabel: "أعظم كسوف (عالمياً)",
+    greatestNote: "{time}. يحدث الكسوف صباحاً في تونس.",
+    magnitudeLabel: "قدر الكسوف",
+    magnitudeNote: "يتجاوز القطر الظاهري للقمر قطر الشمس عند أعظم كسوف.",
+    widthLabel: "أقصى عرض للمسار",
+    widthNote: "عرض الممر عند أعظم كسوف.",
+    sourceLabel: "المصدر",
+    viewNasa: "عرض بيانات ناسا",
+    timesEyebrow: "أوقات محلية موثقة",
+    timesTitle: "الكسوف الكلي في تونس (Africa/Tunis)",
+    timesDescription: "الأوقات أدناه خاصة بكل موقع. تختلف المدد بين الوجهات.",
+    buildItinerary: "أنشئ مسار رحلة",
+    columns: {
+      location: "الموقع",
+      firstContact: "بداية الكسوف الجزئي",
+      secondContact: "بداية الكسوف الكلي",
+      maximum: "الذروة",
+      thirdContact: "نهاية الكسوف الكلي",
+      fourthContact: "نهاية الكسوف الجزئي",
+      duration: "مدة الكسوف الكلي",
+    },
+    allTimes: "جميع الأوقات بتوقيت Africa/Tunis (UTC+1).",
+    explorerEyebrow: "مستكشف المسار التفاعلي",
+    explorerTitle: "حيث يعبر ظل القمر تونس",
+    explorerDescription: "استكشف مواقع موثقة مع مسار الكسوف الكلي.",
+    sourcesTitle: "المصادر",
+    sources: {
+      timeanddateTunisia: "Timeanddate.com - الكسوف في تونس",
+      timeanddateMahdia: "Timeanddate.com - المهدية",
+      timeanddateDjerba: "Timeanddate.com - حومة السوق (جربة)",
+      nasaFuture: "ناسا - الكسوفات القادمة",
+      nasaData: "NASA GSFC - بيانات الكسوف",
+    },
+  },
+  notFound: {
+    title: "الصفحة غير موجودة",
+    description: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    home: "العودة إلى الرئيسية",
+    explorer: "افتح مستكشف الكسوف",
   },
   footer: {
     theEclipse: "الكسوف",
@@ -1066,7 +1114,7 @@
     facilities: "المرافق",
     practicalities: "الأمور العملية",
     viewExplorer: "عرض في المستكشف",
-    addItinerary: "أضف إلى المسار",
+    addItinerary: "اطلب عرض سعر",
     allDestinations: "كل الوجهات",
     backToDestinations: "العودة إلى الوجهات",
     backToAll: "العودة إلى كل المواقع",
@@ -1499,6 +1547,9 @@
     },
   },
 };
+
+
+
 
 
 

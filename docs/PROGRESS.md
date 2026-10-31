@@ -429,3 +429,16 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Remaining: package/hotel data is localized, but only the Iberostar has
   licensed photos; `/plan?addExp=` and `/plan?addDest=` links still point at the
   enquiry page and need a cleanup.
+
+## 2026 Redesign — Phase 8 (eclipse page and dead links)
+
+- Localized the eclipse overview: metadata, hero, four facts cards, table
+  headers, duration units, explorer section, sources and the 404 page.
+- Replaced the stale `/plan?addDest=` and `/plan?addExp=` links with a direct
+  `/plan` enquiry link and renamed the related actions to “Request a quote”
+  in all three locales.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (805
+  keys), `npm test` (6/6) and `npm run build` (200 pages); 0 replacement
+  characters.
+- Remaining: `packagePlannerHref` is still exported/tested but unused by the
+  UI; only the Iberostar has licensed photos.
