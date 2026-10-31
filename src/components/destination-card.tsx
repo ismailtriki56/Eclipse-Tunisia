@@ -1,9 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { imageCredit } from "@/data/images";
 import type { DestinationCircumstances } from "@/lib/eclipse/destinations";
 import { getImage } from "@/data/images";
+import { useLanguage } from "@/context/language-context";
+import { destinationText } from "@/lib/destination-text";
+import { localePath } from "@/lib/locale-path";
 
 function formatTotality(seconds: number | null): string | null {
   if (seconds === null) return null;
@@ -19,7 +24,9 @@ export function DestinationCard({
   circumstances: DestinationCircumstances;
   className?: string;
 }) {
+  const { locale, t } = useLanguage();
   const { destination } = circumstances;
+  const text = destinationText(t, destination);
   const asset = getImage(destination.imageKey);
   const totality = formatTotality(circumstances.centralDurationSeconds);
   const isTotal = circumstances.visibility === "total";
@@ -31,7 +38,7 @@ export function DestinationCard({
       <div className="relative aspect-[16/10] overflow-hidden bg-sand">
         <Image
           src={asset.url}
-          alt={asset.alt}
+          alt={text.name}
           width={asset.width}
           height={asset.height}
           sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
@@ -39,10 +46,16 @@ export function DestinationCard({
         />
         <div className="absolute left-3 top-3">
           {isTotal ? (
-            <Badge tone="total">Totality {totality}</Badge>
+            <Badge tone="total">
+              {t.map.totality} {totality}
+            </Badge>
           ) : (
             <Badge tone="partial">
-              Partial · {(circumstances.obscuration * 100).toFixed(0)}% covered
+              {t.map.partial} ·{" "}
+              {t.common.covered.replace(
+                "{percent}",
+                (circumstances.obscuration * 100).toFixed(0),
+              )}
             </Badge>
           )}
         </div>
@@ -50,24 +63,24 @@ export function DestinationCard({
 
       <div className="flex flex-1 flex-col p-5">
         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-gold-600">
-          {destination.region}
+          {text.region}
         </p>
         <h3 className="mt-1.5 font-display text-xl font-semibold tracking-tight text-ink">
           <Link
-            href={`/destinations/${destination.slug}`}
+            href={localePath(locale, `/destinations/${destination.slug}`)}
             className="after:absolute after:inset-0"
           >
-            {destination.name}
+            {text.name}
           </Link>
         </h3>
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
-          {destination.summary}
+          {text.summary}
         </p>
 
         <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm">
           <div>
             <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
-              Maximum at
+              {t.common.maximumAt}
             </dt>
             <dd className="mt-0.5 font-mono text-sm text-ink">
               {circumstances.localTimes.maximum ?? "—"} local
@@ -75,7 +88,7 @@ export function DestinationCard({
           </div>
           <div>
             <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
-              Sun altitude
+              {t.map.sunAltitude}
             </dt>
             <dd className="mt-0.5 font-mono text-sm text-ink">
               {circumstances.sunAltitude.toFixed(0)}°
@@ -84,7 +97,7 @@ export function DestinationCard({
         </dl>
 
         <p className="mt-4 text-[0.7rem] text-muted">
-          Photo: {imageCredit(asset)}
+          {t.common.photoCredit}: {imageCredit(asset)}
         </p>
       </div>
     </article>

@@ -1,9 +1,14 @@
+﻿"use client";
+
 import Link from "next/link";
 import type { Experience } from "@/data/experiences";
 import { getDestination } from "@/data/destinations";
 import { Card } from "@/components/ui/card";
 import { formatHours, formatMoney } from "@/lib/format";
 import { ChevronRight } from "lucide-react";
+import { useLanguage } from "@/context/language-context";
+import { destinationText } from "@/lib/destination-text";
+import { localePath } from "@/lib/locale-path";
 
 const categoryLabels: Record<Experience["category"], string> = {
   "eclipse-viewing": "Eclipse viewing",
@@ -16,7 +21,11 @@ const categoryLabels: Record<Experience["category"], string> = {
 };
 
 export function ExperienceCard({ experience }: { experience: Experience }) {
+  const { locale, t } = useLanguage();
   const destination = getDestination(experience.destinationSlug);
+  const destinationName = destination
+    ? destinationText(t, destination).name
+    : t.nav.destinations;
 
   return (
     <Card className="group flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lift border border-line bg-paper">
@@ -33,11 +42,13 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
 
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display text-lg font-semibold leading-snug text-ink group-hover:text-gold-600 transition-colors">
-          <Link href={`/experiences/${experience.slug}`}>{experience.title}</Link>
+          <Link href={localePath(locale, `/experiences/${experience.slug}`)}>
+            {experience.title}
+          </Link>
         </h3>
 
         <p className="mt-1 text-xs text-muted">
-          {destination ? destination.name : "Tunisia"} &middot;{" "}
+          {destinationName} &middot;{" "}
           <span className="text-ink/70">{experience.providerName}</span>
         </p>
 
@@ -59,7 +70,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
 
           <div className="flex items-center gap-1.5">
             <Link
-              href={`/experiences/${experience.slug}`}
+              href={localePath(locale, `/experiences/${experience.slug}`)}
               className="inline-flex items-center gap-1 rounded-lg bg-sand/60 px-2.5 py-1.5 text-xs font-medium text-navy hover:bg-gold/30 transition-colors"
             >
               <span>Details</span>
@@ -71,3 +82,4 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
     </Card>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
@@ -7,6 +7,9 @@ import { DestinationCard } from "@/components/destination-card";
 import { DestinationCircumstances } from "@/lib/eclipse/destinations";
 import { Search, Map } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useLanguage } from "@/context/language-context";
+import { destinationText } from "@/lib/destination-text";
+import { localePath } from "@/lib/locale-path";
 
 interface DestinationsViewProps {
   total: DestinationCircumstances[];
@@ -14,6 +17,7 @@ interface DestinationsViewProps {
 }
 
 export function DestinationsView({ total, partial }: DestinationsViewProps) {
+  const { locale, t } = useLanguage();
   const [selectedRegion, setSelectedRegion] = useState<string>("all");
   const [selectedVisibility, setSelectedVisibility] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,17 +34,21 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
 
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
+        const text = destinationText(t, item.destination);
         return (
+          text.name.toLowerCase().includes(q) ||
+          text.region.toLowerCase().includes(q) ||
+          text.summary.toLowerCase().includes(q) ||
           item.destination.name.toLowerCase().includes(q) ||
-          item.destination.region.toLowerCase().includes(q) ||
-          item.destination.summary.toLowerCase().includes(q)
+          item.destination.region.toLowerCase().includes(q)
         );
       }
       return true;
     });
-  }, [allDestinations, selectedVisibility, selectedRegion, searchQuery]);
+  }, [allDestinations, selectedVisibility, selectedRegion, searchQuery, t]);
 
   const regions = ["all", "South West", "South East", "Central", "Central East", "North East"];
+  const regionLabels = t.destinations.regions as Record<string, string>;
 
   return (
     <Container className="py-12 sm:py-16">
@@ -50,7 +58,7 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
           <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             type="text"
-            placeholder="Search destination, oasis, or city..."
+            placeholder={t.destinations.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-xl border border-line bg-ivory pl-10 pr-4 py-2 text-xs font-medium text-ink placeholder:text-muted focus:border-navy focus:outline-none"
@@ -70,7 +78,7 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              All
+              {t.destinations.all}
             </button>
             <button
               type="button"
@@ -82,7 +90,7 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              Totality ({total.length})
+              {t.destinations.totalityCount.replace("{count}", String(total.length))}
             </button>
             <button
               type="button"
@@ -94,23 +102,23 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              Partial ({partial.length})
+              {t.destinations.partialCount.replace("{count}", String(partial.length))}
             </button>
           </div>
 
           <Link
-            href="/explorer"
+            href={localePath(locale, "/explorer")}
             className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-sand/60 px-3.5 py-2 text-xs font-semibold text-navy hover:bg-sand transition-colors"
           >
             <Map className="h-3.5 w-3.5" />
-            <span>Map View</span>
+            <span>{t.destinations.mapView}</span>
           </Link>
         </div>
       </div>
 
       {/* Region Filter Chips */}
       <div className="mt-4 flex flex-wrap items-center gap-1.5">
-        <span className="text-xs text-muted mr-1">Region:</span>
+        <span className="text-xs text-muted mr-1">{t.destinations.region}:</span>
         {regions.map((reg) => (
           <button
             key={reg}
@@ -123,7 +131,7 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
                 : "border border-line bg-paper text-muted hover:text-ink hover:bg-sand"
             )}
           >
-            {reg === "all" ? "All Regions" : reg}
+            {reg === "all" ? t.destinations.allRegions : regionLabels[reg]}
           </button>
         ))}
       </div>
@@ -137,8 +145,8 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
 
       {filtered.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-dashed border-line bg-paper p-12 text-center text-muted">
-          <p className="text-base font-semibold text-ink">No destinations match your filters</p>
-          <p className="mt-1 text-xs">Try selecting a different region or clearing the search text.</p>
+          <p className="text-base font-semibold text-ink">{t.destinations.noMatches}</p>
+          <p className="mt-1 text-xs">{t.destinations.noMatchesHint}</p>
           <button
             type="button"
             onClick={() => {
@@ -148,10 +156,11 @@ export function DestinationsView({ total, partial }: DestinationsViewProps) {
             }}
             className="mt-4 rounded-lg bg-sand px-3.5 py-1.5 text-xs font-semibold text-navy hover:bg-gold/30"
           >
-            Reset Filters
+            {t.destinations.resetFilters}
           </button>
         </div>
       ) : null}
     </Container>
   );
 }
+

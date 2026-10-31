@@ -5,6 +5,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { InteractiveMap } from "@/components/map/interactive-map";
 import { eclipseFacts, allCircumstances } from "@/lib/eclipse/destinations";
 import { site } from "@/lib/site";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
+import { destinationText } from "@/lib/destination-text";
 import {
   Sun,
   Clock,
@@ -27,7 +29,14 @@ function formatDurationSec(seconds: number | null) {
   return String(m) + " min " + String(s) + " s";
 }
 
-export default function EclipseInfoPage() {
+export default async function EclipseInfoPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const t = getDictionary(locale);
   const all = allCircumstances().filter((c) => c.visibility === "total");
 
   return (
@@ -133,7 +142,7 @@ export default function EclipseInfoPage() {
               <tbody>
                 {all.map((c, idx) => (
                   <tr key={c.destination.slug} className={idx % 2 === 0 ? "bg-white" : "bg-ivory/40"}>
-                    <td className="px-4 py-3 font-medium text-ink">{c.destination.name}</td>
+                    <td className="px-4 py-3 font-medium text-ink">{destinationText(t, c.destination).name}</td>
                     <td className="px-4 py-3 text-muted">{c.localTimes.firstContact || "-"}</td>
                     <td className="px-4 py-3 text-muted">{c.localTimes.secondContact || "-"}</td>
                     <td className="px-4 py-3 text-muted">{c.localTimes.maximum || "-"}</td>
@@ -178,3 +187,4 @@ export default function EclipseInfoPage() {
     </>
   );
 }
+

@@ -114,6 +114,8 @@
     checkAvailability: "Check availability",
     photoCredit: "Photo",
     photoComingSoon: "Photo coming soon",
+    maximumAt: "Maximum at",
+    covered: "{percent}% covered",
     backToPackages: "All packages",
     close: "Close",
     loading: "Loading",
@@ -251,6 +253,48 @@
     sunAltitude: "Sun altitude",
     magnitude: "Magnitude",
     noResults: "No destination matches this filter.",
+  },
+  destinations: {
+    pageEyebrow: "Destinations",
+    pageTitle: "Where to watch in Tunisia",
+    pageDescription:
+      "Every timing and duration below is computed from NASA Besselian elements for the 2 August 2027 total solar eclipse. Filter by totality duration, geographic region, or search specific oases.",
+    searchPlaceholder: "Search destination, oasis, or city...",
+    all: "All",
+    totalityCount: "Totality ({count})",
+    partialCount: "Partial ({count})",
+    mapView: "Map view",
+    region: "Region",
+    allRegions: "All regions",
+    noMatches: "No destinations match your filters",
+    noMatchesHint: "Try a different region or clear the search text.",
+    resetFilters: "Reset filters",
+    regions: {
+      "South West": "South West",
+      "South East": "South East",
+      Central: "Central",
+      "Central East": "Central East",
+      "North East": "North East",
+    },
+  },
+  explorer: {
+    pageEyebrow: "Eclipse Explorer",
+    pageTitle: "Where will totality be visible?",
+    pageDescription:
+      "Locations inside the umbral path see totality — {djerba} at Djerba, {mahdia} at Mahdia and {tozeur} at Tozeur. The longest totality in our published list is {longest} at {longestName}. Everywhere else sees a deep partial eclipse. All timings are computed from the NASA GSFC eclipse catalogue in Africa/Tunis time (UTC+1).",
+    searchPlaceholder:
+      "Search by city, oasis, or region (e.g. Tozeur, Djerba, South West)...",
+    allCount: "All ({count})",
+    mapView: "Interactive map view",
+    gridView: "Card grid view",
+    indexEyebrow: "Viewing location index",
+    indexTitle: "Verified destination circumstances",
+    indexDescription:
+      "Browse the full directory of locations with contacts C1 to C4 and sun altitude.",
+    noMatches: "No destinations matched your criteria",
+    noMatchesHint:
+      "Try clearing your search query or selecting a different filter.",
+    resetFilters: "Reset filters",
   },
   footer: {
     theEclipse: "The eclipse",
@@ -408,6 +452,98 @@
       tagline: "Ferry, fishing villages and island totality",
       summary:
         "Three nights on Kerkennah, reached by ferry from Sidi Youssef. Borj el Hissar, Dar Jellouli, a charfia fishing demonstration, quiet beaches and eclipse viewing on the island.",
+    },
+  },
+  destinationText: {
+    tozeur: {
+      name: "Tozeur",
+      region: "South West",
+      summary:
+        "The oasis town at the edge of Chott el Jerid, and the best-connected base for the desert: hotels, restaurants and fuel in one place, with the salt flats a short drive away.",
+    },
+    nefta: {
+      name: "Nefta",
+      region: "South West",
+      summary:
+        "A small palm-grove town at the edge of the Algerian border, quieter than Tozeur and close to some of the most dramatic oasis scenery in the country.",
+    },
+    "chott-el-jerid": {
+      name: "Chott el Jerid",
+      region: "South West",
+      summary:
+        "The largest salt pan in the Sahara, with a surface area above 7,000 km². Wide horizons, hard light and almost no infrastructure — the purest available sky.",
+    },
+    gabes: {
+      name: "Gabès",
+      region: "South East",
+      summary:
+        "A coastal city with a palm-lined oasis and the Gulf of Gabès, and the southern end of the Tunisian rail line.",
+    },
+    djerba: {
+      name: "Djerba & Houmt Souk",
+      region: "South East",
+      summary:
+        "The island of Djerba, joined to the mainland by the Roman causeway, with a UNESCO-listed medina, whitewashed Houmt Souk and long, quiet beaches.",
+    },
+    "el-jem": {
+      name: "El Jem",
+      region: "Central East",
+      summary:
+        "A small town built around the best-preserved Roman amphitheatre in North Africa, and a useful stop on the route between Tunis and the southern salt lakes.",
+    },
+    kairouan: {
+      name: "Kairouan",
+      region: "Central",
+      summary:
+        "One of the oldest cities in the world and the spiritual centre of Tunisian Islam, built around the Great Mosque of Uqba.",
+    },
+    sousse: {
+      name: "Sousse",
+      region: "Central East",
+      summary:
+        "A resort city built around a ribat fortress and a UNESCO-listed medina, with a long, developed beachfront.",
+    },
+    mahdia: {
+      name: "Mahdia",
+      region: "Central East",
+      summary:
+        "A historic port on a peninsula, with a cobbled medina, a cliff-top lighthouse and long beaches on the Gulf of Hammamet.",
+    },
+    "sidi-bou-said": {
+      name: "Sidi Bou Said",
+      region: "North East",
+      summary:
+        "A cliffside village of white houses and blue doors above the Gulf of Tunis, twenty minutes from the capital.",
+    },
+    carthage: {
+      name: "Carthage",
+      region: "North East",
+      summary:
+        "The Phoenician and Roman city whose ruins — the Antonine Baths, the villas, the theatre — are scattered across the hills above the gulf.",
+    },
+    matmata: {
+      name: "Matmata",
+      region: "South",
+      summary:
+        "A Berber hill town of pit dwellings carved into the hillsides, and the closest thing to a traditional Tunisian village in the south.",
+    },
+    tunis: {
+      name: "Tunis",
+      region: "North East",
+      summary:
+        "The capital, with the country's main airport, the medina and the museums, and the quickest road out of the path of totality for anyone with a short trip.",
+    },
+    sfax: {
+      name: "Sfax",
+      region: "Central East",
+      summary:
+        "Tunisia's second city and its commercial capital, with a UNESCO-listed medina, a strong archaeological museum and the best urban base for the southern centre line.",
+    },
+    kerkennah: {
+      name: "Kerkennah Islands",
+      region: "Central East",
+      summary:
+        "A low-lying island group reached by ferry from Sidi Youssef, known for palm groves, charfia fishing and a slow, quiet coast.",
     },
   },
   packageDetail: {
@@ -850,3 +986,4 @@
 };
 
 export type Dictionary = typeof en;
+

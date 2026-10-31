@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { Container, SectionHeading } from "@/components/ui/card";
@@ -7,12 +7,15 @@ import { InteractiveMap } from "@/components/map/interactive-map";
 import { DestinationCircumstances } from "@/lib/eclipse/destinations";
 import { Search, Map, Grid } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useLanguage } from "@/context/language-context";
+import { destinationText } from "@/lib/destination-text";
 
 interface ExplorerViewProps {
   circumstances: DestinationCircumstances[];
 }
 
 export function ExplorerView({ circumstances }: ExplorerViewProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"all" | "total" | "partial">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"map" | "grid">("map");
@@ -23,14 +26,18 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
       if (activeTab === "partial" && item.visibility === "total") return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchesName = item.destination.name.toLowerCase().includes(q);
-        const matchesRegion = item.destination.region.toLowerCase().includes(q);
-        const matchesSummary = item.destination.summary.toLowerCase().includes(q);
-        return matchesName || matchesRegion || matchesSummary;
+        const text = destinationText(t, item.destination);
+        return (
+          text.name.toLowerCase().includes(q) ||
+          text.region.toLowerCase().includes(q) ||
+          text.summary.toLowerCase().includes(q) ||
+          item.destination.name.toLowerCase().includes(q) ||
+          item.destination.region.toLowerCase().includes(q)
+        );
       }
       return true;
     });
-  }, [circumstances, activeTab, searchQuery]);
+  }, [circumstances, activeTab, searchQuery, t]);
 
   const totalCount = circumstances.filter((i) => i.visibility === "total").length;
   const partialCount = circumstances.filter((i) => i.visibility !== "total").length;
@@ -44,7 +51,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
           <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             type="text"
-            placeholder="Search by city, oasis, or region (e.g. Tozeur, Djerba, South West)..."
+            placeholder={t.explorer.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-xl border border-line bg-ivory pl-10 pr-4 py-2 text-xs font-medium text-ink placeholder:text-muted focus:border-navy focus:outline-none"
@@ -64,7 +71,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              All ({circumstances.length})
+              {t.explorer.allCount.replace("{count}", String(circumstances.length))}
             </button>
             <button
               type="button"
@@ -76,7 +83,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              Totality ({totalCount})
+              {t.destinations.totalityCount.replace("{count}", String(totalCount))}
             </button>
             <button
               type="button"
@@ -88,7 +95,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                   : "text-muted hover:text-navy"
               )}
             >
-              Partial ({partialCount})
+              {t.destinations.partialCount.replace("{count}", String(partialCount))}
             </button>
           </div>
 
@@ -103,7 +110,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                   ? "bg-navy text-ivory"
                   : "text-muted hover:text-navy"
               )}
-              title="Interactive Map view"
+              title={t.explorer.mapView}
             >
               <Map className="h-4 w-4" />
             </button>
@@ -116,7 +123,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                   ? "bg-navy text-ivory"
                   : "text-muted hover:text-navy"
               )}
-              title="Card Grid view"
+              title={t.explorer.gridView}
             >
               <Grid className="h-4 w-4" />
             </button>
@@ -133,9 +140,9 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
 
           <div>
             <SectionHeading
-              eyebrow="Viewing Location Index"
-              title="Verified Destination Circumstances"
-              description="Browse the full directory of locations with contacts C1 to C4 and sun altitude."
+              eyebrow={t.explorer.indexEyebrow}
+              title={t.explorer.indexTitle}
+              description={t.explorer.indexDescription}
             />
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((item) => (
@@ -153,8 +160,8 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
           </div>
           {filtered.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-line bg-paper p-12 text-center text-muted">
-              <p className="text-base font-semibold text-ink">No destinations matched your criteria</p>
-              <p className="mt-1 text-xs">Try clearing your search query or selecting a different filter.</p>
+              <p className="text-base font-semibold text-ink">{t.explorer.noMatches}</p>
+              <p className="mt-1 text-xs">{t.explorer.noMatchesHint}</p>
               <button
                 type="button"
                 onClick={() => {
@@ -163,7 +170,7 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
                 }}
                 className="mt-4 rounded-lg bg-sand px-3.5 py-1.5 text-xs font-semibold text-navy hover:bg-gold/30"
               >
-                Reset filters
+                {t.explorer.resetFilters}
               </button>
             </div>
           ) : null}
@@ -172,3 +179,4 @@ export function ExplorerView({ circumstances }: ExplorerViewProps) {
     </Container>
   );
 }
+

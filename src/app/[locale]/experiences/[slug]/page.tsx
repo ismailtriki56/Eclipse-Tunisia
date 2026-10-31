@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getExperience } from "@/data/experiences";
 import { getDestination } from "@/data/destinations";
@@ -6,6 +6,8 @@ import { experiences } from "@/data/experiences";
 import { Badge } from "@/components/ui/badge";
 import { Card, Container } from "@/components/ui/card";
 import { BookingRequestCard } from "@/components/experiences/booking-request-card";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
+import { destinationText } from "@/lib/destination-text";
 
 export function generateStaticParams() {
   return experiences.map((e) => ({ slug: e.slug }));
@@ -14,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const experience = getExperience(slug);
@@ -25,13 +27,18 @@ export async function generateMetadata({
 export default async function ExperienceDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale: localeParam, slug } = await params;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const t = getDictionary(locale);
   const experience = getExperience(slug);
   if (!experience) notFound();
 
   const destination = getDestination(experience.destinationSlug);
+  const destinationName = destination
+    ? destinationText(t, destination).name
+    : t.nav.destinations;
 
   return (
     <Container className="grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.6fr_1fr]">
@@ -44,7 +51,7 @@ export default async function ExperienceDetailPage({
           {experience.title}
         </h1>
         <p className="mt-3 text-sm text-muted">
-          {destination ? destination.name : "Tunisia"} &middot;{" "}
+          {destinationName} &middot;{" "}
           {experience.providerName}
         </p>
         <p className="mt-6 leading-relaxed text-muted">{experience.summary}</p>
@@ -85,3 +92,4 @@ export default async function ExperienceDetailPage({
     </Container>
   );
 }
+

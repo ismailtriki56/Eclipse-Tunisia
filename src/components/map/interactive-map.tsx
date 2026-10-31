@@ -7,6 +7,7 @@ import { destinations, Destination } from "@/data/destinations";
 import { circumstancesFor, totalityDestinations } from "@/lib/eclipse/destinations";
 import { formatDuration } from "@/lib/format";
 import { localePath } from "@/lib/locale-path";
+import { destinationText } from "@/lib/destination-text";
 import { useLanguage } from "@/context/language-context";
 import { pathData } from "@/data/eclipse-path-2027.coordinates";
 import { getImage } from "@/data/images";
@@ -116,6 +117,7 @@ export function InteractiveMap({
   // Pre-calculate verified circumstances for all destinations
   const destinationsData = useMemo(() => {
     return destinations.map((d) => {
+      const text = destinationText(t, d);
       const circ = circumstancesFor(d);
       const isTotal = circ.visibility === "total";
       const durationSeconds = circ.centralDurationSeconds ?? 0;
@@ -136,6 +138,9 @@ export function InteractiveMap({
 
       return {
         ...d,
+        name: text.name,
+        region: text.region,
+        summary: text.summary,
         circumstances: circ,
         isTotal,
         formattedDuration,

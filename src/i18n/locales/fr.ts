@@ -114,6 +114,8 @@
     checkAvailability: "Vérifier les disponibilités",
     photoCredit: "Photo",
     photoComingSoon: "Photo à venir",
+    maximumAt: "Maximum à",
+    covered: "couverte à {percent} %",
     backToPackages: "Tous les séjours",
     close: "Fermer",
     loading: "Chargement",
@@ -251,6 +253,48 @@
     sunAltitude: "Hauteur du Soleil",
     magnitude: "Magnitude",
     noResults: "Aucune destination ne correspond à ce filtre.",
+  },
+  destinations: {
+    pageEyebrow: "Destinations",
+    pageTitle: "Où observer en Tunisie",
+    pageDescription:
+      "Chaque heure et chaque durée ci-dessous est calculée à partir des éléments besséliens de la NASA pour l'éclipse totale du 2 août 2027. Filtrez par durée de totalité, par région géographique ou recherchez une oasis précise.",
+    searchPlaceholder: "Rechercher une destination, une oasis ou une ville...",
+    all: "Tout",
+    totalityCount: "Totalité ({count})",
+    partialCount: "Partielle ({count})",
+    mapView: "Vue carte",
+    region: "Région",
+    allRegions: "Toutes les régions",
+    noMatches: "Aucune destination ne correspond à vos filtres",
+    noMatchesHint: "Essayez une autre région ou effacez la recherche.",
+    resetFilters: "Réinitialiser les filtres",
+    regions: {
+      "South West": "Sud-Ouest",
+      "South East": "Sud-Est",
+      Central: "Centre",
+      "Central East": "Centre-Est",
+      "North East": "Nord-Est",
+    },
+  },
+  explorer: {
+    pageEyebrow: "Explorateur d'éclipse",
+    pageTitle: "Où la totalité sera-t-elle visible ?",
+    pageDescription:
+      "Les lieux situés dans le cône d'ombre voient la totalité — {djerba} à Djerba, {mahdia} à Mahdia et {tozeur} à Tozeur. La totalité la plus longue de notre liste publiée est de {longest} à {longestName}. Partout ailleurs, l'éclipse est partielle et profonde. Toutes les heures sont calculées à partir du catalogue d'éclipses NASA GSFC en heure Africa/Tunis (UTC+1).",
+    searchPlaceholder:
+      "Rechercher par ville, oasis ou région (ex. Tozeur, Djerba, Sud-Ouest)...",
+    allCount: "Tout ({count})",
+    mapView: "Vue carte interactive",
+    gridView: "Vue grille de cartes",
+    indexEyebrow: "Index des sites d'observation",
+    indexTitle: "Circonstances vérifiées par destination",
+    indexDescription:
+      "Parcourez le répertoire complet des sites avec les contacts C1 à C4 et l'altitude du Soleil.",
+    noMatches: "Aucune destination ne correspond à vos critères",
+    noMatchesHint:
+      "Effacez votre recherche ou sélectionnez un autre filtre.",
+    resetFilters: "Réinitialiser les filtres",
   },
   footer: {
     theEclipse: "L'éclipse",
@@ -409,6 +453,98 @@
       tagline: "Ferry, villages de pêcheurs et totalité insulaire",
       summary:
         "Trois nuits à Kerkennah, rejointe par ferry depuis Sidi Youssef. Borj el Hissar, Dar Jellouli, une démonstration de pêche à la charfia, des plages calmes et l'éclipse sur l'île.",
+    },
+  },
+  destinationText: {
+    tozeur: {
+      name: "Tozeur",
+      region: "Sud-Ouest",
+      summary:
+        "La ville-oasis à la lisière de Chott el Jerid, et la base la mieux desservie pour le désert : hôtels, restaurants et carburant au même endroit, avec les salines à quelques minutes de route.",
+    },
+    nefta: {
+      name: "Nefta",
+      region: "Sud-Ouest",
+      summary:
+        "Une petite ville de palmeraies à la frontière algérienne, plus calme que Tozeur et proche de certains des paysages d'oasis les plus spectaculaires du pays.",
+    },
+    "chott-el-jerid": {
+      name: "Chott el Jerid",
+      region: "Sud-Ouest",
+      summary:
+        "La plus grande sebkha du Sahara, avec une superficie supérieure à 7 000 km². Des horizons vastes, une lumière dure et presque aucune infrastructure — le ciel le plus pur disponible.",
+    },
+    gabes: {
+      name: "Gabès",
+      region: "Sud-Est",
+      summary:
+        "Une ville côtière avec une oasis de palmiers et le golfe de Gabès, et l'extrémité sud de la ligne ferroviaire tunisienne.",
+    },
+    djerba: {
+      name: "Djerba et Houmt Souk",
+      region: "Sud-Est",
+      summary:
+        "L'île de Djerba, reliée au continent par la chaussée romaine, avec une médina classée à l'UNESCO, Houmt Souk blanchie à la chaux et de longues plages calmes.",
+    },
+    "el-jem": {
+      name: "El Jem",
+      region: "Centre-Est",
+      summary:
+        "Une petite ville construite autour de l'amphithéâtre romain le mieux conservé d'Afrique du Nord, et une étape utile sur la route entre Tunis et les lacs salés du sud.",
+    },
+    kairouan: {
+      name: "Kairouan",
+      region: "Centre",
+      summary:
+        "L'une des plus anciennes villes du monde et le centre spirituel de l'islam tunisien, construite autour de la Grande Mosquée d'Uqba.",
+    },
+    sousse: {
+      name: "Sousse",
+      region: "Centre-Est",
+      summary:
+        "Une ville balnéaire construite autour d'un ribat et d'une médina classée à l'UNESCO, avec un long front de mer aménagé.",
+    },
+    mahdia: {
+      name: "Mahdia",
+      region: "Centre-Est",
+      summary:
+        "Un port historique sur une presqu'île, avec une médina pavée, un phare sur la falaise et de longues plages sur le golfe de Hammamet.",
+    },
+    "sidi-bou-said": {
+      name: "Sidi Bou Saïd",
+      region: "Nord-Est",
+      summary:
+        "Un village de falaises aux maisons blanches et portes bleues au-dessus du golfe de Tunis, à vingt minutes de la capitale.",
+    },
+    carthage: {
+      name: "Carthage",
+      region: "Nord-Est",
+      summary:
+        "La cité phénicienne et romaine dont les ruines — thermes d'Antonin, villas, théâtre — sont dispersées sur les collines au-dessus du golfe.",
+    },
+    matmata: {
+      name: "Matmata",
+      region: "Sud",
+      summary:
+        "Une ville berbère de collines aux habitations troglodytes creusées dans les pentes, et ce qui ressemble le plus à un village tunisien traditionnel dans le sud.",
+    },
+    tunis: {
+      name: "Tunis",
+      region: "Nord-Est",
+      summary:
+        "La capitale, avec le principal aéroport du pays, la médina et les musées, et la sortie routière la plus rapide du chemin de la totalité pour un court séjour.",
+    },
+    sfax: {
+      name: "Sfax",
+      region: "Centre-Est",
+      summary:
+        "La deuxième ville de Tunisie et sa capitale commerciale, avec une médina classée à l'UNESCO, un musée archéologique réputé et la meilleure base urbaine pour la ligne centrale du sud.",
+    },
+    kerkennah: {
+      name: "Îles Kerkennah",
+      region: "Centre-Est",
+      summary:
+        "Un archipel bas rejoint par ferry depuis Sidi Youssef, connu pour ses palmeraies, la pêche à la charfia et une côte lente et calme.",
     },
   },
   packageDetail: {
@@ -854,3 +990,4 @@
     },
   },
 };
+

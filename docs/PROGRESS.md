@@ -370,3 +370,19 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Remaining: destination names, regions and editorial summaries are still
   English data; only the Iberostar has licensed photos; the secondary editorial
   pages remain English.
+
+## 2026 Redesign — Phase 6a (localized destination names and summaries)
+
+- Added a `destinationText` dictionary section (en/fr/ar) with name, region and
+  summary for all 15 destinations, plus `destinations` and `explorer` page copy.
+- Added `src/lib/destination-text.ts` with an English-data fallback and wired it
+  into destination cards, the destinations and explorer indexes and detail
+  pages, the map popups/sidebar, the home path table, package hotel lists,
+  experience cards and the eclipse table.
+- Search and region filters now match localized names, regions and summaries.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (502
+  keys), `npm test` (6/6) and `npm run build` (200 pages). Confirmed 0
+  replacement characters in all three locale files.
+- Remaining: destination access, facilities, notes and practicalities are still
+  English; only the Iberostar has licensed photos; secondary editorial pages
+  remain English.

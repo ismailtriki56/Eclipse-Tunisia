@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { QuoteForm } from "@/components/forms/quote-form";
 import { getPackage, packages } from "@/data/packages";
 import { getDestination } from "@/data/destinations";
+import { destinationText } from "@/lib/destination-text";
 import { getImage, imageCredit } from "@/data/images";
 import { staysForDestination } from "@/data/stays";
 import { availabilityFor } from "@/data/availability";
@@ -58,6 +59,7 @@ export default async function PackageDetailPage({ params }: Props) {
 
   const activeLocale = (isLocale(locale) ? locale : "en") as Locale;
   const t = getDictionary(activeLocale);
+  const destinationName = destinationText(t, destination).name;
   const text = (
     t.packageText as Record<string, { name: string; tagline: string; summary: string }>
   )[pkg.slug];
@@ -168,7 +170,7 @@ export default async function PackageDetailPage({ params }: Props) {
                   {t.packages.variant}
                 </p>
                 <p className="mt-1 font-display text-lg font-semibold text-ink">
-                  {destination.name}
+                  {destinationName}
                 </p>
               </div>
               <div className="rounded-xl bg-ivory p-4">
@@ -293,7 +295,7 @@ export default async function PackageDetailPage({ params }: Props) {
                 {t.packages.eclipseCircumstances}
               </p>
               <h2 className="mt-2 font-display text-2xl font-semibold">
-                {destination.name} · {t.hero.eventDate}
+                {destinationName} · {t.hero.eventDate}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-ivory/65">
                 {t.common.allTimesInTunis}
@@ -394,3 +396,4 @@ export default async function PackageDetailPage({ params }: Props) {
     </>
   );
 }
+

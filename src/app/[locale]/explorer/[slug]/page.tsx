@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,9 +9,11 @@ import { ButtonLink } from "@/components/ui/button";
 import { destinations, getDestination } from "@/data/destinations";
 import { getImage, imageCredit } from "@/data/images";
 import { circumstancesFor } from "@/lib/eclipse/destinations";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
+import { destinationText } from "@/lib/destination-text";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -19,12 +21,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const destination = getDestination(slug);
   if (!destination) return {};
+  const dictionary = getDictionary(isLocale(locale) ? locale : defaultLocale);
+  const text = destinationText(dictionary, destination);
   return {
-    title: `${destination.name} — eclipse circumstances`,
-    description: destination.summary,
+    title: `${text.name} — eclipse circumstances`,
+    description: text.summary,
   };
 }
 
@@ -36,9 +40,12 @@ function formatTotality(seconds: number | null): string | null {
 }
 
 export default async function ExplorerDetailPage({ params }: Props) {
-  const { slug } = await params;
+  const { locale: localeParam, slug } = await params;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const t = getDictionary(locale);
   const destination = getDestination(slug);
   if (!destination) notFound();
+  const text = destinationText(t, destination);
   const circumstances = circumstancesFor(destination);
   const asset = getImage(destination.imageKey);
   const totality = formatTotality(circumstances.centralDurationSeconds);
@@ -48,8 +55,8 @@ export default async function ExplorerDetailPage({ params }: Props) {
     <>
       <PageHeader
         eyebrow="Explorer"
-        title={destination.name}
-        description={destination.summary}
+        title={text.name}
+        description={text.summary}
       />
 
       <Container className="pb-16 sm:pb-24">
@@ -57,7 +64,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
           <figure className="relative overflow-hidden rounded-2xl bg-sand shadow-card">
             <Image
               src={asset.url}
-              alt={asset.alt}
+              alt={text.name}
               width={asset.width}
               height={asset.height}
               sizes="(min-width: 1024px) 60vw, 100vw"
@@ -81,7 +88,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-600">
-                    {destination.region}
+                    {text.region}
                   </p>
                   <h2 className="mt-1 font-display text-2xl font-semibold tracking-tight text-ink">
                     Eclipse circumstances
@@ -91,11 +98,16 @@ export default async function ExplorerDetailPage({ params }: Props) {
                   </p>
                 </div>
                 {isTotal ? (
-                  <Badge tone="total">Totality {totality}</Badge>
+                  <Badge tone="total">
+                    {t.map.totality} {totality}
+                  </Badge>
                 ) : (
                   <Badge tone="partial">
-                    Partial · {(circumstances.obscuration * 100).toFixed(0)}%
-                    covered
+                    {t.map.partial} ·{" "}
+                    {t.common.covered.replace(
+                      "{percent}",
+                      (circumstances.obscuration * 100).toFixed(0),
+                    )}
                   </Badge>
                 )}
               </div>
@@ -196,3 +208,4 @@ export default async function ExplorerDetailPage({ params }: Props) {
     </>
   );
 }
+

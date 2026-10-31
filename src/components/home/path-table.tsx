@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -8,6 +8,7 @@ import { totalityDestinations } from "@/lib/eclipse/destinations";
 import { formatDuration } from "@/lib/format";
 import { useLanguage } from "@/context/language-context";
 import { localePath } from "@/lib/locale-path";
+import { destinationText } from "@/lib/destination-text";
 
 export function PathTable() {
   const { t, locale } = useLanguage();
@@ -49,18 +50,20 @@ export function PathTable() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
+              {rows.map((row) => {
+                const text = destinationText(t, row.destination);
+                return (
                 <tr key={row.destination.slug} className="border-b border-line/70 last:border-0">
                   <td className="px-5 py-4">
                     <Link
                       href={localePath(locale, `/destinations/${row.destination.slug}`)}
                       className="group inline-flex items-center gap-1 font-display text-base font-semibold text-ink hover:text-navy"
                     >
-                      {row.destination.name}
+                      {text.name}
                       <ArrowUpRight className="h-3.5 w-3.5 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </Link>
                   </td>
-                  <td className="px-5 py-4 text-sm text-muted">{row.destination.region}</td>
+                  <td className="px-5 py-4 text-sm text-muted">{text.region}</td>
                   <td className="px-5 py-4 font-mono text-sm text-ink">
                     {formatDuration(row.centralDurationSeconds) ?? t.common.partial}
                   </td>
@@ -71,7 +74,8 @@ export function PathTable() {
                     {row.sunAltitude.toFixed(1)}&deg;
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -83,3 +87,4 @@ export function PathTable() {
     </section>
   );
 }
+

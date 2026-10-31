@@ -3,6 +3,8 @@ import { PageHeader } from "@/components/page-shell";
 import { ExplorerView } from "@/components/explorer/explorer-view";
 import { allCircumstances, totalityDestinations } from "@/lib/eclipse/destinations";
 import { formatDuration } from "@/lib/format";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
+import { destinationText } from "@/lib/destination-text";
 
 export const metadata: Metadata = {
   title: "Eclipse Explorer — Interactive Map & Totality Circumstances",
@@ -10,7 +12,14 @@ export const metadata: Metadata = {
     "Compare Tunisian viewing locations for the total solar eclipse of 2 August 2027, with verified circumstances computed from NASA Besselian elements and an interactive Leaflet map.",
 };
 
-export default function ExplorerPage() {
+export default async function ExplorerPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const t = getDictionary(locale);
   const circumstances = allCircumstances();
   const bySlug = new Map(
     circumstances.map((item) => [item.destination.slug, item]),
@@ -20,13 +29,21 @@ export default function ExplorerPage() {
   const longest = totalityDestinations()[0];
   const longestDuration =
     formatDuration(longest?.centralDurationSeconds ?? null) ?? "—";
+  const longestName = longest
+    ? destinationText(t, longest.destination).name
+    : t.map.centerLine;
 
   return (
     <>
       <PageHeader
-        eyebrow="Eclipse Explorer"
-        title="Where will totality be visible?"
-        description={`Locations inside the umbral path see totality — ${duration("djerba")} at Djerba, ${duration("mahdia")} at Mahdia and ${duration("tozeur")} at Tozeur. The longest totality in our published list is ${longestDuration} at ${longest?.destination.name ?? "the centre line"}. Everywhere else sees a deep partial eclipse. All timings are computed from the NASA GSFC eclipse catalogue in Africa/Tunis time (UTC+1).`}
+        eyebrow={t.explorer.pageEyebrow}
+        title={t.explorer.pageTitle}
+        description={t.explorer.pageDescription
+          .replace("{djerba}", duration("djerba"))
+          .replace("{mahdia}", duration("mahdia"))
+          .replace("{tozeur}", duration("tozeur"))
+          .replace("{longest}", longestDuration)
+          .replace("{longestName}", longestName)}
       />
 
       <ExplorerView circumstances={circumstances} />
