@@ -1,17 +1,20 @@
-import type { Metadata } from "next";
-import { PageHeader, ComingSoon } from "@/components/page-shell";
+import {
+  secondaryPageMetadata,
+  SecondaryPage,
+} from "@/components/secondary-page";
 
-export const metadata: Metadata = { title: "For Providers" };
+export function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return secondaryPageMetadata(params, "providers");
+}
 
-export default function ProvidersPage() {
-  return (
-    <>
-      <PageHeader
-        eyebrow="For tourism providers"
-        title="List your eclipse experience"
-        description="Tour operators, guides, transport providers, accommodation businesses and cultural experience organisers can present services and receive booking requests."
-      />
-      <ComingSoon note="Provider registration, listing management and booking tools are planned. No provider is currently partnered with the platform, and nothing on this site implies an existing partnership." />
-    </>
-  );
+export default function ProvidersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return <SecondaryPage params={params} page="providers" />;
 }

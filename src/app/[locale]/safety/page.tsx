@@ -1,39 +1,49 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-shell";
 import { Container } from "@/components/ui/card";
+import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Viewing Safety",
-  description:
-    "How to view the solar eclipse safely: certified solar viewers, the brief totality exception, and indirect viewing methods.",
-};
+type Props = { params: Promise<{ locale: string }> };
 
-const phases = [
-  {
-    title: "Before and after totality (partial phases)",
-    safe: false,
-    body: "You must use certified solar viewers or a safe indirect projection method at all times. Ordinary sunglasses, camera viewfinders, and unfiltered telescopes or binoculars are not safe.",
-  },
-  {
-    title: "During totality (only inside the path of totality)",
-    safe: true,
-    body: "Only when the Moon completely covers the Sun may you look directly without a filter. This lasts a short time. The moment the Sun reappears, put your certified viewers back on.",
-  },
-  {
-    title: "Anywhere outside the path of totality",
-    safe: false,
-    body: "There is no safe unaided moment. The Sun is never fully covered, so protection is required throughout the entire event.",
-  },
-];
+function dictionaryFor(locale: string) {
+  return getDictionary(isLocale(locale) ? locale : defaultLocale);
+}
 
-export default function SafetyPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = dictionaryFor(locale);
+  return { title: t.safety.title, description: t.safety.description };
+}
+
+export default async function SafetyPage({ params }: Props) {
+  const { locale } = await params;
+  const t = dictionaryFor(locale);
+
+  const phases = [
+    {
+      title: t.safety.partialTitle,
+      safe: false,
+      body: t.safety.partialBody,
+    },
+    {
+      title: t.safety.totalityTitle,
+      safe: true,
+      body: t.safety.totalityBody,
+    },
+    {
+      title: t.safety.outsideTitle,
+      safe: false,
+      body: t.safety.outsideBody,
+    },
+  ];
+
   return (
     <>
       <PageHeader
-        eyebrow="Viewing safety"
-        title="View the eclipse safely"
-        description="Looking directly at the Sun is dangerous except during the brief phase of totality. Protect your eyes throughout every partial phase."
+        eyebrow={t.safety.eyebrow}
+        title={t.safety.title}
+        description={t.safety.description}
       />
 
       <Container className="py-16 sm:py-20">
@@ -60,7 +70,7 @@ export default function SafetyPage() {
                       : "bg-danger/10 text-danger"
                   }`}
                 >
-                  {phase.safe ? "Unaided viewing safe" : "Protection required"}
+                  {phase.safe ? t.safety.safeLabel : t.safety.protectionLabel}
                 </span>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -72,43 +82,24 @@ export default function SafetyPage() {
 
         <div className="mt-10 rounded-2xl bg-navy p-6 text-ivory sm:p-8">
           <h2 className="font-display text-xl font-semibold">
-            Key safety rules
+            {t.safety.rulesTitle}
           </h2>
           <ul className="mt-4 space-y-3 text-sm text-ivory/80">
-            <li>
-              Use undamaged solar viewers that meet a recognised safety standard.
-              Discard any with scratches, tears or other damage.
-            </li>
-            <li>
-              Never use ordinary sunglasses, smoked glass, or exposed film as a
-              substitute.
-            </li>
-            <li>
-              Never look through an unfiltered camera, telescope or binoculars —
-              concentrate sunlight can cause instant injury.
-            </li>
-            <li>
-              Children need constant supervision and correctly sized viewers.
-            </li>
-            <li>
-              Follow reputable astronomical safety guidance, for example from{" "}
-              <a
-                href={site.nasaEclipseUrl}
-                className="underline underline-offset-2 hover:text-gold"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                NASA
-              </a>
-              .
-            </li>
+            {t.safety.rules.map((rule) => (
+              <li key={rule}>{rule}</li>
+            ))}
           </ul>
+          <a
+            href={site.nasaEclipseUrl}
+            className="mt-5 inline-block text-sm text-ivory underline underline-offset-2 hover:text-gold"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.safety.nasaLink}
+          </a>
         </div>
 
-        <p className="mt-6 text-sm text-muted">
-          This page provides general guidance only. It does not replace official
-          safety instructions or the advice of qualified professionals.
-        </p>
+        <p className="mt-6 text-sm text-muted">{t.safety.disclaimer}</p>
       </Container>
     </>
   );

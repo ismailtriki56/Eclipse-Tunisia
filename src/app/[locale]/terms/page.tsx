@@ -1,17 +1,20 @@
-import type { Metadata } from "next";
-import { PageHeader, ComingSoon } from "@/components/page-shell";
+import {
+  secondaryPageMetadata,
+  SecondaryPage,
+} from "@/components/secondary-page";
 
-export const metadata: Metadata = { title: "Terms" };
+export function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return secondaryPageMetadata(params, "terms");
+}
 
-export default function TermsPage() {
-  return (
-    <>
-      <PageHeader
-        eyebrow="Terms"
-        title="Terms of use"
-        description="The terms that govern use of Eclipse Tunisia."
-      />
-      <ComingSoon note="Terms of use, booking and cancellation policies, and refund rules must be drafted to reflect the real operating model before bookings are accepted." />
-    </>
-  );
+export default function TermsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return <SecondaryPage params={params} page="terms" />;
 }

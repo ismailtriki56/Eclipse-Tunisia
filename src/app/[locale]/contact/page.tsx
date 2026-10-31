@@ -1,17 +1,20 @@
-import type { Metadata } from "next";
-import { PageHeader, ComingSoon } from "@/components/page-shell";
+import {
+  secondaryPageMetadata,
+  SecondaryPage,
+} from "@/components/secondary-page";
 
-export const metadata: Metadata = { title: "Contact" };
+export function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return secondaryPageMetadata(params, "contact");
+}
 
-export default function ContactPage() {
-  return (
-    <>
-      <PageHeader
-        eyebrow="Contact"
-        title="Get in touch"
-        description="Questions, corrections or partnership enquiries."
-      />
-      <ComingSoon note="Contact details and a contact form are being prepared. Please do not submit personal information until a privacy policy is published." />
-    </>
-  );
+export default function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  return <SecondaryPage params={params} page="contact" />;
 }

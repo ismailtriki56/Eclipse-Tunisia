@@ -296,6 +296,68 @@
       "Effacez votre recherche ou sélectionnez un autre filtre.",
     resetFilters: "Réinitialiser les filtres",
   },
+  secondaryPages: {
+    about: {
+      eyebrow: "À propos",
+      title: "À propos d'Eclipse Tunisia",
+      description:
+        "Un compagnon de préparation pour l'éclipse totale de soleil du 2 août 2027 en Tunisie.",
+      note: "Ce contenu est en préparation. Eclipse Tunisia n'est pas l'organisateur officiel de l'éclipse et n'est affilié ni à la NASA ni à aucune autre organisation.",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Nous contacter",
+      description: "Questions, corrections ou demandes de partenariat.",
+      note: "Les coordonnées et un formulaire de contact sont en préparation. Veuillez ne pas transmettre de données personnelles avant la publication d'une politique de confidentialité.",
+    },
+    privacy: {
+      eyebrow: "Confidentialité",
+      title: "Politique de confidentialité",
+      description: "Comment Eclipse Tunisia traite les informations personnelles.",
+      note: "Une politique de confidentialité doit être rédigée pour refléter le modèle économique réel et les exigences tunisiennes et internationales applicables avant toute collecte de données personnelles.",
+    },
+    terms: {
+      eyebrow: "Conditions",
+      title: "Conditions d'utilisation",
+      description: "Les conditions qui régissent l'utilisation d'Eclipse Tunisia.",
+      note: "Les conditions d'utilisation, les politiques de réservation et d'annulation, ainsi que les règles de remboursement doivent être rédigées pour refléter le modèle opérationnel réel avant l'acceptation de réservations.",
+    },
+    providers: {
+      eyebrow: "Pour les professionnels du tourisme",
+      title: "Référencez votre expérience d'éclipse",
+      description:
+        "Les tour-opérateurs, guides, transporteurs, hébergeurs et organisateurs d'expériences culturelles peuvent présenter leurs services et recevoir des demandes de réservation.",
+      note: "L'inscription des prestataires, la gestion des annonces et les outils de réservation sont prévus. Aucun prestataire n'est actuellement partenaire de la plateforme, et rien sur ce site n'implique un partenariat existant.",
+    },
+  },
+  safety: {
+    eyebrow: "Sécurité d'observation",
+    title: "Observez l'éclipse en toute sécurité",
+    description:
+      "Regarder directement le Soleil est dangereux, sauf pendant la brève phase de totalité. Protégez vos yeux durant toutes les phases partielles.",
+    partialTitle: "Avant et après la totalité (phases partielles)",
+    partialBody:
+      "Vous devez utiliser en permanence des lunettes d'éclipse certifiées ou une méthode de projection indirecte sûre. Les lunettes de soleil ordinaires, les viseurs d'appareil photo et les télescopes ou jumelles sans filtre ne sont pas sûrs.",
+    totalityTitle: "Pendant la totalité (uniquement dans la bande de totalité)",
+    totalityBody:
+      "Ce n'est que lorsque la Lune recouvre entièrement le Soleil que vous pouvez regarder directement sans filtre. Cela ne dure que quelques instants. Dès que le Soleil réapparaît, remettez vos lunettes certifiées.",
+    outsideTitle: "Partout en dehors de la bande de totalité",
+    outsideBody:
+      "Il n'existe aucun moment sûr sans protection. Le Soleil n'est jamais entièrement recouvert, une protection est donc nécessaire pendant tout l'événement.",
+    safeLabel: "Observation à l'œil nu sûre",
+    protectionLabel: "Protection obligatoire",
+    rulesTitle: "Règles de sécurité essentielles",
+    rules: [
+      "Utilisez des lunettes d'éclipse en bon état conformes à une norme de sécurité reconnue. Jetez celles qui sont rayées, déchirées ou endommagées.",
+      "N'utilisez jamais de lunettes de soleil ordinaires, de verre fumé ou de pellicule exposée comme substitut.",
+      "Ne regardez jamais à travers un appareil photo, un télescope ou des jumelles sans filtre — la lumière concentrée peut causer une lésion immédiate.",
+      "Les enfants ont besoin d'une surveillance constante et de lunettes à leur taille.",
+      "Suivez les recommandations de sécurité astronomique de sources fiables.",
+    ],
+    nasaLink: "Guide de sécurité de la NASA",
+    disclaimer:
+      "Cette page fournit uniquement des conseils généraux. Elle ne remplace pas les consignes de sécurité officielles ni l'avis de professionnels qualifiés.",
+  },
   footer: {
     theEclipse: "L'éclipse",
     howEclipseWorks: "Comment fonctionne l'éclipse",
@@ -1288,5 +1350,9 @@
     },
   },
 };
+
+
+
+
 
 

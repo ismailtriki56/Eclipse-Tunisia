@@ -400,3 +400,16 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   replacement characters in all three locale files.
 - Remaining: secondary editorial pages (about, contact, safety, privacy, terms,
   providers) are still English; only the Iberostar has licensed photos.
+
+## 2026 Redesign — Phase 6c (secondary pages localized)
+
+- Moved about, contact, privacy, terms and providers onto a shared localized
+  secondary-page shell with per-locale metadata.
+- Localized the viewing-safety page: phase cards, safe/protected labels, key
+  rules and disclaimer, with a separate NASA guidance link.
+- Added `secondaryPages` (5 pages x 4 strings) and `safety` sections to en/fr/ar.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (653
+  keys), `npm test` (6/6) and `npm run build` (200 pages); 0 replacement
+  characters in all locale files.
+- Remaining: experiences and flights editorial data are still English; only the
+  Iberostar has licensed photos.

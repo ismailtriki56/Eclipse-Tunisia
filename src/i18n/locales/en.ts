@@ -296,6 +296,68 @@
       "Try clearing your search query or selecting a different filter.",
     resetFilters: "Reset filters",
   },
+  secondaryPages: {
+    about: {
+      eyebrow: "About",
+      title: "About Eclipse Tunisia",
+      description:
+        "A planning companion for the total solar eclipse of 2 August 2027 in Tunisia.",
+      note: "This content is being prepared. Eclipse Tunisia is not the official organiser of the eclipse and is not affiliated with NASA or any other organisation.",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Get in touch",
+      description: "Questions, corrections or partnership enquiries.",
+      note: "Contact details and a contact form are being prepared. Please do not submit personal information until a privacy policy is published.",
+    },
+    privacy: {
+      eyebrow: "Privacy",
+      title: "Privacy policy",
+      description: "How Eclipse Tunisia handles personal information.",
+      note: "A privacy policy must be drafted to reflect the actual business model and applicable Tunisian and international requirements before any personal data is collected.",
+    },
+    terms: {
+      eyebrow: "Terms",
+      title: "Terms of use",
+      description: "The terms that govern use of Eclipse Tunisia.",
+      note: "Terms of use, booking and cancellation policies, and refund rules must be drafted to reflect the real operating model before bookings are accepted.",
+    },
+    providers: {
+      eyebrow: "For tourism providers",
+      title: "List your eclipse experience",
+      description:
+        "Tour operators, guides, transport providers, accommodation businesses and cultural experience organisers can present services and receive booking requests.",
+      note: "Provider registration, listing management and booking tools are planned. No provider is currently partnered with the platform, and nothing on this site implies an existing partnership.",
+    },
+  },
+  safety: {
+    eyebrow: "Viewing safety",
+    title: "View the eclipse safely",
+    description:
+      "Looking directly at the Sun is dangerous except during the brief phase of totality. Protect your eyes throughout every partial phase.",
+    partialTitle: "Before and after totality (partial phases)",
+    partialBody:
+      "You must use certified solar viewers or a safe indirect projection method at all times. Ordinary sunglasses, camera viewfinders, and unfiltered telescopes or binoculars are not safe.",
+    totalityTitle: "During totality (only inside the path of totality)",
+    totalityBody:
+      "Only when the Moon completely covers the Sun may you look directly without a filter. This lasts a short time. The moment the Sun reappears, put your certified viewers back on.",
+    outsideTitle: "Anywhere outside the path of totality",
+    outsideBody:
+      "There is no safe unaided moment. The Sun is never fully covered, so protection is required throughout the entire event.",
+    safeLabel: "Unaided viewing safe",
+    protectionLabel: "Protection required",
+    rulesTitle: "Key safety rules",
+    rules: [
+      "Use undamaged solar viewers that meet a recognised safety standard. Discard any with scratches, tears or other damage.",
+      "Never use ordinary sunglasses, smoked glass, or exposed film as a substitute.",
+      "Never look through an unfiltered camera, telescope or binoculars — concentrated sunlight can cause instant injury.",
+      "Children need constant supervision and correctly sized viewers.",
+      "Follow reputable astronomical safety guidance from trusted sources.",
+    ],
+    nasaLink: "NASA eclipse safety guidance",
+    disclaimer:
+      "This page provides general guidance only. It does not replace official safety instructions or the advice of qualified professionals.",
+  },
   footer: {
     theEclipse: "The eclipse",
     howEclipseWorks: "How the eclipse works",
@@ -1282,5 +1344,9 @@
 };
 
 export type Dictionary = typeof en;
+
+
+
+
 
 
