@@ -9,11 +9,12 @@ import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { useLanguage } from "@/context/language-context";
 import { LanguageSwitcher } from "@/components/language/language-switcher";
+import { localePath } from "@/lib/locale-path";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   const navLabels: Record<string, string> = {
     "/eclipse": t.nav.eclipse,
@@ -26,7 +27,7 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-ivory/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-line/80 bg-ivory/95 backdrop-blur-md">
       <div className="mx-auto flex h-[4.5rem] w-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
         <Logo />
 
@@ -34,17 +35,17 @@ export function SiteHeader() {
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const href = item.href as string;
-              const isHome = href === "/";
+              const localized = localePath(locale, href);
               const active =
-                pathname === href ||
-                (!isHome && pathname.startsWith(href + "/"));
+                pathname === localized ||
+                pathname.startsWith(localized + "/");
               return (
                 <li key={href}>
                   <Link
-                    href={href}
+                    href={localized}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                      "relative rounded-md px-3.5 py-2 text-sm font-medium transition-colors",
                       active ? "text-navy" : "text-muted hover:text-navy",
                     )}
                   >
@@ -73,7 +74,7 @@ export function SiteHeader() {
           <LanguageSwitcher />
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-navy transition-colors hover:border-navy"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-line text-navy transition-colors hover:border-navy"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.header.closeMenu : t.header.openMenu}
@@ -113,9 +114,9 @@ export function SiteHeader() {
                 return (
                   <li key={href}>
                     <Link
-                      href={href}
+                      href={localePath(locale, href)}
                       onClick={() => setOpen(false)}
-                      className="block rounded-lg px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-black/5"
+                      className="block rounded-md px-3 py-3 text-base font-medium text-ink transition-colors hover:bg-black/5"
                     >
                       {navLabels[href] || item.label}
                     </Link>

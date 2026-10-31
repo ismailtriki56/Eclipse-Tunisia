@@ -1,13 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { useLanguage } from "@/context/language-context";
+import { localePath } from "@/lib/locale-path";
 
 export function Logo({ className }: { className?: string }) {
+  const { locale, t } = useLanguage();
   return (
     <Link
-      href="/"
+      href={localePath(locale, "/")}
       className={cn("inline-flex items-center gap-2.5", className)}
-      aria-label={`${site.name} home`}
+      aria-label={`${site.name} ${t.header.home}`}
     >
       <span
         aria-hidden

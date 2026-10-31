@@ -1,10 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { defaultLocale, localeDirections, type Locale } from "@/i18n/config";
-import { getDictionary } from "@/i18n";
-
-type Dictionary = ReturnType<typeof getDictionary>;
+import { createContext, useContext, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  isLocale,
+  localeDirections,
+  LOCALE_COOKIE,
+  type Locale,
+} from "@/i18n/config";
+import { getDictionary, type Dictionary } from "@/i18n";
 
 interface LanguageContextType {
   locale: Locale;
@@ -15,38 +19,34 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const STORAGE_KEY = "eclipse-tunisia-locale";
-
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return defaultLocale;
-    }
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
-      if (stored && (stored === "en" || stored === "fr" || stored === "ar")) {
-        return stored;
-      }
-    } catch {
-      // ignore
-    }
-    return defaultLocale;
-  });
+export function LanguageProvider({
+  children,
+  locale,
+}: {
+  children: React.ReactNode;
+  locale: Locale;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const dir = localeDirections[locale];
-    const html = document.documentElement;
-    html.lang = locale;
-    html.dir = dir;
-    try {
-      localStorage.setItem(STORAGE_KEY, locale);
-    } catch {
-      // ignore
-    }
+    document.documentElement.lang = locale;
+    document.documentElement.dir = localeDirections[locale];
   }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
-    setLocaleState(newLocale);
+    try {
+      document.cookie = `${LOCALE_COOKIE}=${newLocale}; path=/; max-age=31536000; samesite=lax`;
+    } catch {
+      // ignore
+    }
+    const segments = (pathname || "/").split("/");
+    if (isLocale(segments[1])) {
+      segments[1] = newLocale;
+    } else {
+      segments.splice(1, 0, newLocale);
+    }
+    router.push(segments.join("/") || `/${newLocale}`);
   };
 
   const value: LanguageContextType = {

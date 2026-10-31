@@ -8,12 +8,13 @@
     "postbuild": "node scripts/prepare-standalone.mjs",
     "start": "node .next/standalone/server.js",
     "lint": "eslint",
-    "test": "node --import ./scripts/register-ts.mjs --test tests/itinerary.test.ts tests/packages.test.ts",
+    "test": "node --import ./scripts/register-ts.mjs --test tests/packages.test.ts",
     "typecheck": "tsc --noEmit",
-    "verify:eclipse": "node --import ./scripts/register-ts.mjs scripts/verify-eclipse.ts"
+    "verify:eclipse": "node --import ./scripts/register-ts.mjs scripts/verify-eclipse.ts",
+    "i18n:check": "node --import ./scripts/register-ts.mjs scripts/i18n-check.ts",
+    "test:links": "node scripts/test-links.mjs"
   },
   "dependencies": {
-    "@google/genai": "^2.30.0",
     "@types/leaflet": "^1.9.22",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.61.0",

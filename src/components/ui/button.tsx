@@ -1,23 +1,27 @@
+"use client";
+
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useLanguage } from "@/context/language-context";
+import { localePath } from "@/lib/locale-path";
 
-type Variant = "primary" | "secondary" | "ghost" | "inverse" | "outline";
+type Variant = "primary" | "secondary" | "ghost" | "inverse" | "outline" | "gold";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium tracking-tight transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
   primary:
     "bg-navy text-ivory shadow-sm hover:bg-navy-800 hover:shadow-md active:translate-y-px",
   secondary:
-    "border border-line-strong bg-paper text-ink hover:border-navy hover:text-navy",
-  ghost: "text-ink hover:bg-black/5",
-  inverse:
-    "bg-paper text-navy hover:bg-gold hover:text-navy shadow-sm",
+    "border border-line-strong bg-paper text-navy hover:border-navy hover:text-navy",
+  ghost: "text-navy hover:bg-black/5",
+  inverse: "bg-gold text-navy hover:bg-gold-600 hover:text-ivory shadow-sm",
   outline:
-    "border border-ivory/40 text-ivory hover:border-gold hover:text-gold",
+    "border border-ivory/50 text-ivory hover:border-gold hover:text-gold",
+  gold: "bg-gold text-navy hover:bg-gold-600 hover:text-ivory shadow-sm",
 };
 
 const sizes: Record<Size, string> = {
@@ -58,9 +62,10 @@ export function ButtonLink({
   children,
   ...props
 }: CommonProps & { href: string } & Omit<ComponentProps<typeof Link>, "href">) {
+  const { locale } = useLanguage();
   return (
     <Link
-      href={href}
+      href={localePath(locale, href)}
       className={cn(base, variants[variant], sizes[size], className)}
       {...props}
     >

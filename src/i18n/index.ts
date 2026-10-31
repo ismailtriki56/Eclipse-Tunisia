@@ -1,17 +1,18 @@
-import { en } from "./locales/en";
+import { en, type Dictionary } from "./locales/en";
 import { fr } from "./locales/fr";
 import { ar } from "./locales/ar";
 import { defaultLocale, type Locale } from "./config";
 
-const dictionaries = {
+const dictionaries: Record<Locale, Dictionary> = {
   en,
   fr,
   ar,
-} as const;
+};
 
-export function getDictionary(locale: Locale = defaultLocale) {
+export function getDictionary(locale: Locale = defaultLocale): Dictionary {
   return dictionaries[locale] ?? dictionaries[defaultLocale];
 }
 
-export { defaultLocale, locales, localeNames, localeDirections } from "./config";
+export type { Dictionary };
+export { defaultLocale, locales, localeNames, localeLabels, localeDirections, isLocale, LOCALE_COOKIE } from "./config";
 export type { Locale } from "./config";

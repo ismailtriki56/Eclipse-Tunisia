@@ -13,13 +13,15 @@ function requireMahdia() {
 }
 
 test("Every package is illustrative and has a unique route", () => {
-  assert.equal(packages.length, 3);
+  assert.equal(packages.length, 6);
   assert.equal(new Set(packages.map((pkg) => pkg.slug)).size, packages.length);
   for (const pkg of packages) {
     assert.equal(pkg.isIllustrative, true);
     assert.ok(pkg.basePricePerPerson > 0);
     assert.ok(pkg.itinerary.length >= pkg.nights);
-    assert.ok(pkg.roomOptions.length > 0);
+    if (pkg.nights > 0) {
+      assert.ok(pkg.roomOptions.length > 0);
+    }
     assert.ok(pkg.addOns.length > 0);
   }
 });

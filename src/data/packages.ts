@@ -18,6 +18,12 @@ export interface PackageDay {
   body: string;
 }
 
+export interface PackageVariant {
+  id: string;
+  label: string;
+  description: string;
+}
+
 export interface TravelPackage {
   slug: string;
   name: string;
@@ -38,6 +44,7 @@ export interface TravelPackage {
   itinerary: PackageDay[];
   roomOptions: PackageRoomOption[];
   addOns: PackageAddOn[];
+  variants?: PackageVariant[];
   isIllustrative: true;
 }
 
@@ -55,7 +62,7 @@ export const packages: TravelPackage[] = [
     currency: "USD",
     imageKey: "mahdiaBeach",
     summary:
-      "A four-night beach base in Mahdia, timed around 2 minutes 48 seconds of totality. Pair the eclipse with the medina, the lighthouse and a day at El Jem.",
+      "A four-night beach base in Mahdia, timed around totality on the coast. Pair the eclipse with the medina, the lighthouse and a day at El Jem.",
     bestFor: ["First eclipse trip", "Beach and history", "Small groups"],
     eclipseBase: "mahdia",
     included: [
@@ -90,7 +97,7 @@ export const packages: TravelPackage[] = [
       {
         day: 3,
         title: "Eclipse day on the coast",
-        body: "Early transfer to an open coastal viewing point. First contact at 08:56, totality from 10:10 to 10:13, last contact at 11:31 local time.",
+        body: "Early transfer to an open coastal viewing point. The exact contact times for Mahdia are computed from the NASA elements and listed with this package.",
       },
       {
         day: 4,
@@ -152,7 +159,7 @@ export const packages: TravelPackage[] = [
     currency: "USD",
     imageKey: "djerbaBeach",
     summary:
-      "Four nights on Djerba, where our verified circumstances give 4 minutes 37 seconds of totality. A slower island rhythm, whitewashed Houmt Souk and long beaches.",
+      "Four nights on Djerba, where our verified circumstances give the longest totality in Tunisia. A slower island rhythm, whitewashed Houmt Souk and long beaches.",
     bestFor: ["Long totality", "Island stays", "Families"],
     eclipseBase: "djerba",
     included: [
@@ -186,7 +193,7 @@ export const packages: TravelPackage[] = [
       {
         day: 3,
         title: "Eclipse day",
-        body: "Early departure for an open island viewing point. Totality runs from 10:09 to 10:14 local time.",
+        body: "Early departure for an open island viewing point for the full eclipse sequence.",
       },
       {
         day: 4,
@@ -288,7 +295,7 @@ export const packages: TravelPackage[] = [
       {
         day: 4,
         title: "Eclipse day",
-        body: "Early 4x4 departure for an open desert viewing point. Totality from 10:06 to 10:08 local time.",
+        body: "Early 4x4 departure for an open desert viewing point. Totality at Tozeur is short, so the exact contact times are computed from the NASA elements and listed with this package.",
       },
       {
         day: 5,
@@ -333,6 +340,250 @@ export const packages: TravelPackage[] = [
         label: "Private desert dinner",
         description: "A set dinner under the stars, weather and local permissions permitting.",
         pricePerPerson: 130,
+      },
+    ],
+    isIllustrative: true,
+  },
+  {
+    slug: "eclipse-breakfast",
+    name: "Eclipse Breakfast",
+    kicker: "Sunrise, breakfast and totality in one morning",
+    destinationSlug: "djerba",
+    area: "Djerba, Mahdia or Sfax",
+    nights: 0,
+    basePricePerPerson: 185,
+    nightlyAdjustment: 0,
+    singleSupplement: 0,
+    currency: "USD",
+    imageKey: "djerbaBeach",
+    summary:
+      "A single eclipse morning with hotel pickup, a reserved viewing spot, certified glasses, a Tunisian breakfast before totality and a post-eclipse toast. Choose Djerba, Mahdia or Sfax.",
+    bestFor: ["Short stays", "Cruise and city breaks", "Families"],
+    eclipseBase: "djerba",
+    variants: [
+      {
+        id: "djerba",
+        label: "Djerba",
+        description: "Pickup from Houmt Souk and Midoun hotels; open coastal viewing point.",
+      },
+      {
+        id: "mahdia",
+        label: "Mahdia",
+        description: "Pickup from the Mahdia seafront; viewing on the southern beach.",
+      },
+      {
+        id: "sfax",
+        label: "Sfax",
+        description: "Pickup from central Sfax; viewing west of the city, away from buildings.",
+      },
+    ],
+    included: [
+      "Return transfer from your hotel to the viewing point",
+      "Reserved viewing area with shade and water",
+      "ISO 12312-2 eclipse glasses for each guest",
+      "Tunisian breakfast served before totality",
+      "Local host and safety briefing",
+      "Post-eclipse toast",
+    ],
+    excluded: [
+      "Accommodation",
+      "International flights",
+      "Travel insurance",
+      "Lunches, drinks and personal spending",
+      "Anything not listed as included",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Eclipse morning",
+        body: "Early hotel pickup, arrival at the viewing point before first contact, breakfast, totality, then a slow return after last contact.",
+      },
+    ],
+    roomOptions: [],
+    addOns: [
+      {
+        id: "private-transfer",
+        label: "Private transfer",
+        description: "A dedicated vehicle and driver for your group rather than a shared pickup.",
+        pricePerPerson: 45,
+      },
+      {
+        id: "photography-clinic",
+        label: "Eclipse photography clinic",
+        description: "A short pre-eclipse session on exposure and filters for smartphone or camera.",
+        pricePerPerson: 60,
+      },
+    ],
+    isIllustrative: true,
+  },
+  {
+    slug: "sfax-signature",
+    name: "Sfax Signature",
+    kicker: "Medina, museum and the El Jem amphitheatre",
+    destinationSlug: "sfax",
+    area: "Sfax, central-east Tunisia",
+    nights: 3,
+    basePricePerPerson: 1050,
+    nightlyAdjustment: 190,
+    singleSupplement: 260,
+    currency: "USD",
+    imageKey: "elDjem",
+    summary:
+      "Three nights in Sfax, with the medina, the Kasbah, the Archaeological Museum, the old souks and a day trip to El Jem, then totality from a verified Sfax viewing point.",
+    bestFor: ["City and history", "Shorter trips", "Small groups"],
+    eclipseBase: "sfax",
+    included: [
+      "3 nights in a central Sfax hotel, double or twin share",
+      "Daily breakfast",
+      "Return private transfers from Sfax-Thyna airport (SFT)",
+      "Eclipse-morning transfer to a verified open viewing point",
+      "ISO 12312-2 eclipse glasses for each traveller",
+      "Guided medina, Kasbah and museum visit",
+      "Full-day El Jem amphitheatre excursion",
+      "Local trip coordination before arrival",
+    ],
+    excluded: [
+      "International flights",
+      "Travel insurance",
+      "Lunches, drinks and personal spending",
+      "Visa or entry fees",
+      "Single supplement, room upgrades and optional add-ons",
+      "Anything not listed as included",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Arrive Sfax",
+        body: "Private transfer, hotel check-in and an evening walk through the medina lanes.",
+      },
+      {
+        day: 2,
+        title: "Medina, Kasbah and museum",
+        body: "A guided morning through the old town, the Kasbah and the Archaeological Museum, with the afternoon free.",
+      },
+      {
+        day: 3,
+        title: "Eclipse day",
+        body: "Early transfer to an open viewing point west of the city, with the full eclipse sequence and a late breakfast on return.",
+      },
+      {
+        day: 4,
+        title: "El Jem and departure",
+        body: "A morning at the El Jem amphitheatre before transfers to the airport or onward by road.",
+      },
+    ],
+    roomOptions: [
+      {
+        id: "standard",
+        label: "Standard double or twin",
+        description: "Standard room, subject to hotel allocation.",
+        priceDelta: 0,
+      },
+      {
+        id: "suite",
+        label: "Junior suite",
+        description: "A larger room, subject to availability.",
+        priceDelta: 120,
+      },
+    ],
+    addOns: [
+      {
+        id: "private-guide",
+        label: "Private guide for El Jem",
+        description: "A dedicated local guide for the amphitheatre and museum.",
+        pricePerPerson: 75,
+      },
+      {
+        id: "extra-dinner",
+        label: "Two additional dinners",
+        description: "Two dinners at the hotel or a local restaurant.",
+        pricePerPerson: 80,
+      },
+    ],
+    isIllustrative: true,
+  },
+  {
+    slug: "kerkennah-island-escape",
+    name: "Kerkennah Island Escape",
+    kicker: "Ferry, fishing villages and island totality",
+    destinationSlug: "kerkennah",
+    area: "Kerkennah Islands, central-east Tunisia",
+    nights: 3,
+    basePricePerPerson: 1150,
+    nightlyAdjustment: 210,
+    singleSupplement: 280,
+    currency: "USD",
+    imageKey: "mahdiaBeach",
+    summary:
+      "Three nights on Kerkennah, reached by ferry from Sidi Youssef. Borj el Hissar, Dar Jellouli, a charfia fishing demonstration, quiet beaches and eclipse viewing on the island.",
+    bestFor: ["Quiet islands", "Photography", "Slow travel"],
+    eclipseBase: "kerkennah",
+    included: [
+      "3 nights in a small island guesthouse or hotel, double or twin share",
+      "Daily breakfast and two dinners",
+      "Return ferry crossing from Sidi Youssef",
+      "Island transfers and eclipse-morning transport",
+      "ISO 12312-2 eclipse glasses for each traveller",
+      "Guided visit to Borj el Hissar and Dar Jellouli",
+      "Charfia fishing demonstration, subject to season and weather",
+      "Local trip coordination before arrival",
+    ],
+    excluded: [
+      "International flights",
+      "Travel insurance",
+      "Lunches, drinks and personal spending",
+      "Visa or entry fees",
+      "Single supplement, room upgrades and optional add-ons",
+      "Anything not listed as included",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Ferry to Kerkennah",
+        body: "Crossing from Sidi Youssef, check-in and an evening on the coast.",
+      },
+      {
+        day: 2,
+        title: "Island heritage and fishing",
+        body: "Borj el Hissar, Dar Jellouli and a charfia fishing demonstration, with time for the beach.",
+      },
+      {
+        day: 3,
+        title: "Eclipse day",
+        body: "Early transfer to an open west-facing shore, the full eclipse sequence and a late breakfast.",
+      },
+      {
+        day: 4,
+        title: "Return ferry",
+        body: "Breakfast, a final walk and the ferry back to Sidi Youssef.",
+      },
+    ],
+    roomOptions: [
+      {
+        id: "standard",
+        label: "Standard double or twin",
+        description: "Standard room in a small island property.",
+        priceDelta: 0,
+      },
+      {
+        id: "sea-view",
+        label: "Sea-view room",
+        description: "Subject to availability at the selected property.",
+        priceDelta: 90,
+      },
+    ],
+    addOns: [
+      {
+        id: "boat-trip",
+        label: "Sunset boat trip",
+        description: "A short local boat trip, weather and sea conditions permitting.",
+        pricePerPerson: 55,
+      },
+      {
+        id: "seafood-dinner",
+        label: "Island seafood dinner",
+        description: "A set seafood dinner at a local restaurant.",
+        pricePerPerson: 65,
       },
     ],
     isIllustrative: true,

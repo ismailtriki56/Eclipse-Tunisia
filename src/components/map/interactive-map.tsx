@@ -4,7 +4,10 @@ import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { destinations, Destination } from "@/data/destinations";
-import { circumstancesFor } from "@/lib/eclipse/destinations";
+import { circumstancesFor, totalityDestinations } from "@/lib/eclipse/destinations";
+import { formatDuration } from "@/lib/format";
+import { localePath } from "@/lib/locale-path";
+import { useLanguage } from "@/context/language-context";
 import { pathData } from "@/data/eclipse-path-2027.coordinates";
 import { getImage } from "@/data/images";
 import { cn } from "@/lib/cn";
@@ -82,6 +85,10 @@ export function InteractiveMap({
   showSidebar = true,
   onSelectDestination,
 }: InteractiveMapProps) {
+  const { t, locale } = useLanguage();
+  const longestDuration =
+    formatDuration(totalityDestinations()[0]?.centralDurationSeconds ?? null) ??
+    "—";
   const mapContainerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapInstanceRef = useRef<any>(null);
@@ -112,15 +119,13 @@ export function InteractiveMap({
       const circ = circumstancesFor(d);
       const isTotal = circ.visibility === "total";
       const durationSeconds = circ.centralDurationSeconds ?? 0;
-      const minutes = Math.floor(durationSeconds / 60);
-      const seconds = Math.round(durationSeconds % 60);
       const formattedDuration = isTotal
-        ? `${minutes}m ${seconds.toString().padStart(2, "0")}s`
-        : `${(circ.obscuration * 100).toFixed(0)}% partial`;
+        ? formatDuration(durationSeconds) ?? "—"
+        : `${(circ.obscuration * 100).toFixed(0)}% ${t.map.partial}`;
 
       let categoryTag: "desert" | "coast" | "cultural" = "desert";
       if (
-        ["gabes", "djerba", "sousse", "mahdia", "sidi-bou-said"].includes(d.slug)
+        ["gabes", "djerba", "sousse", "mahdia", "sidi-bou-said", "sfax", "kerkennah"].includes(d.slug)
       ) {
         categoryTag = "coast";
       } else if (
@@ -137,7 +142,7 @@ export function InteractiveMap({
         categoryTag,
       };
     });
-  }, []);
+  }, [t]);
 
   const filteredDestinations = useMemo(() => {
     return destinationsData.filter((d) => {
@@ -468,7 +473,7 @@ export function InteractiveMap({
 
         // Detailed popup content with astronomical data
         const popupContent = `
-          <div class="p-1 max-w-[240px] font-sans">
+          <div class="p-1 max-w-[240px] font-sans" dir="${locale === "ar" ? "rtl" : "ltr"}">
             <div class="flex items-center justify-between gap-2 border-b border-gray-200 pb-1.5">
               <span class="text-[0.65rem] font-bold uppercase tracking-wider text-amber-600">${
                 dest.region
@@ -478,18 +483,20 @@ export function InteractiveMap({
                   ? "bg-amber-100 text-amber-900"
                   : "bg-gray-100 text-gray-700"
               }">${
-          dest.isTotal ? "Totality " + dest.formattedDuration : "Partial Eclipse"
+          dest.isTotal
+            ? `${t.map.totality} ${dest.formattedDuration}`
+            : t.map.partial
         }</span>
             </div>
             <h4 class="mt-1 font-semibold text-base text-gray-900">${dest.name}</h4>
             <p class="mt-1 text-xs text-gray-600 leading-snug line-clamp-2">${
               dest.summary
             }</p>
-            <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
-              <span class="text-gray-500">Max: <strong>${
-                dest.circumstances.localTimes.maximum ?? "11:05"
-              }</strong> · Alt: <strong>${dest.circumstances.sunAltitude.toFixed(0)}°</strong></span>
-              <a href="/destinations/${dest.slug}" class="text-indigo-900 font-semibold hover:underline">Details &rarr;</a>
+            <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between gap-2 text-xs">
+              <span class="text-gray-500">${t.map.maxTime}: <strong>${
+                dest.circumstances.localTimes.maximum ?? "—"
+              }</strong> · ${t.map.sunAltitude}: <strong>${dest.circumstances.sunAltitude.toFixed(0)}°</strong></span>
+              <a href="${localePath(locale, `/destinations/${dest.slug}`)}" class="text-indigo-900 font-semibold hover:underline">${t.map.viewDetails} &rarr;</a>
             </div>
           </div>
         `;
@@ -526,6 +533,8 @@ export function InteractiveMap({
     destinationsData,
     selectedSlug,
     onSelectDestination,
+    t,
+    locale,
   ]);
 
   // Sync Layer Visibility Toggles
@@ -608,11 +617,9 @@ export function InteractiveMap({
           <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-sand/85 backdrop-blur-xs">
             <div className="h-9 w-9 animate-spin rounded-full border-4 border-navy border-t-gold" />
             <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-navy">
-              Loading 2027 Eclipse Geospatial Map...
+              {t.map.loading}
             </p>
-            <p className="mt-1 text-[0.7rem] text-muted">
-              Rendering OpenStreetMap tiles and NASA Besselian coordinates
-            </p>
+            <p className="mt-1 text-[0.7rem] text-muted">{t.map.loadingDesc}</p>
           </div>
         ) : null}
 
@@ -621,11 +628,10 @@ export function InteractiveMap({
           <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-sand/90 p-6 text-center">
             <AlertTriangle className="h-10 w-10 text-danger" />
             <h3 className="mt-3 font-display text-lg font-semibold text-ink">
-              Interactive Map Notice
+              {t.map.errorTitle}
             </h3>
             <p className="mt-1 max-w-md text-xs text-muted leading-relaxed">
-              {loadError}. You can still browse and select all viewing destinations
-              from the list below.
+              {t.map.errorBody}
             </p>
             <button
               type="button"
@@ -633,7 +639,7 @@ export function InteractiveMap({
               className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-navy px-4 py-2 text-xs font-semibold text-ivory hover:bg-navy-800 transition-colors shadow-xs"
             >
               <RefreshCw className="h-3.5 w-3.5" />
-              <span>Retry Loading Map</span>
+              <span>{t.map.retry}</span>
             </button>
           </div>
         ) : null}
@@ -651,10 +657,10 @@ export function InteractiveMap({
                   ? "bg-gold text-navy shadow-xs"
                   : "text-muted hover:text-ink"
               )}
-              title="Toggle Path of Totality Band"
+              title={t.map.totalityBand}
             >
               <span className="h-2 w-2 rounded-full bg-navy/80" />
-              <span>Totality Band</span>
+              <span>{t.map.totalityBand}</span>
             </button>
 
             <button
@@ -666,10 +672,10 @@ export function InteractiveMap({
                   ? "bg-navy text-ivory shadow-xs"
                   : "text-muted hover:text-ink"
               )}
-              title="Toggle Center Line of Maximum Eclipse"
+              title={t.map.centerLine}
             >
               <span className="h-0.5 w-3 bg-gold" />
-              <span>Center Line</span>
+              <span>{t.map.centerLine}</span>
             </button>
 
             <button
@@ -681,10 +687,10 @@ export function InteractiveMap({
                   ? "bg-navy text-ivory shadow-xs"
                   : "text-muted hover:text-ink"
               )}
-              title="Toggle Northern & Southern Limits"
+              title={t.map.limits}
             >
               <span className="h-0.5 w-3 border-t border-dashed border-gold" />
-              <span className="hidden sm:inline">Limits</span>
+              <span className="hidden sm:inline">{t.map.limits}</span>
             </button>
           </div>
 
@@ -693,10 +699,10 @@ export function InteractiveMap({
             type="button"
             onClick={resetView}
             className="flex items-center gap-1.5 rounded-full border border-line bg-paper/95 px-3 py-1.5 text-xs font-semibold text-navy shadow-md backdrop-blur-sm hover:bg-sand transition-colors"
-            title="Reset map view to whole of Tunisia"
+            title={t.map.reset}
           >
             <RotateCcw className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Reset Tunisia</span>
+            <span className="hidden sm:inline">{t.map.reset}</span>
           </button>
         </div>
 
@@ -706,7 +712,7 @@ export function InteractiveMap({
             type="button"
             onClick={zoomIn}
             className="rounded-lg p-1.5 text-navy hover:bg-sand transition-colors"
-            title="Zoom In"
+            title={t.map.zoomIn}
           >
             <ZoomIn className="h-4 w-4" />
           </button>
@@ -714,7 +720,7 @@ export function InteractiveMap({
             type="button"
             onClick={zoomOut}
             className="rounded-lg p-1.5 text-navy hover:bg-sand transition-colors"
-            title="Zoom Out"
+            title={t.map.zoomOut}
           >
             <ZoomOut className="h-4 w-4" />
           </button>
@@ -724,24 +730,26 @@ export function InteractiveMap({
         <div className="pointer-events-none absolute bottom-4 left-4 z-[400] hidden rounded-xl border border-line/80 bg-paper/95 p-3 text-xs shadow-md backdrop-blur-sm sm:block">
           <p className="font-semibold text-ink flex items-center gap-1.5">
             <Info className="h-3.5 w-3.5 text-gold-600" />
-            <span>NASA 2027 Eclipse Path Guide</span>
+            <span>{t.map.legendTitle}</span>
           </p>
           <div className="mt-2 space-y-1.5 text-muted">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-5 rounded-full bg-[#0d1826]" />
-              <span>Center Line (Longest Totality Duration)</span>
+              <span>{t.map.legendCenter}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-5 rounded-xs border border-gold-600 border-dashed bg-gold/30" />
-              <span>Totality Path (100% Umbra Coverage)</span>
+              <span>{t.map.legendBand}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-gold ring-2 ring-gold/40" />
-              <span>Totality Destination (Up to 4m 37s)</span>
+              <span>
+                {t.map.legendTotal} ({longestDuration})
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-muted" />
-              <span>Partial Eclipse Destination (&lt;100%)</span>
+              <span>{t.map.legendPartial}</span>
             </div>
           </div>
         </div>
@@ -755,14 +763,12 @@ export function InteractiveMap({
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-display text-lg font-semibold text-ink">
-                  Viewing Destinations
+                  {t.map.title}
                 </h3>
-                <p className="text-xs text-muted">
-                  Click a city to inspect circumstances & fly map
-                </p>
+                <p className="text-xs text-muted">{t.map.subtitle}</p>
               </div>
               <span className="text-xs font-mono font-bold text-gold-600 bg-gold/15 px-2.5 py-1 rounded-full">
-                {filteredDestinations.length} places
+                {t.map.places.replace("{count}", String(filteredDestinations.length))}
               </span>
             </div>
 
@@ -771,7 +777,7 @@ export function InteractiveMap({
               <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted" />
               <input
                 type="text"
-                placeholder="Search city, oasis, or region..."
+                placeholder={t.map.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-line bg-paper pl-9 pr-3 py-1.5 text-xs text-ink placeholder:text-muted focus:border-navy focus:outline-none"
@@ -781,12 +787,12 @@ export function InteractiveMap({
             {/* Totality & Category Filter Pills */}
             <div className="flex flex-wrap gap-1">
               {[
-                { id: "all", label: "All" },
-                { id: "total", label: "Totality" },
-                { id: "partial", label: "Partial" },
-                { id: "desert", label: "Desert" },
-                { id: "coast", label: "Coast" },
-                { id: "cultural", label: "Cultural" },
+                { id: "all", label: t.map.all },
+                { id: "total", label: t.map.totality },
+                { id: "partial", label: t.map.partial },
+                { id: "desert", label: t.map.desert },
+                { id: "coast", label: t.map.coast },
+                { id: "cultural", label: t.map.cultural },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -842,19 +848,19 @@ export function InteractiveMap({
               {/* Quick Circumstances */}
               <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="rounded-lg bg-sand/50 p-2">
-                  <p className="text-[0.65rem] text-muted uppercase">Max Time</p>
+                  <p className="text-[0.65rem] text-muted uppercase">{t.map.maxTime}</p>
                   <p className="mt-0.5 font-mono font-medium text-ink">
                     {selectedDestination.circumstances.localTimes.maximum ?? "—"}
                   </p>
                 </div>
                 <div className="rounded-lg bg-sand/50 p-2">
-                  <p className="text-[0.65rem] text-muted uppercase">Sun Altitude</p>
+                  <p className="text-[0.65rem] text-muted uppercase">{t.map.sunAltitude}</p>
                   <p className="mt-0.5 font-mono font-medium text-ink">
                     {selectedDestination.circumstances.sunAltitude.toFixed(0)}°
                   </p>
                 </div>
                 <div className="rounded-lg bg-sand/50 p-2">
-                  <p className="text-[0.65rem] text-muted uppercase">Magnitude</p>
+                  <p className="text-[0.65rem] text-muted uppercase">{t.map.magnitude}</p>
                   <p className="mt-0.5 font-mono font-medium text-ink">
                     {selectedDestination.circumstances.magnitude.toFixed(3)}
                   </p>
@@ -863,18 +869,18 @@ export function InteractiveMap({
 
               <div className="mt-3 flex items-center gap-2">
                 <Link
-                  href={`/destinations/${selectedDestination.slug}`}
+                  href={localePath(locale, `/destinations/${selectedDestination.slug}`)}
                   className="flex-1 rounded-lg bg-navy py-2 text-center text-xs font-semibold text-ivory hover:bg-navy-800 transition-colors"
                 >
-                  View Details & Guide
+                  {t.map.viewDetails}
                 </Link>
                 <Link
-                  href={`/plan?addDest=${selectedDestination.slug}`}
+                  href={localePath(locale, "/plan")}
                   className="flex items-center justify-center gap-1 rounded-lg border border-line bg-paper px-3 py-2 text-xs font-semibold text-navy hover:bg-sand transition-colors"
-                  title="Add to Itinerary"
+                  title={t.map.plan}
                 >
                   <Plus className="h-3.5 w-3.5" />
-                  <span>Plan</span>
+                  <span>{t.map.plan}</span>
                 </Link>
               </div>
             </div>
@@ -921,6 +927,9 @@ export function InteractiveMap({
                 </button>
               );
             })}
+            {filteredDestinations.length === 0 ? (
+              <p className="p-4 text-xs text-muted">{t.map.noResults}</p>
+            ) : null}
           </div>
         </div>
       ) : null}

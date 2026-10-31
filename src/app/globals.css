@@ -1,39 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  /* Ink and paper */
-  --color-ivory: #fbf9f4;
+  /* Page and surfaces */
+  --color-ivory: #f7f3ec;
   --color-paper: #ffffff;
-  --color-ink: #16202b;
-  --color-muted: #5d6b78;
-  --color-line: #e3e6e9;
-  --color-line-strong: #cfd5da;
+  --color-sand: #f1e9da;
+  --color-ink: #1f3556;
+  --color-muted: #4a5568;
+  --color-line: #e4dac8;
+  --color-line-strong: #d4c6ad;
 
-  /* Night — the sky during totality */
-  --color-navy: #0d1826;
-  --color-navy-800: #142338;
-  --color-navy-700: #1c3050;
-  --color-navy-600: #24405c;
+  /* Primary navy */
+  --color-navy: #1f3556;
+  --color-navy-800: #182a45;
+  --color-navy-700: #243d60;
+  --color-navy-600: #2e4a70;
 
-  /* Corona — the sun's outer atmosphere */
-  --color-gold: #e9b64d;
-  --color-gold-600: #c9932d;
-  --color-gold-100: #fbf1dc;
+  /* Champagne gold */
+  --color-gold: #d9a94f;
+  --color-gold-600: #8a6420;
+  --color-gold-100: #f7eeda;
 
-  /* Terrain */
-  --color-sand: #efe6d6;
-  --color-clay: #b5623f;
+  /* Terrain accents */
+  --color-clay: #a85b3c;
   --color-teal: #1d6f74;
 
   --color-success: #2f8f5b;
   --color-danger: #b4362f;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --shadow-card: 0 1px 2px rgb(13 24 38 / 0.04), 0 12px 32px -12px rgb(13 24 38 / 0.12);
-  --shadow-lift: 0 2px 4px rgb(13 24 38 / 0.05), 0 24px 48px -20px rgb(13 24 38 / 0.25);
+  --shadow-card: 0 1px 2px rgb(31 53 86 / 0.04), 0 12px 32px -14px rgb(31 53 86 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(31 53 86 / 0.05), 0 24px 48px -22px rgb(31 53 86 / 0.24);
 }
 
 html {
@@ -49,13 +49,22 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Arabic uses Cairo for both headings and body, with RTL-safe spacing. */
+html[lang="ar"] {
+  --font-sans: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
+  --font-display: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
+}
+
+html[lang="ar"] .font-display {
+  letter-spacing: 0;
+}
+
 ::selection {
   background-color: var(--color-gold);
   color: var(--color-navy);
 }
 
 @layer utilities {
-  /* A display serif with slightly tightened tracking for large headings. */
   .font-display {
     font-family: var(--font-display);
     font-optical-sizing: auto;
@@ -70,24 +79,32 @@ body {
     text-wrap: pretty;
   }
 
-  /* A soft vignette used behind hero imagery. */
+  /* Full-bleed hero overlay specified by the design brief. */
+  .hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(14, 28, 50, 0.82),
+      rgba(14, 28, 50, 0.5) 48%,
+      rgba(14, 28, 50, 0.08)
+    );
+  }
+
   .hero-scrim {
     background:
       linear-gradient(
-        to right,
-        rgb(13 24 38 / 0.88) 0%,
-        rgb(13 24 38 / 0.66) 42%,
-        rgb(13 24 38 / 0.22) 72%,
-        rgb(13 24 38 / 0.35) 100%
+        90deg,
+        rgba(14, 28, 50, 0.82),
+        rgba(14, 28, 50, 0.5) 48%,
+        rgba(14, 28, 50, 0.08)
       ),
-      linear-gradient(to top, rgb(13 24 38 / 0.6) 0%, transparent 45%);
+      linear-gradient(to top, rgba(14, 28, 50, 0.45) 0%, transparent 45%);
   }
 
   .rule-gradient {
     background-image: linear-gradient(
       to right,
       var(--color-gold),
-      rgb(233 182 77 / 0)
+      rgb(217 169 79 / 0)
     );
   }
 }
@@ -109,5 +126,5 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-gold-600);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }

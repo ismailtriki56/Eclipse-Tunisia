@@ -7,7 +7,7 @@ export function Badge({
   className,
 }: {
   children: ReactNode;
-  tone?: "neutral" | "total" | "partial" | "sample" | "outline";
+  tone?: "neutral" | "total" | "partial" | "sample" | "outline" | "limited" | "soldOut";
   className?: string;
 }) {
   const tones: Record<string, string> = {
@@ -16,6 +16,8 @@ export function Badge({
     partial: "bg-gold-100 text-gold-600",
     sample: "bg-danger/10 text-danger",
     outline: "border border-line-strong text-muted",
+    limited: "bg-gold-100 text-gold-600",
+    soldOut: "bg-navy/10 text-muted line-through decoration-muted/40",
   };
   return (
     <span

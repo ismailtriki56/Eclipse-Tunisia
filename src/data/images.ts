@@ -34,6 +34,17 @@ export interface ImageAsset {
 }
 
 export const images: Record<string, ImageAsset> = {
+  eclipseHero: {
+    key: "eclipseHero",
+    url: "/hero/eclipse.jpg",
+    width: 1920,
+    height: 1085,
+    alt: "The Sun's corona and streamers during a total solar eclipse.",
+    author: "Brucewaters",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0",
+    page: "https://commons.wikimedia.org/wiki/File:2024_Total_Solar_Eclipse_Corona.jpg",
+  },
   tozeurSunset: {
     key: "tozeurSunset",
     url: "https://upload.wikimedia.org/wikipedia/commons/8/85/Tozeur_Oasis_at_sunset.jpg",

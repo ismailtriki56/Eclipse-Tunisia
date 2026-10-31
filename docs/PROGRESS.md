@@ -265,3 +265,59 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   keep `api` outside the locale segment.
 - Assumption: secondary editorial pages remain English this pass; primary
   surfaces are fully translated. Recorded in `docs/PLAN.md`.
+
+## 2026 Redesign — Phase 1 (i18n, enquiry, validation)
+
+- Moved every page under `src/app/[locale]`; `src/proxy.ts` now handles locale
+  redirects (Next 16 replacement for `middleware.ts`).
+- Added `LanguageProvider`/`useLanguage`, `getDictionary`, cookie
+  `NEXT_LOCALE`, and a client language switcher with `aria-pressed` state.
+- Rewrote `en`, `fr` and `ar` dictionaries as clean UTF-8 with matching keys
+  (291 each). Arabic renders RTL via the locale layout.
+- Home rebuilt from localized sections: hero, stats band, partners strip,
+  featured packages, path table, travel tools, safety banner and countdown.
+- Rebuilt package cards and package detail pages with illustrative-price
+  notices, availability badges, waitlist mode and a localized `QuoteForm`.
+- Added `POST /api/enquiry` with validation, a honeypot, optional Resend
+  delivery and console logging when email is not configured.
+- Removed the AI planner and `@google/genai`; `/plan` is now a localized
+  enquiry page. `package.json` scripts now include `i18n:check` and
+  `test:links`.
+- Added Sfax and Kerkennah destinations plus three packages: day-trip
+  `eclipse-breakfast`, `sfax-signature` and `kerkennah-island-escape`.
+- Verified: `npm run i18n:check` (291 keys), `npm run typecheck`, `npm run
+  lint`, `npm test` (6/6), `npm run verify:eclipse` (37 checks), `npm run
+  build` (200 pages) and `npm run test:links` (57 routes).
+- Remaining: translate the secondary editorial pages and the stays directory,
+  clean remaining mojibake in `src/data/flights.ts` and
+  `src/data/destinations.ts`, and harden the map with a tile-error fallback.
+
+## 2026 Redesign — Phase 2 (data correctness & map polish)
+
+- Confirmed there is no remaining mojibake: `config.ts`, `fr.ts`,
+  `flights.ts` and `experiences.ts` are clean UTF-8 (0 replacement characters).
+- Added `images.eclipseHero` pointing at the local
+  `public/hero/eclipse.jpg` (Wikimedia Commons, CC BY 4.0, Brucewaters) and
+  switched the homepage hero to it. The hero now renders its required credit.
+- `StatsBand` derives the greatest-eclipse clock from
+  `eclipseFacts.greatestEclipseLocal`; removed the duplicated hardcoded time
+  from the `en`/`fr`/`ar` `stats.greatestLabel` values.
+- Removed hardcoded eclipse timings from package summaries and itineraries
+  (`mahdia-signature`, `djerba-total-totality`, `sahara-eclipse-oasis`).
+  Contact times stay computed through `circumstancesFor` and are shown on the
+  package page.
+- Replaced remaining hardcoded times in `/eclipse` and `/explorer` with
+  `eclipseFacts` and computed durations; removed the hardcoded 4m37s from the
+  Djerba airport note.
+- Map: wired every label to the existing `t.map` dictionary (loading, error,
+  controls, legend, filters, search, sidebar, buttons), made destination and
+  plan links locale-aware, classified Sfax and Kerkennah as coast, derived the
+  legend duration from computed circumstances, removed the `11:05` fallback,
+  added an empty-filter message and set RTL direction inside Arabic popups.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (291
+  keys), `npm test` (6/6) and `npm run build` (200 pages).
+- Remaining: destination names/regions and editorial summaries in the map and
+  destination pages are still English data; package itinerary, included and
+  excluded lists still render from English data; secondary editorial pages and
+  the stays directory are not yet translated.
+

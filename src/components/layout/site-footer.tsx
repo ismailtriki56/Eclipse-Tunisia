@@ -1,40 +1,46 @@
+"use client";
+
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { Logo } from "./logo";
-
-const columns = [
-  {
-    title: "The eclipse",
-    links: [
-      { href: "/eclipse", label: "How the eclipse works" },
-      { href: "/eclipse#timeline", label: "The morning timeline" },
-      { href: "/explorer", label: "Eclipse Explorer" },
-      { href: "/destinations", label: "Destinations" },
-    ],
-  },
-  {
-    title: "Plan",
-    links: [
-      { href: "/packages", label: "Eclipse packages" },
-      { href: "/stays", label: "Stays" },
-      { href: "/flights", label: "Flights" },
-      { href: "/plan", label: "Build your itinerary" },
-      { href: "/experiences", label: "Experiences" },
-      { href: "/safety", label: "Viewing safety" },
-    ],
-  },
-  {
-    title: "About",
-    links: [
-      { href: "/about", label: "About Eclipse Tunisia" },
-      { href: "/contact", label: "Contact" },
-      { href: "/privacy", label: "Privacy" },
-      { href: "/terms", label: "Terms" },
-    ],
-  },
-];
+import { useLanguage } from "@/context/language-context";
+import { localePath } from "@/lib/locale-path";
 
 export function SiteFooter() {
+  const { t, locale } = useLanguage();
+
+  const columns = [
+    {
+      title: t.footer.theEclipse,
+      links: [
+        { href: "/eclipse", label: t.footer.howEclipseWorks },
+        { href: "/eclipse#timeline", label: t.footer.morningTimeline },
+        { href: "/explorer", label: t.footer.explorer },
+        { href: "/destinations", label: t.footer.destinations },
+      ],
+    },
+    {
+      title: t.footer.plan,
+      links: [
+        { href: "/packages", label: t.footer.packages },
+        { href: "/stays", label: t.footer.stays },
+        { href: "/flights", label: t.footer.flights },
+        { href: "/plan", label: t.footer.itinerary },
+        { href: "/experiences", label: t.footer.experiences },
+        { href: "/safety", label: t.footer.safety },
+      ],
+    },
+    {
+      title: t.footer.about,
+      links: [
+        { href: "/about", label: t.footer.aboutUs },
+        { href: "/contact", label: t.footer.contact },
+        { href: "/privacy", label: t.footer.privacy },
+        { href: "/terms", label: t.footer.terms },
+      ],
+    },
+  ];
+
   return (
     <footer className="mt-auto bg-navy text-ivory">
       <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8">
@@ -42,14 +48,10 @@ export function SiteFooter() {
           <div>
             <Logo className="[&_span:last-child]:text-white" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/70">
-              {site.tagline} Every figure on this site is computed from the
-              NASA GSFC eclipse catalogue, and every photograph is licensed
-              for reuse with attribution.
+              {t.footer.tagline}
             </p>
             <p className="mt-4 max-w-sm text-xs leading-relaxed text-ivory/45">
-              Packages, prices and campaigns are illustrative demonstrations,
-              not live offers. Hotel and flight links lead to independent
-              third-party sites.
+              {t.footer.illustrative}
             </p>
           </div>
           {columns.map((column) => (
@@ -61,7 +63,7 @@ export function SiteFooter() {
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={localePath(locale, link.href)}
                       className="text-sm text-ivory/70 transition-colors hover:text-gold"
                     >
                       {link.label}
@@ -75,18 +77,17 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {site.copyrightYear} {site.name}. Eclipse viewing
-            information should always be confirmed against official sources.
+            &copy; {site.copyrightYear} {t.footer.copyright}
           </p>
           <p>
-            Astronomical data reference:{" "}
+            {t.footer.dataSource}:{" "}
             <a
               href={site.nasaEclipseUrl}
               className="underline underline-offset-2 hover:text-gold"
               target="_blank"
               rel="noopener noreferrer"
             >
-              NASA GSFC Eclipse Catalogue
+              {t.footer.nasa}
             </a>
           </p>
         </div>

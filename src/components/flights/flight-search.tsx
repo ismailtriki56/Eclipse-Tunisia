@@ -31,14 +31,14 @@ export function FlightSearch() {
         <div className="flex items-center gap-2">
           <Plane className="h-4 w-4 text-gold-600" />
           <h2 className="font-display text-xl font-semibold text-ink">
-            {t.flights?.searchLive || "Search live routes"}
+            {t.flights.searchTitle}
           </h2>
         </div>
 
         <div className="mt-6 space-y-4">
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-              {t.flights?.flyingFrom || "Flying from"}
+              {t.flights.flyingFrom}
             </span>
             <select
               value={origin}
@@ -55,7 +55,7 @@ export function FlightSearch() {
 
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-              {t.flights?.arrivingAt || "Arriving at"}
+              {t.flights.arrivingAt}
             </span>
             <select
               value={destination}
@@ -64,7 +64,7 @@ export function FlightSearch() {
             >
               {airports.map((airport) => (
                 <option key={airport.iata} value={airport.iata}>
-                  {airport.city} — {airport.name} ({airport.iata})
+                  {airport.city} - {airport.name} ({airport.iata})
                 </option>
               ))}
             </select>
@@ -74,7 +74,7 @@ export function FlightSearch() {
             <label className="block">
               <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                 <CalendarDays className="h-3.5 w-3.5" />
-                {t.flights?.outbound || "Outbound"}
+                {t.flights.outbound}
               </span>
               <input
                 type="date"
@@ -88,7 +88,7 @@ export function FlightSearch() {
             <label className="block">
               <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                 <CalendarDays className="h-3.5 w-3.5" />
-                {t.flights?.return || "Return"}
+                {t.flights.return}
               </span>
               <input
                 type="date"
@@ -104,7 +104,7 @@ export function FlightSearch() {
           <label className="block">
             <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
               <Users className="h-3.5 w-3.5" />
-              {t.flights?.travellers || "Travellers"}
+              {t.flights.travellers}
             </span>
             <input
               type="number"
@@ -126,17 +126,17 @@ export function FlightSearch() {
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-ivory transition-colors hover:bg-navy-800"
         >
           <Search className="h-4 w-4" />
-          {t.flights?.openSearch || "Open live flight search"}
+          {t.flights.openSearch}
           <ArrowUpRight className="h-4 w-4" />
         </a>
         <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-muted">
-          {t.flights?.externalSearchNote || "Opens an external flight search. We do not display, store or guarantee fares, schedules or availability."}
+          {t.flights.externalSearchNote}
         </p>
 
         {selectedAirport ? (
           <div className="mt-6 rounded-xl border border-line bg-ivory p-4">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-gold-600">
-              Why {selectedAirport.iata}?
+              {t.flights.whyAirport.replace("{iata}", selectedAirport.iata)}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-muted">
               {selectedAirport.note}
@@ -147,7 +147,7 @@ export function FlightSearch() {
               rel="noopener noreferrer"
               className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-navy hover:underline"
             >
-              Check route options <ExternalLinkIcon />
+              {t.flights.checkRouteOptions} <ArrowUpRight className="h-3 w-3" />
             </a>
           </div>
         ) : null}
@@ -155,7 +155,7 @@ export function FlightSearch() {
 
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-          Tunisian gateways
+          {t.flights.gateways}
         </p>
         <div className="mt-4 space-y-2.5">
           {airports.map((airport) => (
@@ -181,15 +181,9 @@ export function FlightSearch() {
           ))}
         </div>
         <p className="mt-4 text-xs leading-relaxed text-muted">
-          Airport roles are practical guidance, not a claim about current
-          airline routes. Always confirm schedules and entry requirements with
-          the airline and official Tunisian authorities.
+          {t.flights.gatewayNote}
         </p>
       </div>
     </div>
   );
-}
-
-function ExternalLinkIcon() {
-  return <ArrowUpRight className="h-3 w-3" />;
 }

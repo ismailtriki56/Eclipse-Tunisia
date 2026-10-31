@@ -14,3 +14,15 @@ export const localeDirections: Record<Locale, "ltr" | "rtl"> = {
   fr: "ltr",
   ar: "rtl",
 };
+
+export const localeLabels: Record<Locale, string> = {
+  en: "EN",
+  fr: "FR",
+  ar: "AR",
+};
+
+export function isLocale(value: string | undefined | null): value is Locale {
+  return Boolean(value && (locales as readonly string[]).includes(value));
+}
+
+export const LOCALE_COOKIE = "NEXT_LOCALE";

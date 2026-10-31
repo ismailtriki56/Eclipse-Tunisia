@@ -10,6 +10,22 @@ interface Remaining {
   complete: boolean;
 }
 
+interface CountdownLabels {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  complete: string;
+}
+
+const defaultLabels: CountdownLabels = {
+  days: "days",
+  hours: "hours",
+  minutes: "min",
+  seconds: "sec",
+  complete: "The eclipse has passed.",
+};
+
 function remainingUntil(target: number, now: number): Remaining {
   const difference = target - now;
   if (difference <= 0) {
@@ -57,13 +73,6 @@ function getServerSnapshot() {
   return 0;
 }
 
-const units: Array<{ key: keyof Omit<Remaining, "complete">; label: string }> = [
-  { key: "days", label: "days" },
-  { key: "hours", label: "hours" },
-  { key: "minutes", label: "min" },
-  { key: "seconds", label: "sec" },
-];
-
 /**
  * A live countdown to the instant of greatest eclipse.
  *
@@ -72,9 +81,11 @@ const units: Array<{ key: keyof Omit<Remaining, "complete">; label: string }> = 
 export function Countdown({
   target,
   className,
+  labels = defaultLabels,
 }: {
   target: string;
   className?: string;
+  labels?: CountdownLabels;
 }) {
   const now = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const remaining =
@@ -89,13 +100,15 @@ export function Countdown({
   }
 
   if (remaining.complete) {
-    return (
-      <p className={className}>
-        The eclipse has passed. The published circumstances remain accurate as
-        a record of what was observed.
-      </p>
-    );
+    return <p className={className}>{labels.complete}</p>;
   }
+
+  const units: Array<{ key: keyof Omit<Remaining, "complete">; label: string }> = [
+    { key: "days", label: labels.days },
+    { key: "hours", label: labels.hours },
+    { key: "minutes", label: labels.minutes },
+    { key: "seconds", label: labels.seconds },
+  ];
 
   return (
     <div className={className}>

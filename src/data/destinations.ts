@@ -397,6 +397,63 @@ export const destinations: Destination[] = [
       "Hire the car, the driver or the bus in Tunis, not on the day.",
     ],
   },
+  {
+    slug: "sfax",
+    name: "Sfax",
+    region: "Central East",
+    summary:
+      "Tunisia's second city and its commercial capital, with a UNESCO-listed medina, a strong archaeological museum and the best urban base for the southern centre line.",
+    themes: ["history", "culture", "food", "family"],
+    latitude: 34.74,
+    longitude: 10.76,
+    timeZone: "Africa/Tunis",
+    access:
+      "Sfax-Thyna International Airport, the A1 motorway and direct rail links to Tunis, Sousse and Gabes.",
+    facilities: [
+      "Hotels in several categories",
+      "Restaurants and cafes",
+      "Hospital and pharmacies",
+      "Rail and bus stations",
+      "Car hire and taxis",
+    ],
+    accessibility: null,
+    imageKey: "elDjem",
+    notes:
+      "Sfax sits close to the centre line, so the city sees a long totality. The medina, the Kasbah and the Archaeological Museum make it a practical base if you want a city rather than a beach for eclipse morning.",
+    practicalities: [
+      "Choose an open viewing point on the western or southern edge of the city, away from tall buildings.",
+      "Book accommodation early: eclipse week coincides with the summer high season.",
+      "Allow extra time for traffic on the morning of the eclipse.",
+    ],
+  },
+  {
+    slug: "kerkennah",
+    name: "Kerkennah Islands",
+    region: "Central East",
+    summary:
+      "A low-lying island group reached by ferry from Sidi Youssef, known for palm groves, charfia fishing and a slow, quiet coast.",
+    themes: ["coast", "nature", "culture", "food", "photography"],
+    latitude: 34.7,
+    longitude: 11.15,
+    timeZone: "Africa/Tunis",
+    access:
+      "Ferry from Sidi Youssef, about 30 minutes from Sfax, then road transfers on the islands.",
+    facilities: [
+      "Guesthouses and small hotels",
+      "Local restaurants",
+      "Limited fuel",
+      "Basic medical services",
+    ],
+    accessibility: null,
+    imageKey: "mahdiaBeach",
+    notes:
+      "The islands lie inside the path of totality, with an open western horizon over the sea. Infrastructure is limited, so this is a base for travellers who value quiet over facilities and who confirm ferry times in advance.",
+    practicalities: [
+      "Reserve the ferry and a room well before eclipse week.",
+      "Bring cash: not every small business accepts cards.",
+      "The islands have no large hotels, so do not expect five-star facilities.",
+    ],
+  },
 ];
 
 export function getDestination(slug: string): Destination | undefined {

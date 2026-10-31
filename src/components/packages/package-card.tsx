@@ -9,17 +9,22 @@ import { getDestination } from "@/data/destinations";
 import type { TravelPackage } from "@/data/packages";
 import { formatDuration, formatMoney } from "@/lib/format";
 import { circumstancesFor } from "@/lib/eclipse/destinations";
+import { availabilityFor } from "@/data/availability";
 import { useLanguage } from "@/context/language-context";
+import { localePath } from "@/lib/locale-path";
 
 export function PackageCard({ pkg }: { pkg: TravelPackage }) {
   const asset = getImage(pkg.imageKey);
   const destination = getDestination(pkg.destinationSlug);
   const duration = destination
-    ? formatDuration(
-        circumstancesFor(destination).centralDurationSeconds,
-      )
+    ? formatDuration(circumstancesFor(destination).centralDurationSeconds)
     : null;
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const text = (
+    t.packageText as Record<string, { name: string; tagline: string; summary: string }>
+  )[pkg.slug];
+  const status = availabilityFor(pkg.slug);
+  const href = localePath(locale, `/packages/${pkg.slug}`);
 
   return (
     <article className="group relative z-0 flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
@@ -33,44 +38,55 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
         <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-          <Badge tone="total">{pkg.nights} {t.common?.nights || "nights"}</Badge>
-          <Badge tone="sample">{t.common?.illustrative || "Illustrative"}</Badge>
+          <Badge tone="total">
+            {pkg.nights} {pkg.nights === 1 ? t.common.night : t.common.nights}
+          </Badge>
+          <Badge tone="sample">{t.common.illustrative}</Badge>
         </div>
+        {status === "sold_out" ? (
+          <div className="absolute right-3 top-3">
+            <Badge tone="soldOut">{t.availability.sold_out}</Badge>
+          </div>
+        ) : status === "limited" ? (
+          <div className="absolute right-3 top-3">
+            <Badge tone="limited">{t.availability.limited}</Badge>
+          </div>
+        ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-gold-600">
-          {pkg.kicker}
+          {text?.tagline ?? pkg.kicker}
         </p>
         <h3 className="mt-1.5 font-display text-xl font-semibold tracking-tight text-ink">
-          <Link
-            href={`/packages/${pkg.slug}`}
-            className="after:absolute after:inset-0"
-          >
-            {pkg.name}
+          <Link href={href} className="after:absolute after:inset-0">
+            {text?.name ?? pkg.name}
           </Link>
         </h3>
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
-          {pkg.summary}
+          {(text?.summary ?? pkg.summary).replace(
+            "{duration}",
+            duration ?? t.common.partial,
+          )}
         </p>
 
         <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm">
           <div>
             <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
-              {t.common?.totalityAtBase || "Totality at base"}
+              {t.common.totalityAtBase}
             </dt>
             <dd className="mt-0.5 font-mono text-sm text-ink">
-              {duration ?? "Partial"}
+              {duration ?? t.common.partial}
             </dd>
           </div>
           <div>
             <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
-              {t.common?.from || "From"}
+              {t.common.from}
             </dt>
             <dd className="mt-0.5 font-display text-lg font-semibold text-ink">
               {formatMoney(pkg.basePricePerPerson, pkg.currency)}
-              <span className="ml-1 text-[0.65rem] font-sans font-medium uppercase tracking-wider text-muted">
-                {t.common?.perPerson || "pp"}
+              <span className="ml-1 font-sans text-[0.65rem] font-medium uppercase tracking-wider text-muted">
+                {t.common.perPerson}
               </span>
             </dd>
           </div>
@@ -78,7 +94,7 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
 
         <div className="mt-5 flex items-center justify-between gap-3">
           <p className="text-[0.7rem] text-muted">
-            Photo: {imageCredit(asset)}
+            {t.common.photoCredit}: {imageCredit(asset)}
           </p>
           <ButtonLink
             href={`/packages/${pkg.slug}`}
@@ -86,7 +102,7 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
             size="sm"
             className="relative z-10 shrink-0"
           >
-            {t.common?.viewOutline || "View outline"}
+            {t.common.viewOutline}
           </ButtonLink>
         </div>
       </div>
