@@ -10,7 +10,7 @@ import { destinations, getDestination } from "@/data/destinations";
 import { getImage, imageCredit } from "@/data/images";
 import { circumstancesFor } from "@/lib/eclipse/destinations";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
-import { destinationText } from "@/lib/destination-text";
+import { destinationDetail, destinationText } from "@/lib/destination-text";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -46,6 +46,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
   const destination = getDestination(slug);
   if (!destination) notFound();
   const text = destinationText(t, destination);
+  const detail = destinationDetail(t, destination);
   const circumstances = circumstancesFor(destination);
   const asset = getImage(destination.imageKey);
   const totality = formatTotality(circumstances.centralDurationSeconds);
@@ -54,7 +55,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
   return (
     <>
       <PageHeader
-        eyebrow="Explorer"
+        eyebrow={t.explorer.pageEyebrow}
         title={text.name}
         description={text.summary}
       />
@@ -91,10 +92,10 @@ export default async function ExplorerDetailPage({ params }: Props) {
                     {text.region}
                   </p>
                   <h2 className="mt-1 font-display text-2xl font-semibold tracking-tight text-ink">
-                    Eclipse circumstances
+                    {t.destinationPage.circumstancesTitle}
                   </h2>
                   <p className="mt-1 text-sm text-muted">
-                    Computed from NASA Besselian elements for 2 August 2027.
+                    {t.destinationPage.computedNoteExplorer}
                   </p>
                 </div>
                 {isTotal ? (
@@ -114,11 +115,11 @@ export default async function ExplorerDetailPage({ params }: Props) {
 
               <dl className="mt-6 grid gap-4 sm:grid-cols-2">
                 {[
-                  { label: "C1 (first contact)", value: circumstances.localTimes.firstContact },
-                  { label: "C2 (start of totality)", value: circumstances.localTimes.secondContact },
-                  { label: "Maximum eclipse", value: circumstances.localTimes.maximum },
-                  { label: "C3 (end of totality)", value: circumstances.localTimes.thirdContact },
-                  { label: "C4 (last contact)", value: circumstances.localTimes.fourthContact },
+                  { label: t.destinationPage.c1, value: circumstances.localTimes.firstContact },
+                  { label: t.destinationPage.c2, value: circumstances.localTimes.secondContact },
+                  { label: t.destinationPage.maximum, value: circumstances.localTimes.maximum },
+                  { label: t.destinationPage.c3, value: circumstances.localTimes.thirdContact },
+                  { label: t.destinationPage.c4, value: circumstances.localTimes.fourthContact },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -135,7 +136,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 <div className="rounded-xl bg-navy px-4 py-4 text-ivory">
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-gold">
-                    Magnitude
+                    {t.destinationPage.magnitude}
                   </p>
                   <p className="mt-1 font-display text-2xl font-semibold">
                     {circumstances.magnitude.toFixed(3)}
@@ -143,7 +144,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
                 </div>
                 <div className="rounded-xl border border-line px-4 py-4">
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted">
-                    Diameter ratio
+                    {t.destinationPage.diameterRatio}
                   </p>
                   <p className="mt-1 font-display text-2xl font-semibold text-ink">
                     {circumstances.diameterRatio.toFixed(4)}
@@ -151,7 +152,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
                 </div>
                 <div className="rounded-xl border border-line px-4 py-4">
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted">
-                    Sun altitude
+                    {t.map.sunAltitude}
                   </p>
                   <p className="mt-1 font-display text-2xl font-semibold text-ink">
                     {circumstances.sunAltitude.toFixed(0)}°
@@ -162,13 +163,10 @@ export default async function ExplorerDetailPage({ params }: Props) {
 
             <Card className="p-6 sm:p-8">
               <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
-                Practical notes
+                {t.destinationPage.practicalTitle}
               </h3>
               <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted">
-                {(Array.isArray(destination.notes)
-                  ? destination.notes
-                  : [destination.notes]
-                ).map((note: string) => (
+                {detail.notes.split(/(?<=\.)\s+/).map((note: string) => (
                   <li key={note} className="flex gap-3">
                     <span
                       aria-hidden
@@ -180,16 +178,20 @@ export default async function ExplorerDetailPage({ params }: Props) {
               </ul>
               <div className="mt-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-                  Practicalities
+                  {t.destinationPage.practicalities}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {destination.practicalities}
-                </p>
+                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-muted">
+                  {detail.practicalities.map((item) => (
+                    <li key={item}>· {item}</li>
+                  ))}
+                </ul>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <ButtonLink href="/destinations">Back to destinations</ButtonLink>
+                <ButtonLink href="/destinations">
+                  {t.destinationPage.backToDestinations}
+                </ButtonLink>
                 <ButtonLink href={`/plan?addDest=${destination.slug}`} variant="secondary">
-                  Add to itinerary
+                  {t.destinationPage.addItinerary}
                 </ButtonLink>
               </div>
             </Card>
@@ -201,11 +203,13 @@ export default async function ExplorerDetailPage({ params }: Props) {
             href="/explorer"
             className="text-sm font-medium text-muted transition-colors hover:text-navy"
           >
-            ← Back to all locations
+            ← {t.destinationPage.backToAll}
           </Link>
         </div>
       </Container>
     </>
   );
 }
+
+
 

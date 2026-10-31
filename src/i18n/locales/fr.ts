@@ -547,6 +547,304 @@
         "Un archipel bas rejoint par ferry depuis Sidi Youssef, connu pour ses palmeraies, la pêche à la charfia et une côte lente et calme.",
     },
   },
+  facilityText: {
+    "Hotels and guesthouses": "Hôtels et maisons d'hôtes",
+    Restaurants: "Restaurants",
+    "Fuel and car hire": "Carburant et location de voiture",
+    "Pharmacy and medical services": "Pharmacie et services médicaux",
+    "Bank and post office": "Banque et bureau de poste",
+    Guesthouses: "Maisons d'hôtes",
+    "Cafés and small shops": "Cafés et petites boutiques",
+    "Limited fuel": "Carburant limité",
+    "Roadside viewpoints": "Points de vue en bord de route",
+    "Occasional mobile vendors": "Vendeurs ambulants occasionnels",
+    Hotels: "Hôtels",
+    "Rail and bus services": "Services ferroviaires et bus",
+    "Medical services": "Services médicaux",
+    "Hotels and riads": "Hôtels et riads",
+    "Car hire and taxis": "Location de voiture et taxis",
+    Fuel: "Carburant",
+    "Local medical services": "Services médicaux locaux",
+    "Hotels and resorts": "Hôtels et complexes",
+    "Car hire": "Location de voiture",
+    "Restaurants and cafés": "Restaurants et cafés",
+    "Medical services nearby": "Services médicaux à proximité",
+    "Hotels nearby in Tunis": "Hôtels à proximité à Tunis",
+    "Medical services in Tunis": "Services médicaux à Tunis",
+    "Small shops": "Petites boutiques",
+    "Hotels in every category": "Hôtels de toutes catégories",
+    "International airport": "Aéroport international",
+    "Rail, metro and bus services": "Services ferroviaires, métro et bus",
+    "Hospitals and pharmacies": "Hôpitaux et pharmacies",
+    "Hotels in several categories": "Hôtels de plusieurs catégories",
+    "Restaurants and cafes": "Restaurants et cafés",
+    "Hospital and pharmacies": "Hôpital et pharmacies",
+    "Rail and bus stations": "Gares ferroviaires et routières",
+    "Guesthouses and small hotels": "Maisons d'hôtes et petits hôtels",
+    "Local restaurants": "Restaurants locaux",
+    "Basic medical services": "Services médicaux de base",
+  },
+  destinationDetail: {
+    tozeur: {
+      access:
+        "Desservie par l'aéroport international de Tozeur–Nefta, avec des liaisons routières vers Kébili, Gafsa et la frontière algérienne.",
+      facilities: [
+        "Hotels and guesthouses",
+        "Restaurants",
+        "Fuel and car hire",
+        "Pharmacy and medical services",
+        "Bank and post office",
+      ],
+      notes:
+        "Tozeur se situe juste à l'intérieur de la limite sud du chemin de la totalité. La totalité y est courte — à peine quelques minutes — car la ligne centrale du chemin passe à quelques kilomètres au sud de la ville. L'intérêt de Tozeur réside dans ses infrastructures, non dans la durée de la totalité.",
+      practicalities: [
+        "Arrivez au moins un jour à l'avance : les chambres de la région sont très rares.",
+        "La chaleur d'août est sévère. Prévoyez de l'ombre, de l'eau et un plan pour les 30 minutes de route vers un point d'observation.",
+        "Louez une voiture ou organisez des transferts — le meilleur site d'observation n'est pas dans la ville elle-même.",
+      ],
+    },
+    nefta: {
+      access:
+        "À environ 25 km de Tozeur par la route, sur le trajet vers le poste frontière algérien de Ghidyma.",
+      facilities: ["Guesthouses", "Cafés and small shops", "Limited fuel"],
+      notes:
+        "Nefta se trouve à quelques kilomètres de la limite sud du chemin de la totalité : l'éclipse y est donc partielle mais très profonde. Le disque solaire est presque entièrement couvert au maximum, mais la totalité n'est pas visible depuis le centre-ville. Quiconque accepte de rouler vers l'est en direction de Tozeur ou vers le nord vers les sebkhas peut atteindre la totalité.",
+      practicalities: [
+        "Les services sont limités : faites le plein à Tozeur avant de partir.",
+        "Négociez à l'avance le prix d'un guide ou d'un chauffeur.",
+        "La vieille ville et les palmeraies se découvrent mieux tôt le matin.",
+      ],
+    },
+    "chott-el-jerid": {
+      access:
+        "La route principale entre Tozeur et Kébili traverse la partie sud du lac salé. Un 4×4 est fortement recommandé au-delà de la route.",
+      facilities: ["Roadside viewpoints", "Occasional mobile vendors"],
+      notes:
+        "C'est ici que le chemin de la totalité traverse les sebkhas, et l'horizon dégagé est la raison de venir. C'est aussi l'environnement le plus exigeant de la liste : pas d'ombre, pas d'eau et des températures pouvant dépasser 45 °C en août.",
+      practicalities: [
+        "Emportez votre eau, votre ombre et votre nourriture. Il n'y a rien à acheter sur place.",
+        "Un 4×4 ou un chauffeur local est indispensable ; la croûte de sel est traîtresse.",
+        "Partez bien avant l'aube. Après l'éclipse, la lumière change très vite.",
+      ],
+    },
+    gabes: {
+      access:
+        "Sur la route côtière et la voie ferrée entre Sfax et Gabès, avec des vols régionaux.",
+      facilities: [
+        "Hotels",
+        "Restaurants",
+        "Rail and bus services",
+        "Medical services",
+      ],
+      notes:
+        "Gabès se trouve dans le chemin de la totalité, à peu de distance au nord de la ligne centrale, ce qui offre plusieurs minutes de totalité dans un cadre confortable. La route côtière vers Djerba traverse le chemin.",
+      practicalities: [
+        "Les hôtels de Gabès seront les premiers à afficher complet ; réservez trois nuits au minimum.",
+        "La plage du golfe de Gabès est un lieu d'observation facile et plat.",
+      ],
+    },
+    djerba: {
+      access:
+        "Reliée par la chaussée d'El Kantara et par l'aéroport international de Djerba–Zarzis, avec des services de ferry et de bus.",
+      facilities: [
+        "Hotels and riads",
+        "Restaurants",
+        "Car hire and taxis",
+        "Medical services",
+      ],
+      notes:
+        "Houmt Souk se situe bien à l'intérieur du chemin de la totalité et près de sa ligne centrale, ce qui fait de Djerba l'un des rares lieux de Tunisie offrant plus de quatre minutes de totalité. Le terrain plat de l'île et ses plages sont un véritable atout pour un grand groupe.",
+      practicalities: [
+        "Réservez l'hébergement plusieurs mois à l'avance ; l'île est une destination prisée.",
+        "La chaussée peut être congestionnée le matin de l'éclipse — partez tôt.",
+      ],
+    },
+    "el-jem": {
+      access:
+        "Sur la route principale entre Sfax et Kairouan, à environ 45 minutes de Sousse.",
+      facilities: [
+        "Hotels and guesthouses",
+        "Restaurants",
+        "Fuel",
+        "Local medical services",
+      ],
+      notes:
+        "El Jem se trouve au milieu du chemin de la totalité, à peu près sur la ligne centrale, et constitue une bonne étape entre la côte et le désert.",
+      practicalities: [
+        "L'amphithéâtre ouvre tôt ; une visite matinale avant l'éclipse s'y prête bien.",
+        "L'hébergement en ville est limité ; envisagez de loger à Sousse ou Sfax et de venir en voiture.",
+      ],
+    },
+    kairouan: {
+      access:
+        "À environ 60 km au sud-ouest de Tunis par l'autoroute A1, avec des services ferroviaires et des bus fréquents.",
+      facilities: [
+        "Hotels",
+        "Restaurants",
+        "Rail and bus services",
+        "Medical services",
+        "Fuel",
+      ],
+      notes:
+        "Kairouan se trouve dans la moitié nord du chemin de la totalité : le Soleil est haut et la totalité est courte — mais la Grande Mosquée et la médina en font le lieu d'observation le plus enrichissant du pays.",
+      practicalities: [
+        "Une longue journée chaude dans une médina dense exige un départ matinal.",
+        "La ligne ferroviaire depuis Tunis est un bon moyen d'éviter le gros du trafic routier.",
+      ],
+    },
+    sousse: {
+      access:
+        "Sur l'autoroute A1 entre Tunis et Sfax, avec des services ferroviaires et un aéroport international.",
+      facilities: [
+        "Hotels and resorts",
+        "Restaurants",
+        "Rail and bus services",
+        "Medical services",
+        "Car hire",
+      ],
+      notes:
+        "Sousse se situe juste au nord de la limite nord du chemin de la totalité. L'éclipse y est partielle mais très profonde — le Soleil est couvert à environ 99 % — mais le disque ne disparaît pas complètement.",
+      practicalities: [
+        "La ville est la base la plus facile du pays pour les voyageurs qui veulent de bonnes infrastructures sans se déplacer.",
+        "Si vous voulez la totalité, roulez vers le sud en direction de Mahdia ou d'El Jem.",
+      ],
+    },
+    mahdia: {
+      access: "À environ 50 km au sud de Sousse par l'autoroute A1.",
+      facilities: [
+        "Hotels",
+        "Restaurants",
+        "Fuel",
+        "Local medical services",
+      ],
+      notes:
+        "Mahdia se trouve dans le chemin de la totalité, près de son bord sud. La totalité est courte, mais le centre de la vieille ville et les plages autour de la presqu'île sont vastes et dégagés.",
+      practicalities: [
+        "Une base calme et bien tenue, avec une longue plage qui remplit l'horizon.",
+        "Réservez à l'avance : Mahdia est petite et la capacité locale est limitée.",
+      ],
+    },
+    "sidi-bou-said": {
+      access:
+        "Sur l'autoroute A1 et la ligne de train TGM entre Tunis et La Goulette, avec un funiculaire depuis la gare.",
+      facilities: [
+        "Hotels and guesthouses",
+        "Restaurants and cafés",
+        "Rail and bus services",
+        "Medical services nearby",
+      ],
+      notes:
+        "Sidi Bou Saïd est bien en dehors du chemin de la totalité, mais c'est ce qui ressemble le plus en Tunisie à une « ville d'éclipse » classique. Le Soleil est couvert à plus de 96 % au maximum, avec l'horizon marin en arrière-plan et le village au premier plan.",
+      practicalities: [
+        "Arrivez tôt : le village est petit, la foule est nombreuse et les rues sont étroites.",
+        "Une grande partie du Soleil est couverte, mais une bonne paire de lunettes d'éclipse reste indispensable.",
+      ],
+    },
+    carthage: {
+      access:
+        "À dix minutes du centre de Tunis par la route, sur la ligne de train TGM vers La Goulette.",
+      facilities: [
+        "Hotels nearby in Tunis",
+        "Restaurants and cafés",
+        "Rail and bus services",
+        "Medical services in Tunis",
+      ],
+      notes:
+        "Carthage est en dehors du chemin de la totalité, avec une éclipse partielle profonde. Le site archéologique est un bon endroit pour la phase partielle, et il est facilement accessible depuis Tunis pour qui arrive en avion.",
+      practicalities: [
+        "Le site archéologique ouvre tôt le matin.",
+        "À combiner avec Tunis et La Goulette, à quelques minutes de route.",
+      ],
+    },
+    matmata: {
+      access:
+        "Sur la route entre Gabès et Gafsa, à environ une heure de chacune.",
+      facilities: ["Guesthouses", "Small shops", "Limited fuel"],
+      notes:
+        "Matmata se trouve dans le chemin de la totalité, un peu au nord de la ligne centrale, et voit donc plusieurs minutes de totalité. C'est l'un des lieux les moins développés de cette liste, et c'est précisément pourquoi le ciel y est si pur.",
+      practicalities: [
+        "Les services sont minimaux. Emportez de l'eau et tout ce dont vous avez besoin.",
+        "Les maisons troglodytes sont des habitations — respectez les résidents.",
+      ],
+    },
+    tunis: {
+      access:
+        "L'aéroport international de Tunis-Carthage, le train léger TGM, le pôle ferroviaire interurbain et l'autoroute A1.",
+      facilities: [
+        "Hotels in every category",
+        "Restaurants",
+        "International airport",
+        "Rail, metro and bus services",
+        "Hospitals and pharmacies",
+      ],
+      notes:
+        "Tunis est en dehors du chemin de la totalité et voit une éclipse partielle d'environ 97 %. C'est le point d'arrivée pratique pour les voyageurs internationaux et le meilleur endroit pour organiser transport, matériel et provisions.",
+      practicalities: [
+        "Attendez-vous à un trafic dense sur l'A1 vers le sud le matin de l'éclipse.",
+        "Louez la voiture, le chauffeur ou le bus à Tunis, pas le jour même.",
+      ],
+    },
+    sfax: {
+      access:
+        "L'aéroport international de Sfax-Thyna, l'autoroute A1 et des liaisons ferroviaires directes vers Tunis, Sousse et Gabès.",
+      facilities: [
+        "Hotels in several categories",
+        "Restaurants and cafes",
+        "Hospital and pharmacies",
+        "Rail and bus stations",
+        "Car hire and taxis",
+      ],
+      notes:
+        "Sfax se trouve près de la ligne centrale : la ville bénéficie donc d'une longue totalité. La médina, la kasbah et le musée archéologique en font une base pratique si vous préférez une ville à une plage pour le matin de l'éclipse.",
+      practicalities: [
+        "Choisissez un point d'observation dégagé à l'ouest ou au sud de la ville, loin des immeubles.",
+        "Réservez tôt : la semaine de l'éclipse coïncide avec la haute saison estivale.",
+        "Prévoyez du temps supplémentaire pour le trafic le matin de l'éclipse.",
+      ],
+    },
+    kerkennah: {
+      access:
+        "Ferry depuis Sidi Youssef, à environ 30 minutes de Sfax, puis transferts routiers sur les îles.",
+      facilities: [
+        "Guesthouses and small hotels",
+        "Local restaurants",
+        "Limited fuel",
+        "Basic medical services",
+      ],
+      notes:
+        "Les îles se trouvent dans le chemin de la totalité, avec un horizon ouest dégagé sur la mer. Les infrastructures sont limitées : c'est une base pour les voyageurs qui préfèrent le calme aux équipements et qui confirment les horaires de ferry à l'avance.",
+      practicalities: [
+        "Réservez le ferry et une chambre bien avant la semaine de l'éclipse.",
+        "Emportez du liquide : tous les petits commerces n'acceptent pas les cartes.",
+        "Les îles n'ont pas de grands hôtels : ne comptez pas sur des installations cinq étoiles.",
+      ],
+    },
+  },
+  destinationPage: {
+    circumstancesTitle: "Circonstances de l'éclipse",
+    computedNote:
+      "Calculé à partir des éléments besséliens de la NASA · Africa/Tunis (UTC+1)",
+    computedNoteExplorer:
+      "Calculé à partir des éléments besséliens de la NASA pour le 2 août 2027.",
+    c1: "C1 (premier contact)",
+    c2: "C2 (début de la totalité)",
+    maximum: "Maximum de l'éclipse",
+    c3: "C3 (fin de la totalité)",
+    c4: "C4 (dernier contact)",
+    magnitude: "Magnitude",
+    diameterRatio: "Rapport des diamètres",
+    obscuration: "Obscuration",
+    notesTitle: "Notes sur ce lieu",
+    practicalTitle: "Notes pratiques",
+    access: "Accès",
+    facilities: "Équipements",
+    practicalities: "Aspects pratiques",
+    viewExplorer: "Voir dans l'explorateur",
+    addItinerary: "Ajouter à l'itinéraire",
+    allDestinations: "Toutes les destinations",
+    backToDestinations: "Retour aux destinations",
+    backToAll: "Retour à tous les lieux",
+  },
   packageDetail: {
     "mahdia-signature": {
       area: "Mahdia, centre-est de la Tunisie",
@@ -990,4 +1288,5 @@
     },
   },
 };
+
 

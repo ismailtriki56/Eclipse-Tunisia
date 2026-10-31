@@ -386,3 +386,17 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Remaining: destination access, facilities, notes and practicalities are still
   English; only the Iberostar has licensed photos; secondary editorial pages
   remain English.
+
+## 2026 Redesign — Phase 6b (localized destination detail content)
+
+- Added `destinationDetail` (access, facilities, notes, practicalities) for all
+  15 destinations in en/fr/ar, plus a shared `facilityText` map and a
+  `destinationPage` label section for the circumstances panels.
+- Destination and explorer detail pages now render localized access, notes,
+  facilities, practicalities, contact labels, metric labels and navigation
+  actions. Practicalities are shown as a list rather than a comma-joined string.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (618
+  keys), `npm test` (6/6) and `npm run build` (200 pages). Confirmed 0
+  replacement characters in all three locale files.
+- Remaining: secondary editorial pages (about, contact, safety, privacy, terms,
+  providers) are still English; only the Iberostar has licensed photos.
