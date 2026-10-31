@@ -79,6 +79,7 @@ export default async function PackageDetailPage({ params }: Props) {
   const circumstances = circumstancesFor(destination);
   const asset = getImage(pkg.imageKey);
   const hotels = staysForDestination(pkg.destinationSlug);
+  const hotelDetails = t.hotelDetail as Record<string, { character: string }>;
   const duration = formatDuration(circumstances.centralDurationSeconds);
   const status = availabilityFor(pkg.slug);
   const soldOut = status === "sold_out";
@@ -337,7 +338,9 @@ export default async function PackageDetailPage({ params }: Props) {
                     >
                       <div>
                         <p className="text-sm font-semibold text-ink">{hotel.name}</p>
-                        <p className="mt-0.5 text-xs text-muted">{hotel.character}</p>
+                        <p className="mt-0.5 text-xs text-muted">
+                          {hotelDetails[hotel.slug]?.character ?? hotel.character}
+                        </p>
                       </div>
                       <a
                         href={hotel.officialUrl}

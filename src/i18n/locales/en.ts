@@ -666,6 +666,141 @@
       ],
     },
   },
+  hotelDetail: {
+    "iberostar-selection-royal-el-mansour": {
+      setting: "Beachfront, next to the old town",
+      character: "Family beach resort with thalassotherapy",
+      summary:
+        "A five-star beachfront resort on the Route de la Corniche, with direct beach access, pools, a thalassotherapy centre and the Star Camp children's programme.",
+      highlights: [
+        "Direct beach access",
+        "Thalassotherapy and spa",
+        "Star Camp children's programme",
+        "All-inclusive option",
+      ],
+      bestFor: ["Families", "Beach days", "Mahdia old town"],
+    },
+    "mahdia-palace-thalasso": {
+      setting: "Tourist zone, gardens and pools",
+      character: "Large resort with a Tunisian design language",
+      summary:
+        "A resort in the Mahdia tourist zone with garden and sea-view rooms, pools and thalassotherapy. It is a practical base for a beach-led eclipse stay.",
+      highlights: [
+        "Garden and sea-view rooms",
+        "Pools and gardens",
+        "Thalassotherapy",
+        "Family rooms",
+      ],
+      bestFor: ["Resort stays", "Families", "Pool time"],
+    },
+    "nour-palace-resort-thalasso": {
+      setting: "Beachfront tourist zone north of the centre",
+      character: "All-inclusive beach resort",
+      summary:
+        "A beachfront resort north of Mahdia with pools, restaurants, a spa and family facilities. The broad beach and resort grounds make it an easy base for mixed-age groups.",
+      highlights: [
+        "Beachfront setting",
+        "Pools and spa",
+        "Family facilities",
+        "All-inclusive stays",
+      ],
+      bestFor: ["All-inclusive", "Families", "Mixed-age groups"],
+    },
+    "radisson-blu-athenee-palace-djerba": {
+      setting: "Beachfront in Houmt Souk's tourist zone",
+      character: "Five-star island resort with a kids' club",
+      summary:
+        "A beachfront resort with 296 rooms and suites, a thalassotherapy spa, several restaurants, pools and a kids' club. Its Houmt Souk setting puts the medina within easy reach.",
+      highlights: [
+        "Beachfront location",
+        "Thalassotherapy spa",
+        "Kids' club",
+        "Close to Houmt Souk",
+      ],
+      bestFor: ["Families", "Spa breaks", "Djerba's medina"],
+    },
+    "hasdrubal-prestige-djerba": {
+      setting: "Private beach at Sidi Mehrez",
+      character: "Suite-led thalassotherapy hotel",
+      summary:
+        "A seafront hotel built around suites, a private beach and thalassotherapy, with golf and the Djerba casino nearby. Best suited to travellers prioritising space and spa time.",
+      highlights: ["Private beach", "Suites", "Thalassotherapy", "Golf nearby"],
+      bestFor: ["Couples", "Suites", "Spa time"],
+    },
+    "anantara-sahara-tozeur": {
+      setting: "Desert edge outside Tozeur",
+      character: "Desert resort and villas",
+      summary:
+        "A desert resort and villa retreat on the edge of Tozeur, positioned for oasis excursions and the landscapes around Chott el Jerid. A quieter, higher-comfort Sahara base.",
+      highlights: [
+        "Desert setting",
+        "Resort and villa accommodation",
+        "Oasis excursions",
+        "Spa and dining",
+      ],
+      bestFor: ["Desert stays", "Couples", "Oasis excursions"],
+    },
+    "movenpick-resort-marine-spa-sousse": {
+      setting: "Beachfront on the edge of Sousse",
+      character: "Resort with a marine spa",
+      summary:
+        "A beachfront resort with a marine spa, pools and family facilities, within reach of Sousse's UNESCO-listed medina. Useful for travellers who want a full-service base outside the totality path.",
+      highlights: ["Beachfront setting", "Marine spa", "Pools", "Medina access"],
+      bestFor: ["Resort stays", "Families", "Sousse medina"],
+    },
+    "radisson-hotel-sfax": {
+      setting: "City centre, near the medina and the Ribat",
+      character: "International five-star city hotel",
+      summary:
+        "A central Sfax hotel with a rooftop pool and city views, a spa, a fitness centre and a restaurant. The medina, the Ribat and the Archaeological Museum are within easy reach.",
+      highlights: [
+        "Rooftop pool",
+        "Spa and fitness centre",
+        "Central location",
+        "Parking on site",
+      ],
+      bestFor: ["City stays", "Comfort", "Medina access"],
+    },
+    "borj-dhiafa-sfax": {
+      setting: "Route de Soukra, between the centre and the airport",
+      character: "Five-star boutique hotel with a spa",
+      summary:
+        "A boutique five-star hotel in a modern Tunisian building, with a spa and pool, two restaurants and a lounge bar. A quiet base south of the city with straightforward road access.",
+      highlights: [
+        "Spa and pool",
+        "Two restaurants",
+        "Boutique scale",
+        "Road access",
+      ],
+      bestFor: ["Quiet stays", "Couples", "Spa time"],
+    },
+    "hotel-cercina-kerkennah": {
+      setting: "Beachfront at Sidi Fredj, Ouled Yaneg",
+      character: "Family-run island hotel",
+      summary:
+        "A simple beachfront hotel on the Sidi Fredj shore, with air-conditioned rooms, a terrace restaurant and direct access to one of Kerkennah's quietest beaches.",
+      highlights: [
+        "Beachfront setting",
+        "Family-run",
+        "Seafood restaurant",
+        "Quiet shore",
+      ],
+      bestFor: ["Island stays", "Beach time", "Slow travel"],
+    },
+    "beit-el-ezz-kerkennah": {
+      setting: "Island guesthouse in a traditional house",
+      character: "Guesthouse with a courtyard",
+      summary:
+        "A small guesthouse in a traditional Kerkennah house, with a courtyard, breakfast and a handful of rooms. Best for travellers who want an island stay at a slower scale.",
+      highlights: [
+        "Traditional house",
+        "Courtyard",
+        "Breakfast",
+        "Small scale",
+      ],
+      bestFor: ["Slow travel", "Couples", "Island life"],
+    },
+  },
   hotelText: {
     "iberostar-selection-royal-el-mansour": {
       whyEclipse:

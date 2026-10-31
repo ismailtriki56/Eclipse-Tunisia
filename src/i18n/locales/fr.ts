@@ -667,6 +667,146 @@
       ],
     },
   },
+  hotelDetail: {
+    "iberostar-selection-royal-el-mansour": {
+      setting: "Bord de mer, à côté de la vieille ville",
+      character: "Complexe familial en bord de mer avec thalassothérapie",
+      summary:
+        "Un complexe cinq étoiles en bord de mer sur la Route de la Corniche, avec accès direct à la plage, piscines, centre de thalassothérapie et programme enfants Star Camp.",
+      highlights: [
+        "Accès direct à la plage",
+        "Thalassothérapie et spa",
+        "Programme enfants Star Camp",
+        "Option tout compris",
+      ],
+      bestFor: ["Familles", "Journées de plage", "Vieille ville de Mahdia"],
+    },
+    "mahdia-palace-thalasso": {
+      setting: "Zone touristique, jardins et piscines",
+      character: "Grand complexe au langage architectural tunisien",
+      summary:
+        "Un complexe de la zone touristique de Mahdia avec chambres jardin ou vue mer, piscines et thalassothérapie. Une base pratique pour un séjour de plage autour de l'éclipse.",
+      highlights: [
+        "Chambres jardin et vue mer",
+        "Piscines et jardins",
+        "Thalassothérapie",
+        "Chambres familiales",
+      ],
+      bestFor: ["Séjours en complexe", "Familles", "Temps à la piscine"],
+    },
+    "nour-palace-resort-thalasso": {
+      setting: "Zone touristique en bord de mer au nord du centre",
+      character: "Complexe balnéaire tout compris",
+      summary:
+        "Un complexe en bord de mer au nord de Mahdia avec piscines, restaurants, spa et équipements familiaux. La large plage et les jardins en font une base facile pour des groupes d'âges mixtes.",
+      highlights: [
+        "Bord de mer",
+        "Piscines et spa",
+        "Équipements familiaux",
+        "Séjours tout compris",
+      ],
+      bestFor: ["Tout compris", "Familles", "Groupes d'âges mixtes"],
+    },
+    "radisson-blu-athenee-palace-djerba": {
+      setting: "Bord de mer dans la zone touristique de Houmt Souk",
+      character: "Complexe insulaire cinq étoiles avec club enfants",
+      summary:
+        "Un complexe en bord de mer avec 296 chambres et suites, un spa de thalassothérapie, plusieurs restaurants, des piscines et un club enfants. Sa situation à Houmt Souk met la médina à portée de main.",
+      highlights: [
+        "Situation en bord de mer",
+        "Spa de thalassothérapie",
+        "Club enfants",
+        "Proche de Houmt Souk",
+      ],
+      bestFor: ["Familles", "Cures de spa", "Médina de Djerba"],
+    },
+    "hasdrubal-prestige-djerba": {
+      setting: "Plage privée à Sidi Mehrez",
+      character: "Hôtel de thalassothérapie centré sur les suites",
+      summary:
+        "Un hôtel en bord de mer construit autour de suites, d'une plage privée et de la thalassothérapie, avec golf et casino de Djerba à proximité. Idéal pour ceux qui privilégient l'espace et le temps de spa.",
+      highlights: [
+        "Plage privée",
+        "Suites",
+        "Thalassothérapie",
+        "Golf à proximité",
+      ],
+      bestFor: ["Couples", "Suites", "Temps de spa"],
+    },
+    "anantara-sahara-tozeur": {
+      setting: "Lisière du désert hors de Tozeur",
+      character: "Complexe et villas dans le désert",
+      summary:
+        "Un complexe et des villas à la lisière de Tozeur, positionnés pour les excursions dans l'oasis et les paysages autour de Chott el Jerid. Une base saharienne plus calme et plus confortable.",
+      highlights: [
+        "Cadre désertique",
+        "Hébergement en complexe et villas",
+        "Excursions dans l'oasis",
+        "Spa et restauration",
+      ],
+      bestFor: ["Séjours dans le désert", "Couples", "Excursions dans l'oasis"],
+    },
+    "movenpick-resort-marine-spa-sousse": {
+      setting: "Bord de mer à la lisière de Sousse",
+      character: "Complexe avec spa marin",
+      summary:
+        "Un complexe en bord de mer avec spa marin, piscines et équipements familiaux, à portée de la médina de Sousse classée à l'UNESCO. Utile pour ceux qui veulent une base complète hors de la bande de totalité.",
+      highlights: ["Bord de mer", "Spa marin", "Piscines", "Accès à la médina"],
+      bestFor: ["Séjours en complexe", "Familles", "Médina de Sousse"],
+    },
+    "radisson-hotel-sfax": {
+      setting: "Centre-ville, près de la médina et du Ribat",
+      character: "Hôtel urbain international cinq étoiles",
+      summary:
+        "Un hôtel central à Sfax avec piscine sur le toit et vues sur la ville, spa, salle de sport et restaurant. La médina, le Ribat et le musée archéologique sont à portée de main.",
+      highlights: [
+        "Piscine sur le toit",
+        "Spa et salle de sport",
+        "Emplacement central",
+        "Parking sur place",
+      ],
+      bestFor: ["Séjours urbains", "Confort", "Accès à la médina"],
+    },
+    "borj-dhiafa-sfax": {
+      setting: "Route de Soukra, entre le centre et l'aéroport",
+      character: "Hôtel boutique cinq étoiles avec spa",
+      summary:
+        "Un hôtel boutique cinq étoiles dans un bâtiment tunisien contemporain, avec spa et piscine, deux restaurants et un bar-lounge. Une base calme au sud de la ville avec un accès routier simple.",
+      highlights: [
+        "Spa et piscine",
+        "Deux restaurants",
+        "Échelle boutique",
+        "Accès routier",
+      ],
+      bestFor: ["Séjours calmes", "Couples", "Temps de spa"],
+    },
+    "hotel-cercina-kerkennah": {
+      setting: "Bord de mer à Sidi Fredj, Ouled Yaneg",
+      character: "Hôtel insulaire familial",
+      summary:
+        "Un hôtel simple en bord de mer sur la côte de Sidi Fredj, avec chambres climatisées, restaurant en terrasse et accès direct à l'une des plages les plus calmes de Kerkennah.",
+      highlights: [
+        "Bord de mer",
+        "Géré en famille",
+        "Restaurant de fruits de mer",
+        "Côte calme",
+      ],
+      bestFor: ["Séjours sur l'île", "Temps de plage", "Voyage lent"],
+    },
+    "beit-el-ezz-kerkennah": {
+      setting: "Maison d'hôtes insulaire dans une maison traditionnelle",
+      character: "Maison d'hôtes avec cour",
+      summary:
+        "Une petite maison d'hôtes dans une maison traditionnelle de Kerkennah, avec une cour, le petit-déjeuner et quelques chambres. Idéale pour un séjour insulaire à échelle humaine.",
+      highlights: [
+        "Maison traditionnelle",
+        "Cour",
+        "Petit-déjeuner",
+        "Petite capacité",
+      ],
+      bestFor: ["Voyage lent", "Couples", "Vie insulaire"],
+    },
+  },
   hotelText: {
     "iberostar-selection-royal-el-mansour": {
       whyEclipse:

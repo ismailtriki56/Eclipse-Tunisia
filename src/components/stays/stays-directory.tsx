@@ -22,6 +22,16 @@ export function StaysDirectory() {
   const [compare, setCompare] = useState<string[]>([]);
 
   const hotelNotes = t.hotelText as Record<string, { whyEclipse: string }>;
+  const hotelDetails = t.hotelDetail as Record<
+    string,
+    {
+      setting: string;
+      character: string;
+      summary: string;
+      highlights: string[];
+      bestFor: string[];
+    }
+  >;
 
   const visible = useMemo(
     () => (city === null ? stays : stays.filter((stay) => stay.city === city)),
@@ -48,12 +58,25 @@ export function StaysDirectory() {
 
   const compareRows = [
     { label: t.stays.city, render: (stay: Stay) => stay.city },
-    { label: t.stays.setting, render: (stay: Stay) => stay.setting },
-    { label: t.stays.character, render: (stay: Stay) => stay.character },
-    { label: t.stays.bestFor, render: (stay: Stay) => stay.bestFor.join(" · ") },
+    {
+      label: t.stays.setting,
+      render: (stay: Stay) =>
+        hotelDetails[stay.slug]?.setting ?? stay.setting,
+    },
+    {
+      label: t.stays.character,
+      render: (stay: Stay) =>
+        hotelDetails[stay.slug]?.character ?? stay.character,
+    },
+    {
+      label: t.stays.bestFor,
+      render: (stay: Stay) =>
+        (hotelDetails[stay.slug]?.bestFor ?? stay.bestFor).join(" · "),
+    },
     {
       label: t.stays.highlights,
-      render: (stay: Stay) => stay.highlights.join(" · "),
+      render: (stay: Stay) =>
+        (hotelDetails[stay.slug]?.highlights ?? stay.highlights).join(" · "),
     },
     { label: t.stays.starRating, render: (stay: Stay) => ratingLabel(stay) },
     {
@@ -172,6 +195,7 @@ export function StaysDirectory() {
           const isSelected = compare.includes(stay.slug);
           const photos = stay.photoKeys.map(getImage);
           const note = hotelNotes[stay.slug];
+          const detail = hotelDetails[stay.slug];
           return (
             <article
               key={stay.slug}
@@ -235,7 +259,9 @@ export function StaysDirectory() {
                     <h2 className="mt-3 font-display text-xl font-semibold tracking-tight text-ink">
                       {stay.name}
                     </h2>
-                    <p className="mt-1 text-sm text-clay">{stay.character}</p>
+                    <p className="mt-1 text-sm text-clay">
+                      {detail?.character ?? stay.character}
+                    </p>
                   </div>
                   <button
                     type="button"
@@ -257,7 +283,7 @@ export function StaysDirectory() {
                 </div>
 
                 <p className="mt-4 text-sm leading-relaxed text-muted">
-                  {stay.summary}
+                  {detail?.summary ?? stay.summary}
                 </p>
 
                 <p className="mt-4 text-xs leading-relaxed text-muted">
@@ -284,13 +310,17 @@ export function StaysDirectory() {
                     <dt className="font-semibold uppercase tracking-[0.12em] text-muted">
                       {t.stays.setting}
                     </dt>
-                    <dd className="mt-1 text-ink">{stay.setting}</dd>
+                    <dd className="mt-1 text-ink">
+                      {detail?.setting ?? stay.setting}
+                    </dd>
                   </div>
                   <div>
                     <dt className="font-semibold uppercase tracking-[0.12em] text-muted">
                       {t.stays.bestFor}
                     </dt>
-                    <dd className="mt-1 text-ink">{stay.bestFor.join(" · ")}</dd>
+                    <dd className="mt-1 text-ink">
+                      {(detail?.bestFor ?? stay.bestFor).join(" · ")}
+                    </dd>
                   </div>
                 </dl>
 

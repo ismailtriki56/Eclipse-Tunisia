@@ -356,3 +356,17 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   English data; hotel summaries, settings, characters, highlights and best-for
   lists are still English data; only the Iberostar has licensed photos; the
   secondary editorial pages remain English.
+
+## 2026 Redesign — Phase 5 (localized hotel copy)
+
+- Added a `hotelDetail` dictionary section (en/fr/ar) for all 11 properties:
+  setting, character, summary, highlights and best-for list.
+- `StaysDirectory` now renders localized hotel copy in cards and the compare
+  table, falling back to `src/data/stays.ts`. Package detail hotel lists use the
+  localized character line too.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (424
+  keys), `npm test` (6/6) and `npm run build` (200 pages). Confirmed 0
+  replacement characters in all three locale files.
+- Remaining: destination names, regions and editorial summaries are still
+  English data; only the Iberostar has licensed photos; the secondary editorial
+  pages remain English.
