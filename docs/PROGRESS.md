@@ -341,3 +341,18 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   lists are still English data; only the Iberostar has licensed photos. The
   package itinerary/included/excluded lists, destination editorial data and
   secondary editorial pages are still English.
+
+## 2026 Redesign — Phase 4 (localized package detail)
+
+- Added a `packageDetail` dictionary section (en/fr/ar) covering every package:
+  area, best-for list, included and excluded lists, day-by-day itinerary, and
+  the three `eclipse-breakfast` variants.
+- Package detail and package listing pages now read those fields with the
+  English data as fallback, so itinerary copy, inclusions, exclusions, areas,
+  best-for labels and variant descriptions all switch with the locale.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (369
+  keys), `npm test` (6/6) and `npm run build` (200 pages).
+- Remaining: destination names, regions and editorial summaries are still
+  English data; hotel summaries, settings, characters, highlights and best-for
+  lists are still English data; only the Iberostar has licensed photos; the
+  secondary editorial pages remain English.

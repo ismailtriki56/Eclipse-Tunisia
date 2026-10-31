@@ -411,6 +411,262 @@
         "Trois nuits à Kerkennah, rejointe par ferry depuis Sidi Youssef. Borj el Hissar, Dar Jellouli, une démonstration de pêche à la charfia, des plages calmes et l'éclipse sur l'île.",
     },
   },
+  packageDetail: {
+    "mahdia-signature": {
+      area: "Mahdia, centre-est de la Tunisie",
+      bestFor: ["Premier voyage d'éclipse", "Plage et histoire", "Petits groupes"],
+      included: [
+        "4 nuits dans un hôtel 4 étoiles en bord de mer, chambre double ou twin",
+        "Petit-déjeuner quotidien et deux dîners",
+        "Transferts privés aller-retour depuis l'aéroport de Monastir (MIR)",
+        "Transfert le matin de l'éclipse vers un point d'observation côtier ouvert et vérifié",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque voyageur",
+        "Visite guidée de la médina de Mahdia et du phare",
+        "Excursion d'une journée à l'amphithéâtre d'El Jem",
+        "Coordination locale du séjour avant l'arrivée",
+      ],
+      excluded: [
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Frais de visa ou d'entrée",
+        "Supplément individuel, surclassements et options",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Arrivée à Monastir, transfert vers Mahdia",
+          body: "Transfert privé le long de la côte, installation à l'hôtel et première promenade dans la vieille ville au coucher du soleil.",
+        },
+        {
+          title: "Médina, phare et briefing éclipse",
+          body: "Matinée guidée dans la médina et autour du phare, suivie d'un briefing pratique sur les horaires et la sécurité du lendemain.",
+        },
+        {
+          title: "Jour de l'éclipse sur la côte",
+          body: "Transfert matinal vers un point d'observation côtier ouvert. Les heures de contact exactes pour Mahdia sont calculées à partir des éléments de la NASA et indiquées avec ce forfait.",
+        },
+        {
+          title: "El Jem et l'amphithéâtre",
+          body: "Excursion d'une journée dans l'arrière-pays vers l'amphithéâtre romain d'El Jem, avec du temps pour le musée et un déjeuner tardif avant le retour à Mahdia.",
+        },
+        {
+          title: "Départ",
+          body: "Petit-déjeuner, départ de l'hôtel et transfert privé vers l'aéroport de Monastir.",
+        },
+      ],
+    },
+    "djerba-total-totality": {
+      area: "Djerba, sud-est de la Tunisie",
+      bestFor: ["Longue totalité", "Séjours insulaires", "Familles"],
+      included: [
+        "4 nuits dans un hôtel 4 étoiles sur l'île, chambre double ou twin",
+        "Petit-déjeuner quotidien",
+        "Transferts privés aller-retour depuis l'aéroport de Djerba-Zarzis (DJE)",
+        "Transfert le matin de l'éclipse vers un point d'observation insulaire vérifié",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque voyageur",
+        "Excursion guidée à Houmt Souk et Guellala",
+        "Coordination locale du séjour avant l'arrivée",
+      ],
+      excluded: [
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Frais de visa ou d'entrée",
+        "Supplément individuel, surclassements et options",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Arrivée à Djerba",
+          body: "Transfert depuis l'aéroport, installation à l'hôtel et soirée à Houmt Souk.",
+        },
+        {
+          title: "Culture insulaire et briefing éclipse",
+          body: "Houmt Souk, les ateliers de céramique de Guellala et un briefing pratique pour le matin de l'éclipse.",
+        },
+        {
+          title: "Jour de l'éclipse",
+          body: "Départ matinal vers un point d'observation ouvert sur l'île pour toute la séquence de l'éclipse.",
+        },
+        {
+          title: "Journée plage et lagune",
+          body: "Une journée sans hâte sur la côte, avec du temps pour la lagune et un dernier dîner insulaire.",
+        },
+        {
+          title: "Départ",
+          body: "Petit-déjeuner et transfert privé vers l'aéroport de Djerba-Zarzis.",
+        },
+      ],
+    },
+    "sahara-eclipse-oasis": {
+      area: "Tozeur et Chott el Jerid",
+      bestFor: ["Paysages désertiques", "Photographie", "Voyage lent"],
+      included: [
+        "5 nuits dans un hôtel ou une maison d'hôtes du désert, chambre double ou twin",
+        "Petit-déjeuner quotidien",
+        "Transferts privés aller-retour depuis l'aéroport de Tozeur (TOE) selon disponibilité",
+        "Transfert en 4x4 le matin de l'éclipse vers un point d'observation désertique vérifié",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque voyageur",
+        "Visite guidée de l'oasis de Tozeur et de la vieille ville",
+        "Excursion en 4x4 à Chott el Jerid",
+        "Coordination locale du séjour avant l'arrivée",
+      ],
+      excluded: [
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Frais de visa ou d'entrée",
+        "Supplément individuel, surclassements et options",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Arrivée à Tozeur",
+          body: "Transfert, installation et promenade en soirée à la lisière de l'oasis.",
+        },
+        {
+          title: "Oasis et vieille ville",
+          body: "Promenade guidée dans les palmeraies, les canaux d'irrigation et les ruelles de brique de Tozeur.",
+        },
+        {
+          title: "Chott el Jerid et briefing éclipse",
+          body: "Excursion en 4x4 sur les salines, puis retour pour un briefing pratique sur la matinée suivante.",
+        },
+        {
+          title: "Jour de l'éclipse",
+          body: "Départ matinal en 4x4 vers un point d'observation ouvert dans le désert. La totalité à Tozeur est courte : les heures de contact exactes sont calculées à partir des éléments de la NASA et indiquées avec ce forfait.",
+        },
+        {
+          title: "Nefta et les palmeraies",
+          body: "Une journée plus lente vers Nefta, avec du temps dans les palmeraies et la vieille ville.",
+        },
+        {
+          title: "Départ",
+          body: "Petit-déjeuner et transfert vers l'aéroport de Tozeur ou poursuite par la route.",
+        },
+      ],
+    },
+    "eclipse-breakfast": {
+      area: "Djerba, Mahdia ou Sfax",
+      bestFor: ["Courts séjours", "Escales et city breaks", "Familles"],
+      variants: {
+        djerba: {
+          label: "Djerba",
+          description: "Prise en charge depuis les hôtels de Houmt Souk et Midoun ; point d'observation côtier ouvert.",
+        },
+        mahdia: {
+          label: "Mahdia",
+          description: "Prise en charge sur le front de mer de Mahdia ; observation sur la plage sud.",
+        },
+        sfax: {
+          label: "Sfax",
+          description: "Prise en charge dans le centre de Sfax ; observation à l'ouest de la ville, loin des bâtiments.",
+        },
+      },
+      included: [
+        "Transfert aller-retour de votre hôtel au point d'observation",
+        "Zone d'observation réservée avec ombre et eau",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque invité",
+        "Petit-déjeuner tunisien servi avant la totalité",
+        "Animateur local et briefing sécurité",
+        "Toast après l'éclipse",
+      ],
+      excluded: [
+        "Hébergement",
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Matinée de l'éclipse",
+          body: "Prise en charge matinale à l'hôtel, arrivée au point d'observation avant le premier contact, petit-déjeuner, totalité, puis retour tranquille après le dernier contact.",
+        },
+      ],
+    },
+    "sfax-signature": {
+      area: "Sfax, centre-est de la Tunisie",
+      bestFor: ["Ville et histoire", "Séjours courts", "Petits groupes"],
+      included: [
+        "3 nuits dans un hôtel central de Sfax, chambre double ou twin",
+        "Petit-déjeuner quotidien",
+        "Transferts privés aller-retour depuis l'aéroport de Sfax-Thyna (SFT)",
+        "Transfert le matin de l'éclipse vers un point d'observation ouvert et vérifié",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque voyageur",
+        "Visite guidée de la médina, de la Kasbah et du musée",
+        "Excursion d'une journée à l'amphithéâtre d'El Jem",
+        "Coordination locale du séjour avant l'arrivée",
+      ],
+      excluded: [
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Frais de visa ou d'entrée",
+        "Supplément individuel, surclassements et options",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Arrivée à Sfax",
+          body: "Transfert privé, installation à l'hôtel et promenade en soirée dans les ruelles de la médina.",
+        },
+        {
+          title: "Médina, Kasbah et musée",
+          body: "Matinée guidée dans la vieille ville, la Kasbah et le musée archéologique, avec l'après-midi libre.",
+        },
+        {
+          title: "Jour de l'éclipse",
+          body: "Transfert matinal vers un point d'observation ouvert à l'ouest de la ville, avec toute la séquence de l'éclipse et un petit-déjeuner tardif au retour.",
+        },
+        {
+          title: "El Jem et départ",
+          body: "Une matinée à l'amphithéâtre d'El Jem avant les transferts vers l'aéroport ou la poursuite par la route.",
+        },
+      ],
+    },
+    "kerkennah-island-escape": {
+      area: "Îles Kerkennah, centre-est de la Tunisie",
+      bestFor: ["Îles calmes", "Photographie", "Voyage lent"],
+      included: [
+        "3 nuits dans une petite maison d'hôtes ou un hôtel de l'île, chambre double ou twin",
+        "Petit-déjeuner quotidien et deux dîners",
+        "Traversée aller-retour en ferry depuis Sidi Youssef",
+        "Transferts sur l'île et transport le matin de l'éclipse",
+        "Lunettes d'éclipse ISO 12312-2 pour chaque voyageur",
+        "Visite guidée de Borj el Hissar et Dar Jellouli",
+        "Démonstration de pêche à la charfia, selon la saison et la météo",
+        "Coordination locale du séjour avant l'arrivée",
+      ],
+      excluded: [
+        "Vols internationaux",
+        "Assurance voyage",
+        "Déjeuners, boissons et dépenses personnelles",
+        "Frais de visa ou d'entrée",
+        "Supplément individuel, surclassements et options",
+        "Tout ce qui n'est pas listé comme inclus",
+      ],
+      itinerary: [
+        {
+          title: "Ferry vers Kerkennah",
+          body: "Traversée depuis Sidi Youssef, installation et soirée sur la côte.",
+        },
+        {
+          title: "Patrimoine insulaire et pêche",
+          body: "Borj el Hissar, Dar Jellouli et une démonstration de pêche à la charfia, avec du temps pour la plage.",
+        },
+        {
+          title: "Jour de l'éclipse",
+          body: "Transfert matinal vers une côte ouverte tournée vers l'ouest, toute la séquence de l'éclipse et un petit-déjeuner tardif.",
+        },
+        {
+          title: "Ferry retour",
+          body: "Petit-déjeuner, une dernière promenade et le ferry vers Sidi Youssef.",
+        },
+      ],
+    },
+  },
   hotelText: {
     "iberostar-selection-royal-el-mansour": {
       whyEclipse:

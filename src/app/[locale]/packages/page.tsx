@@ -23,6 +23,10 @@ export default async function PackagesPage({ params }: Props) {
   const { locale } = await params;
   const t = getDictionary(isLocale(locale) ? locale : "en");
   const text = t.packageText as Record<string, { name: string }>;
+  const detail = t.packageDetail as Record<
+    string,
+    { area: string; bestFor: string[] }
+  >;
 
   const notes = [
     { title: t.packages.whatPriceIs, body: t.packages.whatPriceIsBody },
@@ -92,7 +96,9 @@ export default async function PackagesPage({ params }: Props) {
                         <p className="font-display text-base font-semibold text-ink">
                           {text[pkg.slug]?.name ?? pkg.name}
                         </p>
-                        <p className="mt-1 text-xs text-muted">{pkg.area}</p>
+                        <p className="mt-1 text-xs text-muted">
+                          {detail[pkg.slug]?.area ?? pkg.area}
+                        </p>
                       </td>
                       <td className="px-5 py-4 text-muted">
                         {destination?.name ?? pkg.eclipseBase}
@@ -113,7 +119,7 @@ export default async function PackagesPage({ params }: Props) {
                         {formatMoney(pkg.basePricePerPerson, pkg.currency)}
                       </td>
                       <td className="px-5 py-4 text-xs leading-relaxed text-muted">
-                        {pkg.bestFor.join(" · ")}
+                        {(detail[pkg.slug]?.bestFor ?? pkg.bestFor).join(" · ")}
                       </td>
                     </tr>
                   );

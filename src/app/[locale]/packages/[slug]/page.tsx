@@ -21,6 +21,15 @@ interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
 
+interface PackageDetailText {
+  area: string;
+  bestFor: string[];
+  included: string[];
+  excluded: string[];
+  itinerary: { title: string; body: string }[];
+  variants?: Record<string, { label: string; description: string }>;
+}
+
 export function generateStaticParams() {
   return packages.map((pkg) => ({ slug: pkg.slug }));
 }
@@ -52,6 +61,21 @@ export default async function PackageDetailPage({ params }: Props) {
   const text = (
     t.packageText as Record<string, { name: string; tagline: string; summary: string }>
   )[pkg.slug];
+  const detail = (
+    t.packageDetail as Record<string, PackageDetailText>
+  )[pkg.slug];
+  const area = detail?.area ?? pkg.area;
+  const included = detail?.included ?? pkg.included;
+  const excluded = detail?.excluded ?? pkg.excluded;
+  const days = pkg.itinerary.map((day, index) => ({
+    day: day.day,
+    title: detail?.itinerary[index]?.title ?? day.title,
+    body: detail?.itinerary[index]?.body ?? day.body,
+  }));
+  const variants = pkg.variants?.map((variant) => ({
+    ...variant,
+    ...detail?.variants?.[variant.id],
+  }));
   const circumstances = circumstancesFor(destination);
   const asset = getImage(pkg.imageKey);
   const hotels = staysForDestination(pkg.destinationSlug);
@@ -135,7 +159,7 @@ export default async function PackageDetailPage({ params }: Props) {
               {t.packages.outline}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              {pkg.area}. {t.packages.howToUseBody}
+              {area}. {t.packages.howToUseBody}
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               <div className="rounded-xl bg-ivory p-4">
@@ -164,13 +188,13 @@ export default async function PackageDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {pkg.variants && pkg.variants.length > 0 ? (
+            {variants && variants.length > 0 ? (
               <div className="mt-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                   {t.packages.variant}
                 </p>
                 <div className="mt-2 grid gap-2 sm:grid-cols-3">
-                  {pkg.variants.map((variant) => (
+                  {variants.map((variant) => (
                     <div key={variant.id} className="rounded-xl border border-line bg-white p-3">
                       <p className="font-display text-base font-semibold text-ink">
                         {variant.label}
@@ -211,7 +235,7 @@ export default async function PackageDetailPage({ params }: Props) {
               : `${pkg.nights} ${pkg.nights === 1 ? t.common.night : t.common.nights}`}
           </h2>
           <ol className="mt-7 space-y-5">
-            {pkg.itinerary.map((day) => (
+            {days.map((day) => (
               <li key={day.day} className="flex gap-4">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy font-mono text-xs font-semibold text-gold">
                   {String(day.day).padStart(2, "0")}
@@ -235,7 +259,7 @@ export default async function PackageDetailPage({ params }: Props) {
               {t.packages.included}
             </h2>
             <ul className="mt-4 space-y-2.5 text-sm text-muted">
-              {pkg.included.map((item) => (
+              {included.map((item) => (
                 <li key={item} className="flex gap-3">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
                   {item}
@@ -249,7 +273,7 @@ export default async function PackageDetailPage({ params }: Props) {
               {t.packages.excluded}
             </h2>
             <ul className="mt-4 space-y-2.5 text-sm text-muted">
-              {pkg.excluded.map((item) => (
+              {excluded.map((item) => (
                 <li key={item} className="flex gap-3">
                   <X className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
                   {item}
