@@ -255,6 +255,9 @@
     noResults: "No destination matches this filter.",
   },
   destinations: {
+    metadataTitle: "Destinations — Where to Watch the 2027 Eclipse in Tunisia",
+    metadataDescription:
+      "Compare the best places to watch the total solar eclipse of 2 August 2027 in Tunisia, with verified circumstances computed from NASA data.",
     pageEyebrow: "Destinations",
     pageTitle: "Where to watch in Tunisia",
     pageDescription:
@@ -278,6 +281,11 @@
     },
   },
   explorer: {
+    metadataTitle:
+      "Eclipse Explorer — Interactive Map & Totality Circumstances",
+    metadataDescription:
+      "Compare Tunisian viewing locations for the total solar eclipse of 2 August 2027, with verified circumstances computed from NASA Besselian elements and an interactive map.",
+    detailTitleSuffix: "eclipse circumstances",
     pageEyebrow: "Eclipse Explorer",
     pageTitle: "Where will totality be visible?",
     pageDescription:
@@ -1099,6 +1107,7 @@
     },
   },
   destinationPage: {
+    detailTitleSuffix: "Total solar eclipse 2027",
     circumstancesTitle: "Eclipse circumstances",
     computedNote: "Computed from NASA Besselian elements · Africa/Tunis (UTC+1)",
     computedNoteExplorer:

@@ -23,7 +23,7 @@ export async function generateMetadata({
   const locale = isLocale(localeParam) ? localeParam : defaultLocale;
   const t = getDictionary(locale);
   const experience = getExperience(slug);
-  if (!experience) return { title: "Experience not found" };
+  if (!experience) return { title: t.notFound.title };
   const copy = experienceText(t, experience);
   return { title: copy.title, description: copy.summary };
 }

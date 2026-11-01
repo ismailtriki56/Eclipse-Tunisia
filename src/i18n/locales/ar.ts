@@ -255,6 +255,9 @@
     noResults: "لا توجد وجهة تطابق هذا التصفية.",
   },
   destinations: {
+    metadataTitle: "الوجهات — أين تشاهد كسوف 2027 في تونس",
+    metadataDescription:
+      "قارن أفضل أماكن مشاهدة الكسوف الكلي للشمس في 2 أغسطس 2027 في تونس، مع ظروف موثقة محسوبة من بيانات ناسا.",
     pageEyebrow: "الوجهات",
     pageTitle: "أين تشاهد في تونس",
     pageDescription:
@@ -278,6 +281,10 @@
     },
   },
   explorer: {
+    metadataTitle: "مستكشف الكسوف — خريطة تفاعلية وظروف الكلية",
+    metadataDescription:
+      "قارن مواقع المشاهدة التونسية للكسوف الكلي للشمس في 2 أغسطس 2027، مع ظروف موثقة محسوبة من عناصر بيسل التابعة لناسا وخريطة تفاعلية.",
+    detailTitleSuffix: "ظروف الكسوف",
     pageEyebrow: "مستكشف الكسوف",
     pageTitle: "أين سيُرى الكسوف الكلي؟",
     pageDescription:
@@ -1095,6 +1102,7 @@
     },
   },
   destinationPage: {
+    detailTitleSuffix: "الكسوف الكلي للشمس 2027",
     circumstancesTitle: "ظروف الكسوف",
     computedNote:
       "محسوبة من عناصر بيسل التابعة لناسا · أفريقيا/تونس (UTC+1)",

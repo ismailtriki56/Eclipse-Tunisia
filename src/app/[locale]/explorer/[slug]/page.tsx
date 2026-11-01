@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dictionary = getDictionary(isLocale(locale) ? locale : defaultLocale);
   const text = destinationText(dictionary, destination);
   return {
-    title: `${text.name} — eclipse circumstances`,
+    title: `${text.name} — ${dictionary.explorer.detailTitleSuffix}`,
     description: text.summary,
   };
 }

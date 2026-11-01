@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dictionary = getDictionary(isLocale(locale) ? locale : defaultLocale);
   const text = destinationText(dictionary, destination);
   return {
-    title: `${text.name} — Total solar eclipse 2027`,
+    title: `${text.name} — ${dictionary.destinationPage.detailTitleSuffix}`,
     description: text.summary,
   };
 }

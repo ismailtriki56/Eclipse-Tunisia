@@ -462,3 +462,12 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   `npm run build` (200 pages).
 - Remaining: 9 of the 11 stays still have no licensed photograph; their
   galleries correctly show “photo coming soon”.
+
+## 2026 Redesign — Phase 10 (localized metadata)
+
+- Moved destinations and explorer list metadata to `generateMetadata` and
+  translated all four titles/descriptions plus the destination and explorer
+  detail title suffixes in en/fr/ar (811 keys per locale).
+- Localized the experience detail fallback title via `notFound.title`.
+- Verified localized `<title>` output on fr/ar routes, 57-route link check,
+  typecheck, lint and the 200-page production build.

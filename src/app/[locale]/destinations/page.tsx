@@ -4,11 +4,18 @@ import { DestinationsView } from "@/components/destinations/destinations-view";
 import { totalityDestinations, partialDestinations } from "@/lib/eclipse/destinations";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 
-export const metadata: Metadata = {
-  title: "Destinations — Where to Watch the 2027 Eclipse in Tunisia",
-  description:
-    "Compare the best places to watch the total solar eclipse of 2 August 2027 in Tunisia, with verified circumstances computed from NASA data.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = getDictionary(isLocale(locale) ? locale : defaultLocale);
+  return {
+    title: t.destinations.metadataTitle,
+    description: t.destinations.metadataDescription,
+  };
+}
 
 export default async function DestinationsPage({
   params,

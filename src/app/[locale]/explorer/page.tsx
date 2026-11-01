@@ -6,11 +6,18 @@ import { formatDuration } from "@/lib/format";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import { destinationText } from "@/lib/destination-text";
 
-export const metadata: Metadata = {
-  title: "Eclipse Explorer — Interactive Map & Totality Circumstances",
-  description:
-    "Compare Tunisian viewing locations for the total solar eclipse of 2 August 2027, with verified circumstances computed from NASA Besselian elements and an interactive Leaflet map.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = getDictionary(isLocale(locale) ? locale : defaultLocale);
+  return {
+    title: t.explorer.metadataTitle,
+    description: t.explorer.metadataDescription,
+  };
+}
 
 export default async function ExplorerPage({
   params,

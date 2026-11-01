@@ -255,6 +255,9 @@
     noResults: "Aucune destination ne correspond à ce filtre.",
   },
   destinations: {
+    metadataTitle: "Destinations — Où observer l'éclipse 2027 en Tunisie",
+    metadataDescription:
+      "Comparez les meilleurs sites d'observation de l'éclipse totale de Soleil du 2 août 2027 en Tunisie, avec des circonstances vérifiées calculées à partir des données de la NASA.",
     pageEyebrow: "Destinations",
     pageTitle: "Où observer en Tunisie",
     pageDescription:
@@ -278,6 +281,11 @@
     },
   },
   explorer: {
+    metadataTitle:
+      "Explorateur d'éclipse — Carte interactive et circonstances de la totalité",
+    metadataDescription:
+      "Comparez les sites d'observation tunisiens pour l'éclipse totale de Soleil du 2 août 2027, avec des circonstances vérifiées calculées à partir des éléments besséliens de la NASA et une carte interactive.",
+    detailTitleSuffix: "circonstances de l'éclipse",
     pageEyebrow: "Explorateur d'éclipse",
     pageTitle: "Où la totalité sera-t-elle visible ?",
     pageDescription:
@@ -1103,6 +1111,7 @@
     },
   },
   destinationPage: {
+    detailTitleSuffix: "Éclipse totale de Soleil 2027",
     circumstancesTitle: "Circonstances de l'éclipse",
     computedNote:
       "Calculé à partir des éléments besséliens de la NASA · Africa/Tunis (UTC+1)",
