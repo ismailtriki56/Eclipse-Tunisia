@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
@@ -15,11 +15,20 @@ import { getImage, imageCredit } from "@/data/images";
 import { cn } from "@/lib/cn";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/language-context";
+import { getDestination } from "@/data/destinations";
+import { destinationText } from "@/lib/destination-text";
 
 export function StaysDirectory() {
   const { t } = useLanguage();
   const [city, setCity] = useState<string | null>(null);
   const [compare, setCompare] = useState<string[]>([]);
+
+  const cityLabel = (name: string | null) => {
+    if (name === null) return t.stays.all;
+    const stay = stays.find((item) => item.city === name);
+    const destination = stay ? getDestination(stay.destinationSlug) : null;
+    return destination ? destinationText(t, destination).name : name;
+  };
 
   const hotelNotes = t.hotelText as Record<string, { whyEclipse: string }>;
   const hotelDetails = t.hotelDetail as Record<
@@ -57,7 +66,7 @@ export function StaysDirectory() {
       : t.stays.stars.replace("{count}", String(stay.stars));
 
   const compareRows = [
-    { label: t.stays.city, render: (stay: Stay) => stay.city },
+    { label: t.stays.city, render: (stay: Stay) => cityLabel(stay.city) },
     {
       label: t.stays.setting,
       render: (stay: Stay) =>
@@ -102,7 +111,7 @@ export function StaysDirectory() {
                   : "border-line bg-white text-muted hover:border-navy hover:text-navy",
               )}
             >
-              {option ?? t.stays.all}
+              {cityLabel(option)}
             </button>
           ))}
         </div>
@@ -247,7 +256,7 @@ export function StaysDirectory() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <Badge tone="outline">{stay.city}</Badge>
+                      <Badge tone="outline">{cityLabel(stay.city)}</Badge>
                       <Badge tone="total">
                         <Star className="me-1 h-3 w-3" aria-hidden />
                         {ratingLabel(stay)}
@@ -352,3 +361,4 @@ export function StaysDirectory() {
     </div>
   );
 }
+

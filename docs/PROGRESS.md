@@ -442,3 +442,10 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   characters.
 - Remaining: `packagePlannerHref` is still exported/tested but unused by the
   UI; only the Iberostar has licensed photos.
+
+## 2026 Redesign — Phase 8b (stay cities localized)
+
+- Stay city labels and the stays city filter now follow the localized
+  destination names, while filtering still uses the stable English city keys.
+- Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (805
+  keys), `npm test` (6/6) and `npm run build` (200 pages).
