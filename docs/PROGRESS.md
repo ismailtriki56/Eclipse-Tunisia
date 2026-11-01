@@ -449,3 +449,16 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
   destination names, while filtering still uses the stable English city keys.
 - Verified: `npm run typecheck`, `npm run lint`, `npm run i18n:check` (805
   keys), `npm test` (6/6) and `npm run build` (200 pages).
+
+## 2026 Redesign — Phase 9 (Nour Palace photos and route audit)
+
+- Added three CC BY-SA 3.0 photographs of the Nour Palace Resort & Thalasso
+  from Wikimedia Commons (Przemek P), stored locally with full attribution and
+  wired into the stays gallery.
+- Ran `npm run test:links` against the production standalone server: all 57
+  checks passed across en/fr/ar, with no empty links and correct `lang`
+  attributes.
+- Verified: `npm run typecheck`, `npm run lint`, `npm test` (6/6) and
+  `npm run build` (200 pages).
+- Remaining: 9 of the 11 stays still have no licensed photograph; their
+  galleries correctly show “photo coming soon”.

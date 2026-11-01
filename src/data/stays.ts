@@ -138,7 +138,11 @@ export const stays: Stay[] = [
       "bar",
       "wifi",
     ],
-    photoKeys: [],
+    photoKeys: [
+      "nourPalacePool",
+      "nourPalaceExterior",
+      "nourPalaceGrounds",
+    ],
     officialUrl: "https://nourpalace.tn/en-gb/",
     bookingSearchUrl: bookingSearch("Mahdia"),
     verifiedOn: "Official hotel website",
