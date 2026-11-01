@@ -15,6 +15,8 @@
   },
   header: {
     planTrip: "Request a quote",
+    primaryNav: "Primary navigation",
+    mobileNav: "Mobile navigation",
     menu: "Menu",
     closeMenu: "Close menu",
     openMenu: "Open menu",

@@ -31,7 +31,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-[4.5rem] w-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden xl:block">
+        <nav aria-label={t.header.primaryNav} className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
               const href = item.href as string;
@@ -107,7 +107,7 @@ export function SiteHeader() {
 
       {open ? (
         <div id="mobile-menu" className="border-t border-line bg-ivory xl:hidden">
-          <nav aria-label="Mobile" className="px-5 py-4">
+          <nav aria-label={t.header.mobileNav} className="px-5 py-4">
             <ul className="flex flex-col gap-1">
               {nav.map((item) => {
                 const href = item.href as string;

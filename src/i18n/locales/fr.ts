@@ -15,6 +15,8 @@
   },
   header: {
     planTrip: "Demander un devis",
+    primaryNav: "Navigation principale",
+    mobileNav: "Navigation mobile",
     menu: "Menu",
     closeMenu: "Fermer le menu",
     openMenu: "Ouvrir le menu",

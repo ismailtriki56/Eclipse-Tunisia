@@ -15,6 +15,8 @@
   },
   header: {
     planTrip: "اطلب عرض سعر",
+    primaryNav: "التنقل الرئيسي",
+    mobileNav: "تنقل الجوال",
     menu: "القائمة",
     closeMenu: "إغلاق القائمة",
     openMenu: "فتح القائمة",

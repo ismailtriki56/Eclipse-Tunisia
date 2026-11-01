@@ -471,3 +471,10 @@ pointer events over the toolbar, making the map/grid toggle unclickable.
 - Localized the experience detail fallback title via `notFound.title`.
 - Verified localized `<title>` output on fr/ar routes, 57-route link check,
   typecheck, lint and the 200-page production build.
+
+## 2026 Redesign — Phase 11 (accessible navigation labels)
+
+- Replaced the remaining hardcoded English `aria-label` values in the site
+  header with localized `primaryNav` / `mobileNav` keys in en/fr/ar (813 keys
+  per locale).
+- Verified: i18n check, typecheck, lint and the 200-page production build.
