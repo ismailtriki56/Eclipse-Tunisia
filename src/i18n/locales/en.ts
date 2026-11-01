@@ -35,7 +35,8 @@
     eyebrow: "Total solar eclipse · 2 August 2027",
     headline: "The longest total solar eclipse of the century crosses Tunisia.",
     subheadline:
-      "On 2 August 2027 totality peaks at 6 min 23 s in Egypt, the longest between 1991 and 2114. From Djerba, Tunisia gets {duration} of darkness at midday.",
+      "On 2 August 2027 the Moon's shadow crosses Tunisia. {place} gets {duration} of totality, the longest in the country, with Kerkennah close behind.",
+    illustration: "Illustration",
     viewPackages: "View eclipse packages",
     explorePath: "Explore the path",
     countdown: "Time remaining until greatest eclipse",
@@ -52,7 +53,7 @@
     greatest: "Greatest eclipse in Tunis",
     width: "Path width at maximum",
     saros: "Saros series",
-    longestLabel: "Djerba & Houmt Souk",
+    longestLabel: "{place}",
     greatestLabel: "Local time (UTC+1)",
     widthLabel: "Maximum umbral corridor",
     sarosLabel: "Five Millennium Canon",
@@ -715,9 +716,9 @@
     },
     "djerba-total-totality": {
       name: "Djerba Total Totality",
-      tagline: "Our longest island totality",
+      tagline: "An island base with four minutes of totality",
       summary:
-        "Four nights on Djerba, where our verified circumstances give {duration} of totality. A slower island rhythm, whitewashed Houmt Souk and long beaches.",
+        "Four nights on Djerba, where our verified circumstances give {duration} of totality. A slower island rhythm, whitewashed Houmt Souk and long beaches, with Sfax and Kerkennah holding the country's longest totality.",
     },
     "sahara-eclipse-oasis": {
       name: "Sahara Eclipse & Oasis",
@@ -1539,7 +1540,7 @@
     },
     "radisson-blu-athenee-palace-djerba": {
       whyEclipse:
-        "A Houmt Souk base puts the island's longest totality and the medina within easy reach.",
+        "A Houmt Souk base puts more than four minutes of island totality and the medina within easy reach.",
     },
     "hasdrubal-prestige-djerba": {
       whyEclipse:

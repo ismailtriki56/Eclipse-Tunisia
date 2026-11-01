@@ -11,6 +11,7 @@ import { getImage, imageCredit } from "@/data/images";
 import { circumstancesFor } from "@/lib/eclipse/destinations";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import { destinationDetail, destinationText } from "@/lib/destination-text";
+import { formatDuration } from "@/lib/format";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -32,13 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function formatTotality(seconds: number | null): string | null {
-  if (seconds === null) return null;
-  const minutes = Math.floor(seconds / 60);
-  const rest = Math.round(seconds % 60);
-  return `${minutes} min ${rest} s`;
-}
-
 export default async function ExplorerDetailPage({ params }: Props) {
   const { locale: localeParam, slug } = await params;
   const locale = isLocale(localeParam) ? localeParam : defaultLocale;
@@ -49,7 +43,7 @@ export default async function ExplorerDetailPage({ params }: Props) {
   const detail = destinationDetail(t, destination);
   const circumstances = circumstancesFor(destination);
   const asset = getImage(destination.imageKey);
-  const totality = formatTotality(circumstances.centralDurationSeconds);
+  const totality = formatDuration(circumstances.centralDurationSeconds);
   const isTotal = circumstances.visibility === "total";
 
   return (

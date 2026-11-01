@@ -7,6 +7,7 @@ import { images, imageCredit } from "@/data/images";
 import { site } from "@/lib/site";
 import { totalityDestinations } from "@/lib/eclipse/destinations";
 import { formatDuration } from "@/lib/format";
+import { destinationText } from "@/lib/destination-text";
 import { useLanguage } from "@/context/language-context";
 
 export function Hero() {
@@ -15,7 +16,10 @@ export function Hero() {
   const longest = totalityDestinations()[0];
   const duration =
     formatDuration(longest?.centralDurationSeconds ?? null) ?? t.common.partial;
-  const subheadline = t.hero.subheadline.replace("{duration}", duration);
+  const place = longest ? destinationText(t, longest.destination).name : "Sfax";
+  const subheadline = t.hero.subheadline
+    .replace("{place}", place)
+    .replace("{duration}", duration);
 
   return (
     <section className="relative isolate flex min-h-[80vh] items-end overflow-hidden bg-navy">
@@ -80,7 +84,7 @@ export function Hero() {
             }}
           />
           <p className="mt-4 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-ivory/40">
-            {t.common.photoCredit}: {imageCredit(hero)} · Wikimedia Commons
+            {t.hero.illustration} · {t.common.photoCredit}: {imageCredit(hero)} · Wikimedia Commons
           </p>
         </div>
       </div>

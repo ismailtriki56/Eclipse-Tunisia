@@ -9,13 +9,7 @@ import { getImage } from "@/data/images";
 import { useLanguage } from "@/context/language-context";
 import { destinationText } from "@/lib/destination-text";
 import { localePath } from "@/lib/locale-path";
-
-function formatTotality(seconds: number | null): string | null {
-  if (seconds === null) return null;
-  const minutes = Math.floor(seconds / 60);
-  const rest = Math.round(seconds % 60);
-  return `${minutes}m ${String(rest).padStart(2, "0")}s`;
-}
+import { formatDuration } from "@/lib/format";
 
 export function DestinationCard({
   circumstances,
@@ -28,7 +22,7 @@ export function DestinationCard({
   const { destination } = circumstances;
   const text = destinationText(t, destination);
   const asset = getImage(destination.imageKey);
-  const totality = formatTotality(circumstances.centralDurationSeconds);
+  const totality = formatDuration(circumstances.centralDurationSeconds);
   const isTotal = circumstances.visibility === "total";
 
   return (

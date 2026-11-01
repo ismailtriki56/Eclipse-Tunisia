@@ -35,7 +35,8 @@
     eyebrow: "Éclipse totale de Soleil · 2 août 2027",
     headline: "La plus longue éclipse totale du siècle traverse la Tunisie.",
     subheadline:
-      "Le 2 août 2027, la totalité atteint 6 min 23 s en Égypte, la plus longue entre 1991 et 2114. Depuis Djerba, la Tunisie connaît {duration} d'obscurité en plein midi.",
+      "Le 2 août 2027, l'ombre de la Lune traverse la Tunisie. {place} connaît {duration} de totalité, la plus longue du pays, avec Kerkennah juste derrière.",
+    illustration: "Illustration",
     viewPackages: "Voir les séjours éclipse",
     explorePath: "Explorer la bande",
     countdown: "Temps restant avant la plus grande éclipse",
@@ -52,7 +53,7 @@
     greatest: "Plus grande éclipse à Tunis",
     width: "Largeur de la bande au maximum",
     saros: "Série de Saros",
-    longestLabel: "Djerba et Houmt Souk",
+    longestLabel: "{place}",
     greatestLabel: "Heure locale (UTC+1)",
     widthLabel: "Corridor ombral maximal",
     sarosLabel: "Canon des cinq millénaires",
@@ -718,9 +719,9 @@
     },
     "djerba-total-totality": {
       name: "Djerba Totalité",
-      tagline: "Notre plus longue totalité insulaire",
+      tagline: "Une base insulaire avec quatre minutes de totalité",
       summary:
-        "Quatre nuits à Djerba, où nos calculs vérifiés donnent {duration} de totalité. Un rythme insulaire plus lent, Houmt Souk blanchi à la chaux et de longues plages.",
+        "Quatre nuits à Djerba, où nos calculs vérifiés donnent {duration} de totalité. Un rythme insulaire plus lent, Houmt Souk blanchi à la chaux et de longues plages, tandis que Sfax et Kerkennah détiennent la plus longue totalité du pays.",
     },
     "sahara-eclipse-oasis": {
       name: "Sahara Éclipse & Oasis",
@@ -1549,7 +1550,7 @@
     },
     "radisson-blu-athenee-palace-djerba": {
       whyEclipse:
-        "Une base à Houmt Souk place la plus longue totalité de l'île et la médina à portée de main.",
+        "Une base à Houmt Souk place plus de quatre minutes de totalité insulaire et la médina à portée de main.",
     },
     "hasdrubal-prestige-djerba": {
       whyEclipse:

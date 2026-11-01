@@ -2,18 +2,22 @@
 
 import { eclipseFacts, totalityDestinations } from "@/lib/eclipse/destinations";
 import { formatDuration } from "@/lib/format";
+import { destinationText } from "@/lib/destination-text";
 import { useLanguage } from "@/context/language-context";
 
 export function StatsBand() {
   const { t } = useLanguage();
   const longest = totalityDestinations()[0];
+  const longestName = longest
+    ? destinationText(t, longest.destination).name
+    : "Sfax";
   const greatestClock = eclipseFacts.greatestEclipseLocal.split(" ")[0];
 
   const items = [
     {
       label: t.stats.longest,
       value: formatDuration(longest?.centralDurationSeconds ?? null),
-      note: t.stats.longestLabel,
+      note: t.stats.longestLabel.replace("{place}", longestName),
     },
     {
       label: t.stats.greatest,

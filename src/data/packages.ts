@@ -149,7 +149,7 @@ export const packages: TravelPackage[] = [
   {
     slug: "djerba-total-totality",
     name: "Djerba Total Totality",
-    kicker: "Our longest island totality",
+    kicker: "An island base with four minutes of totality",
     destinationSlug: "djerba",
     area: "Djerba, south-east Tunisia",
     nights: 4,
@@ -159,7 +159,7 @@ export const packages: TravelPackage[] = [
     currency: "USD",
     imageKey: "djerbaBeach",
     summary:
-      "Four nights on Djerba, where our verified circumstances give the longest totality in Tunisia. A slower island rhythm, whitewashed Houmt Souk and long beaches.",
+      "Four nights on Djerba, where our verified circumstances give more than four minutes of totality. A slower island rhythm, whitewashed Houmt Souk and long beaches, with Sfax and Kerkennah holding the country's longest totality.",
     bestFor: ["Long totality", "Island stays", "Families"],
     eclipseBase: "djerba",
     included: [

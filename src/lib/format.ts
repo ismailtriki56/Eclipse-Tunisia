@@ -56,13 +56,24 @@ export function formatTimeInZone(
   }
 }
 
-export function formatDuration(seconds: number | null): string | null {
-  if (seconds === null) return null;
-  const minutes = Math.floor(seconds / 60);
-  const remaining = seconds % 60;
-  if (minutes === 0) return `${remaining}s`;
-  if (remaining === 0) return `${minutes} min`;
-  return `${minutes} min ${remaining}s`;
+export interface DurationUnits {
+  minute: string;
+  second: string;
+}
+
+const defaultDurationUnits: DurationUnits = { minute: "min", second: "s" };
+
+export function formatDuration(
+  seconds: number | null,
+  units: DurationUnits = defaultDurationUnits,
+): string | null {
+  if (seconds === null || !Number.isFinite(seconds)) return null;
+  const total = Math.max(0, Math.round(seconds));
+  const minutes = Math.floor(total / 60);
+  const remaining = total % 60;
+  if (minutes === 0) return `${remaining} ${units.second}`;
+  if (remaining === 0) return `${minutes} ${units.minute}`;
+  return `${minutes} ${units.minute} ${remaining} ${units.second}`;
 }
 
 export function formatHours(hours: number): string {

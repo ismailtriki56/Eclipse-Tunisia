@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import type { Dictionary } from "@/i18n";
 import { destinationText } from "@/lib/destination-text";
+import { formatDuration } from "@/lib/format";
 import { Sun, Clock, Compass, ExternalLink } from "lucide-react";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -26,12 +27,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 function formatDurationSec(seconds: number | null, t: Dictionary) {
-  if (seconds == null) return "-";
-  const totalSec = Math.round(seconds);
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  if (m === 0) return `${s} ${t.hero.seconds}`;
-  return `${m} ${t.hero.minutes} ${s} ${t.hero.seconds}`;
+  return (
+    formatDuration(seconds, {
+      minute: t.hero.minutes,
+      second: t.hero.seconds,
+    }) ?? "-"
+  );
 }
 
 export default async function EclipseInfoPage({ params }: Props) {
