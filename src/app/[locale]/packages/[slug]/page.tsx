@@ -82,7 +82,10 @@ export default async function PackageDetailPage({ params }: Props) {
   const asset = getImage(pkg.imageKey);
   const hotels = staysForDestination(pkg.destinationSlug);
   const hotelDetails = t.hotelDetail as Record<string, { character: string }>;
-  const duration = formatDuration(circumstances.centralDurationSeconds);
+  const duration = formatDuration(circumstances.centralDurationSeconds, {
+    minute: t.hero.minutes,
+    second: t.hero.seconds,
+  });
   const status = availabilityFor(pkg.slug);
   const soldOut = status === "sold_out";
 
@@ -106,12 +109,16 @@ export default async function PackageDetailPage({ params }: Props) {
             height={asset.height}
             priority
             sizes="100vw"
-            className="h-full w-full object-cover"
+            className={
+              soldOut
+                ? "h-full w-full object-cover grayscale-[35%] brightness-90"
+                : "h-full w-full object-cover"
+            }
           />
           <div className="hero-scrim absolute inset-0" />
         </div>
 
-        <Container className="relative py-14 sm:py-20">
+        <Container className="relative py-16 sm:py-[90px]">
           <Link
             href={localePath(activeLocale, "/packages")}
             className="inline-flex items-center gap-2 text-sm font-medium text-ivory/70 transition-colors hover:text-gold"
@@ -134,7 +141,7 @@ export default async function PackageDetailPage({ params }: Props) {
               <Badge tone="outline">{t.availability.open}</Badge>
             )}
           </div>
-          <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.03] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-3xl font-display text-[2.5rem] font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-[5rem]">
             {text?.name ?? pkg.name}
           </h1>
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
@@ -146,13 +153,20 @@ export default async function PackageDetailPage({ params }: Props) {
               duration ?? t.common.partial,
             )}
           </p>
+          {soldOut ? (
+            <div className="mt-6">
+              <ButtonLink href="#quote" variant="gold">
+                {t.availability.waitlist}
+              </ButtonLink>
+            </div>
+          ) : null}
           <p className="mt-4 text-xs font-medium uppercase tracking-[0.16em] text-ivory/50">
             {t.common.photoCredit}: {imageCredit(asset)} · Wikimedia Commons
           </p>
         </Container>
       </section>
 
-      <Container className="py-14 sm:py-20">
+      <Container className="py-16 sm:py-[90px]">
         <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           <Card className="p-6 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
@@ -333,27 +347,56 @@ export default async function PackageDetailPage({ params }: Props) {
                 </p>
               ) : (
                 <ul className="mt-5 space-y-3">
-                  {hotels.map((hotel) => (
-                    <li
-                      key={hotel.slug}
-                      className="flex items-start justify-between gap-4 border-b border-line pb-3 last:border-0"
-                    >
-                      <div>
-                        <p className="text-sm font-semibold text-ink">{hotel.name}</p>
-                        <p className="mt-0.5 text-xs text-muted">
-                          {hotelDetails[hotel.slug]?.character ?? hotel.character}
-                        </p>
-                      </div>
-                      <a
-                        href={hotel.officialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shrink-0 text-xs font-semibold text-navy hover:underline"
+                  {hotels.map((hotel) => {
+                    return (
+                      <li
+                        key={hotel.slug}
+                        className="flex items-center justify-between gap-4 border-b border-line pb-3 last:border-0"
                       >
-                        {t.common.officialSite}
-                      </a>
-                    </li>
-                  ))}
+                        <div className="flex min-w-0 items-center gap-3">
+                          {hotel.photoKeys.length > 0 ? (
+                            <div className="flex shrink-0 gap-1">
+                              {hotel.photoKeys.slice(0, 3).map((key) => {
+                                const photo = getImage(key);
+                                return (
+                                  <Image
+                                    key={key}
+                                    src={photo.url}
+                                    alt={photo.alt}
+                                    width={photo.width}
+                                    height={photo.height}
+                                    sizes="56px"
+                                    className="h-14 w-14 object-cover"
+                                  />
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <span
+                              aria-hidden
+                              className="flex h-14 w-16 shrink-0 items-center justify-center bg-sand px-1 text-center text-[0.55rem] uppercase tracking-[0.1em] text-muted"
+                            >
+                              {t.common.photoComingSoon}
+                            </span>
+                          )}
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-ink">{hotel.name}</p>
+                            <p className="mt-0.5 text-xs text-muted">
+                              {hotelDetails[hotel.slug]?.character ?? hotel.character}
+                            </p>
+                          </div>
+                        </div>
+                        <a
+                          href={hotel.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 text-xs font-semibold text-navy hover:underline"
+                        >
+                          {t.common.officialSite}
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
               <div className="mt-6">
@@ -367,7 +410,10 @@ export default async function PackageDetailPage({ params }: Props) {
       </Container>
 
       <Container className="pb-16 sm:pb-24">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div
+          id="quote"
+          className="grid scroll-mt-24 gap-8 lg:grid-cols-[0.9fr_1.1fr]"
+        >
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
               {t.packages.requestQuote}

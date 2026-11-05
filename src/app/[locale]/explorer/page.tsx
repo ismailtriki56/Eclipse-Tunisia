@@ -31,11 +31,13 @@ export default async function ExplorerPage({
   const bySlug = new Map(
     circumstances.map((item) => [item.destination.slug, item]),
   );
+  const units = { minute: t.hero.minutes, second: t.hero.seconds };
   const duration = (slug: string) =>
-    formatDuration(bySlug.get(slug)?.centralDurationSeconds ?? null) ?? "—";
+    formatDuration(bySlug.get(slug)?.centralDurationSeconds ?? null, units) ??
+    "—";
   const longest = totalityDestinations()[0];
   const longestDuration =
-    formatDuration(longest?.centralDurationSeconds ?? null) ?? "—";
+    formatDuration(longest?.centralDurationSeconds ?? null, units) ?? "—";
   const longestName = longest
     ? destinationText(t, longest.destination).name
     : t.map.centerLine;

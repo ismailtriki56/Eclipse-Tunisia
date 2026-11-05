@@ -68,7 +68,7 @@ export function formatDuration(
   units: DurationUnits = defaultDurationUnits,
 ): string | null {
   if (seconds === null || !Number.isFinite(seconds)) return null;
-  const total = Math.max(0, Math.round(seconds));
+  const total = Math.max(0, Math.floor(seconds));
   const minutes = Math.floor(total / 60);
   const remaining = total % 60;
   if (minutes === 0) return `${remaining} ${units.second}`;

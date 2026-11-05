@@ -88,7 +88,10 @@ export function InteractiveMap({
 }: InteractiveMapProps) {
   const { t, locale } = useLanguage();
   const longestDuration =
-    formatDuration(totalityDestinations()[0]?.centralDurationSeconds ?? null) ??
+    formatDuration(totalityDestinations()[0]?.centralDurationSeconds ?? null, {
+      minute: t.hero.minutes,
+      second: t.hero.seconds,
+    }) ??
     "—";
   const mapContainerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -122,7 +125,10 @@ export function InteractiveMap({
       const isTotal = circ.visibility === "total";
       const durationSeconds = circ.centralDurationSeconds ?? 0;
       const formattedDuration = isTotal
-        ? formatDuration(durationSeconds) ?? "—"
+        ? formatDuration(durationSeconds, {
+            minute: t.hero.minutes,
+            second: t.hero.seconds,
+          }) ?? "—"
         : `${(circ.obscuration * 100).toFixed(0)}% ${t.map.partial}`;
 
       let categoryTag: "desert" | "coast" | "cultural" = "desert";
@@ -292,9 +298,7 @@ export function InteractiveMap({
 
         tileTimer = setTimeout(() => {
           if (!isMounted || tileLoadCountRef.current > 0) return;
-          setLoadError(
-            "OpenStreetMap tiles could not be loaded. Check your internet connection and retry. The destination list below still works."
-          );
+          setLoadError("tiles");
           setMapReady(true);
         }, 10000);
 
@@ -357,16 +361,12 @@ export function InteractiveMap({
         }, 450);
       } catch (err: unknown) {
         console.error("Map initialization failed:", err);
-        const msg =
-          err instanceof Error
-            ? err.message
-            : "Could not initialize map canvas";
         if (initTimer) {
           clearTimeout(initTimer);
           initTimer = null;
         }
         if (isMounted) {
-          setLoadError(msg);
+          setLoadError("init");
           // Still dismiss loading spinner so user is never stuck
           setMapReady(true);
         }
@@ -377,9 +377,7 @@ export function InteractiveMap({
     // of leaving the loading spinner on screen forever.
     initTimer = setTimeout(() => {
       if (isMounted && !mapInstanceRef.current) {
-        setLoadError(
-          "The map engine did not finish loading. Check your connection and retry. The destination list below still works."
-        );
+        setLoadError("engine");
         setMapReady(true);
       }
     }, 8000);

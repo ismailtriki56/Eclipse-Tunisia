@@ -15,14 +15,17 @@ export function Hero() {
   const hero = images.eclipseHero;
   const longest = totalityDestinations()[0];
   const duration =
-    formatDuration(longest?.centralDurationSeconds ?? null) ?? t.common.partial;
+    formatDuration(longest?.centralDurationSeconds ?? null, {
+      minute: t.hero.minutes,
+      second: t.hero.seconds,
+    }) ?? t.common.partial;
   const place = longest ? destinationText(t, longest.destination).name : "Sfax";
   const subheadline = t.hero.subheadline
     .replace("{place}", place)
     .replace("{duration}", duration);
 
   return (
-    <section className="relative isolate flex min-h-[80vh] items-end overflow-hidden bg-navy">
+    <section className="relative isolate flex min-h-[92vh] items-end overflow-hidden bg-navy">
       <div className="absolute inset-0">
         <Image
           src={hero.url}
@@ -31,34 +34,27 @@ export function Hero() {
           height={hero.height}
           priority
           sizes="100vw"
-          className="h-full w-full object-cover"
+          className="hero-image h-full w-full object-cover"
         />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(14,28,50,.82), rgba(14,28,50,.5) 48%, rgba(14,28,50,.08))",
-          }}
-        />
+        <div aria-hidden className="hero-scrim absolute inset-0" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-32 sm:px-8 sm:pb-20 sm:pt-40">
-        <div className="max-w-3xl">
+      <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-36 sm:px-8 sm:pb-20 sm:pt-44">
+        <div className="max-w-[46rem]">
           <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
             <span aria-hidden className="h-px w-10 bg-gold/70" />
             {t.hero.eyebrow}
           </p>
 
-          <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ivory text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="mt-7 font-display text-[2.5rem] font-semibold leading-[1.02] tracking-tight text-ivory text-balance sm:text-6xl lg:text-[5rem]">
             {t.hero.headline}
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-ivory/85 text-pretty sm:text-lg">
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-ivory/85 text-pretty sm:text-lg">
             {subheadline}
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <ButtonLink href="/packages" size="lg" variant="inverse">
               {t.hero.viewPackages}
             </ButtonLink>
@@ -68,7 +64,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-white/15 pt-8">
+        <div className="mt-16 border-t border-white/15 pt-7">
           <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ivory/50">
             {t.hero.countdown}
           </p>

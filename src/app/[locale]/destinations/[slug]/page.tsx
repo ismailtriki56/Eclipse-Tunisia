@@ -43,7 +43,10 @@ export default async function DestinationDetailPage({ params }: Props) {
   const detail = destinationDetail(t, destination);
   const circumstances = circumstancesFor(destination);
   const asset = getImage(destination.imageKey);
-  const totality = formatDuration(circumstances.centralDurationSeconds);
+  const totality = formatDuration(circumstances.centralDurationSeconds, {
+    minute: t.hero.minutes,
+    second: t.hero.seconds,
+  });
   const isTotal = circumstances.visibility === "total";
 
   return (

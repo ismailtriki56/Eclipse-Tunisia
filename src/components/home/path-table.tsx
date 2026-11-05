@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -15,7 +15,7 @@ export function PathTable() {
   const rows = totalityDestinations();
 
   return (
-    <section className="border-y border-line bg-sand/60 py-20 sm:py-24">
+    <section className="reveal border-y border-line bg-sand/60 py-16 sm:py-[90px]">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
@@ -65,7 +65,10 @@ export function PathTable() {
                   </td>
                   <td className="px-5 py-4 text-sm text-muted">{text.region}</td>
                   <td className="px-5 py-4 font-mono text-sm text-ink">
-                    {formatDuration(row.centralDurationSeconds) ?? t.common.partial}
+                    {formatDuration(row.centralDurationSeconds, {
+                      minute: t.hero.minutes,
+                      second: t.hero.seconds,
+                    }) ?? t.common.partial}
                   </td>
                   <td className="px-5 py-4 font-mono text-sm text-muted">
                     {row.magnitude.toFixed(3)}

@@ -74,7 +74,7 @@ export const airports: Airport[] = [
     city: "Djerba",
     role: "Southern island gateway",
     bestFor: "Djerba, Gabès and the south-east",
-    note: "The most direct arrival point for Djerba, where the island sees some of the longest totality in Tunisia.",
+    note: "The most direct arrival point for Djerba, where totality lasts more than four minutes.",
     searchUrl:
       "https://www.google.com/travel/flights?q=Flights%20to%20DJE%20for%20August%202027",
   },

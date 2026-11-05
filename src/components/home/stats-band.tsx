@@ -16,7 +16,10 @@ export function StatsBand() {
   const items = [
     {
       label: t.stats.longest,
-      value: formatDuration(longest?.centralDurationSeconds ?? null),
+      value: formatDuration(longest?.centralDurationSeconds ?? null, {
+        minute: t.hero.minutes,
+        second: t.hero.seconds,
+      }),
       note: t.stats.longestLabel.replace("{place}", longestName),
     },
     {
@@ -37,14 +40,14 @@ export function StatsBand() {
   ];
 
   return (
-    <section className="bg-navy text-ivory">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-5 py-12 sm:px-8 lg:grid-cols-4">
+    <section className="reveal bg-navy text-ivory">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-x-8 gap-y-12 px-5 py-16 sm:px-8 lg:grid-cols-4 lg:py-20">
         {items.map((item) => (
-          <div key={item.label}>
+          <div key={item.label} className="border-t border-gold/30 pt-5">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ivory/50">
               {item.label}
             </p>
-            <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-gold sm:text-4xl">
+            <p className="mt-2 font-display text-[2.625rem] font-semibold leading-none tracking-tight text-gold">
               {item.value}
             </p>
             <p className="mt-1 text-xs leading-relaxed text-ivory/55">{item.note}</p>

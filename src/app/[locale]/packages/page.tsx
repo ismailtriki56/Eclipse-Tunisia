@@ -28,6 +28,21 @@ export default async function PackagesPage({ params }: Props) {
     { area: string; bestFor: string[] }
   >;
 
+  const longestSlug = packages.reduce<string | null>((best, pkg) => {
+    const destination = getDestination(pkg.destinationSlug);
+    if (!destination) return best;
+    const seconds = circumstancesFor(destination).centralDurationSeconds ?? 0;
+    if (!best) return pkg.slug;
+    const bestPkg = packages.find((item) => item.slug === best);
+    const bestDestination = bestPkg
+      ? getDestination(bestPkg.destinationSlug)
+      : null;
+    const bestSeconds = bestDestination
+      ? circumstancesFor(bestDestination).centralDurationSeconds ?? 0
+      : 0;
+    return seconds > bestSeconds ? pkg.slug : best;
+  }, null);
+
   const notes = [
     { title: t.packages.whatPriceIs, body: t.packages.whatPriceIsBody },
     { title: t.packages.whatPriceIsNot, body: t.packages.whatPriceIsNotBody },
@@ -49,9 +64,17 @@ export default async function PackagesPage({ params }: Props) {
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {packages.map((pkg) => (
-            <PackageCard key={pkg.slug} pkg={pkg} />
+            <PackageCard
+              key={pkg.slug}
+              pkg={pkg}
+              isLongest={pkg.slug === longestSlug}
+            />
           ))}
         </div>
+
+        <p className="mt-4 text-xs leading-relaxed text-muted">
+          {t.common.illustrativeDemo}
+        </p>
 
         <div className="mt-20">
           <SectionHeading
@@ -109,7 +132,10 @@ export default async function PackagesPage({ params }: Props) {
                       <td className="px-5 py-4">
                         {circumstances?.visibility === "total" ? (
                           <Badge tone="total">
-                            {formatDuration(circumstances.centralDurationSeconds)}
+                            {formatDuration(circumstances.centralDurationSeconds, {
+                              minute: t.hero.minutes,
+                              second: t.hero.seconds,
+                            })}
                           </Badge>
                         ) : (
                           <span className="text-xs text-muted">{t.common.partial}</span>

@@ -8,10 +8,10 @@ import {
 } from "../src/lib/eclipse/destinations";
 import { getDestination } from "../src/data/destinations";
 
-test("formatDuration rounds to whole seconds without float artefacts", () => {
+test("formatDuration truncates to whole seconds without float artefacts", () => {
   assert.equal(formatDuration(277.30099999999999), "4 min 37 s");
-  assert.equal(formatDuration(37.999), "38 s");
-  assert.equal(formatDuration(59.5), "1 min");
+  assert.equal(formatDuration(37.999), "37 s");
+  assert.equal(formatDuration(59.5), "59 s");
   assert.equal(formatDuration(0), "0 s");
   assert.equal(formatDuration(null), null);
 });
