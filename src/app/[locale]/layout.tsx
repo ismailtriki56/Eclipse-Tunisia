@@ -74,7 +74,17 @@ export async function generateMetadata({
       description: t.meta.description,
       type: "website",
       locale:
-        locale === "fr" ? "fr_FR" : locale === "ar" ? "ar_TN" : "en_GB",
+        locale === "fr"
+          ? "fr_FR"
+          : locale === "ar"
+            ? "ar_TN"
+            : locale === "de"
+              ? "de_DE"
+              : locale === "it"
+                ? "it_IT"
+                : locale === "es"
+                  ? "es_ES"
+                  : "en_GB",
       url: `/${locale}`,
     },
   };

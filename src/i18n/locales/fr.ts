@@ -27,9 +27,15 @@
     en: "EN",
     fr: "FR",
     ar: "AR",
+    de: "DE",
+    it: "IT",
+    es: "ES",
     enFull: "English",
     frFull: "Français",
     arFull: "العربية",
+    deFull: "Deutsch",
+    itFull: "Italiano",
+    esFull: "Español",
   },
   hero: {
     eyebrow: "Éclipse totale de Soleil · 2 août 2027",
@@ -121,6 +127,9 @@
     covered: "couverte à {percent} %",
     backToPackages: "Tous les séjours",
     close: "Fermer",
+    previous: "Précédent",
+    next: "Suivant",
+    viewGallery: "Voir la galerie",
     loading: "Chargement",
     retry: "Réessayer",
     readMore: "Lire la suite",
@@ -133,6 +142,7 @@
     description:
       "Comparez des programmes éclipse illustratifs pour Mahdia, Djerba, le Sahara, Sfax et Kerkennah, avec des bases tarifaires transparentes et aucune disponibilité inventée.",
     headerEyebrow: "Séjours éclipse",
+    longestRibbon: "Totalité la plus longue",
     headerTitle: "Six façons de rencontrer l'ombre.",
     headerDesc:
       "Commencez par une côte, une île, le Sahara ou un simple petit-déjeuner d'éclipse. Ces programmes montrent comment un voyage peut s'organiser ; ils sont illustratifs, ne constituent pas un stock en direct et ne peuvent pas être payés sur ce site.",
@@ -397,7 +407,7 @@
         city: "Djerba",
         role: "Porte d'entrée du sud insulaire",
         bestFor: "Djerba, Gabès et le sud-est",
-        note: "Le point d'arrivée le plus direct pour Djerba, où l'île connaît l'une des plus longues totalités de Tunisie.",
+        note: "Le point d'arrivée le plus direct pour Djerba, où la totalité dure plus de quatre minutes.",
       },
       TOE: {
         name: "Aéroport international de Tozeur–Nefta",
@@ -709,6 +719,7 @@
     open: "Disponible",
     limited: "Dernières places",
     sold_out: "Complet",
+    waitlist: "Rejoindre la liste d'attente",
   },
   packageText: {
     "mahdia-signature": {
