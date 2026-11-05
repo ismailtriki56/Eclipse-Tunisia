@@ -8,11 +8,13 @@
     "postbuild": "node scripts/prepare-standalone.mjs",
     "start": "node .next/standalone/server.js",
     "lint": "eslint",
-    "test": "node --import ./scripts/register-ts.mjs --test tests/packages.test.ts tests/times.test.ts",
+    "test": "node --import ./scripts/register-ts.mjs --test tests/packages.test.ts tests/times.test.ts tests/availability.test.ts",
     "typecheck": "tsc --noEmit",
     "verify:eclipse": "node --import ./scripts/register-ts.mjs scripts/verify-eclipse.ts",
     "i18n:check": "node --import ./scripts/register-ts.mjs scripts/i18n-check.ts",
-    "test:links": "node scripts/test-links.mjs"
+    "test:links": "node scripts/test-links.mjs",
+    "test:e2e": "playwright test tests/e2e/home.spec.ts tests/e2e/map.spec.ts",
+    "test:e2e:screenshots": "playwright test tests/e2e/screenshots.spec.ts"
   },
   "dependencies": {
     "@types/leaflet": "^1.9.22",
@@ -24,6 +26,7 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

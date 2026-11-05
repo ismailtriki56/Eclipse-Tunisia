@@ -1,6 +1,67 @@
 # Eclipse Tunisia — Progress Tracking
 
-## Itinerary Preference Matching & Vercel Prep (current session)
+## Live Review Fixes & Luxury Design Pass (current session)
+
+### Times and durations
+
+- Confirmed the Sfax maximum is **10:11:29 Africa/Tunis (09:11:29 UT)**.
+  CycleCalcs reports 10:11:38 GMT+1 and 5 min 39 s, matching the computed
+  circumstances. The brief's "11:11 local" would apply UTC+1 twice and is not
+  used anywhere.
+- `formatDuration` now truncates to whole seconds instead of rounding, so the
+  published values match the astronomy output: Sfax 5 min 39 s, Kerkennah
+  5 min 38 s, Djerba 4 min 37 s.
+- Every duration display now passes localized `t.hero.minutes` /
+  `t.hero.seconds` units: hero, stats band, path table, destination cards,
+  package cards, packages table, destination/explorer/package detail pages,
+  explorer header copy and map popups.
+- `tests/times.test.ts` asserts that Sfax local time differs from UT and now
+  covers truncation of `37.999` and `59.5`.
+- Stale "Djerba has some of the longest totality" copy was replaced in
+  `flights.ts` and all six locales with "more than four minutes". The German
+  Djerba package summary now says "längste Totalität" instead of "längste
+  Strände".
+
+### Packages and availability
+
+- Package cards now use a 4px radius, navy/gold night-count line, 22.4px
+  Cormorant price, 10px white/80 photo credit, and a 2px gold border plus
+  ribbon on the computed longest package.
+- Removed the per-card "Illustrative" pill. A single quiet line now sits below
+  the packages grid; the existing illustrative banner remains above it.
+- Sold-out cards desaturate, show the red sold-out badge, and link to
+  `/packages/{slug}#quote` with an outlined "Join waiting list" action. The
+  detail header repeats that action and the quote section has a `#quote`
+  anchor and uses the waitlist form mode.
+- Package detail hotel entries now show up to three real photos where they
+  exist, and "Photo coming soon" otherwise.
+
+### Verification and browser checks
+
+- Added `@playwright/test`, `playwright.config.ts`, and:
+  - `tests/e2e/home.spec.ts` — hero headline, package/path links and the
+    packages route.
+  - `tests/e2e/map.spec.ts` — Leaflet container, Sfax and Kerkennah selection,
+    computed 5 min 39 s / 5 min 38 s, and correct detail links.
+  - `tests/e2e/screenshots.spec.ts` — Home, Packages, Sfax package detail and
+    Stays at 1440px and 390px in `docs/screenshots`.
+- Scripts: `npm run test:e2e` and `npm run test:e2e:screenshots`.
+- Fixed the Next 16 production build for the optional experiences catalogue:
+  removed the empty `generateStaticParams` result and marked the routes
+  `export const instant = false`, so `npm run build` completes all 353 pages.
+
+### Verification performed
+
+- `npm test`: 13/13 passed.
+- `npm run typecheck`: pass.
+- `npm run lint`: pass.
+- `npm run i18n:check`: 825 keys across en, fr, ar, de, it and es.
+- `npm run verify:eclipse`: 37/37 passed.
+- `npm run build`: pass.
+- `npm run test:e2e`: 2/2 passed.
+- `npm run test:e2e:screenshots`: 2/2 passed.
+
+## Itinerary Preference Matching & Vercel Prep (previous session)
 
 ### Root cause
 
