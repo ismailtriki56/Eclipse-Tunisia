@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { Logo } from "./logo";
 import { useLanguage } from "@/context/language-context";
 import { localePath } from "@/lib/locale-path";
+import { experiencesEnabled } from "@/lib/features";
 
 export function SiteFooter() {
   const { t, locale } = useLanguage();
@@ -26,7 +27,9 @@ export function SiteFooter() {
         { href: "/stays", label: t.footer.stays },
         { href: "/flights", label: t.footer.flights },
         { href: "/plan", label: t.footer.itinerary },
-        { href: "/experiences", label: t.footer.experiences },
+        ...(experiencesEnabled
+          ? [{ href: "/experiences", label: t.footer.experiences }]
+          : []),
         { href: "/safety", label: t.footer.safety },
       ],
     },
@@ -42,7 +45,7 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="mt-auto bg-navy text-ivory">
+    <footer className="mt-auto border-t border-gold/30 bg-navy text-ivory">
       <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>

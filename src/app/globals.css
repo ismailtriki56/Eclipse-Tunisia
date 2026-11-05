@@ -32,8 +32,14 @@
   --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --shadow-card: 0 1px 2px rgb(31 53 86 / 0.04), 0 12px 32px -14px rgb(31 53 86 / 0.14);
-  --shadow-lift: 0 2px 4px rgb(31 53 86 / 0.05), 0 24px 48px -22px rgb(31 53 86 / 0.24);
+  /* Quiet geometry: 4px surfaces, 2px controls. */
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+
+  --shadow-card: 0 18px 40px rgb(31 53 86 / 0.08);
+  --shadow-lift: 0 24px 54px rgb(31 53 86 / 0.14);
 }
 
 html {
@@ -106,6 +112,44 @@ html[lang="ar"] .font-display {
       var(--color-gold),
       rgb(217 169 79 / 0)
     );
+  }
+
+  .hairline {
+    border-color: rgb(217 169 79 / 0.38);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.01);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+.hero-image {
+  animation: hero-zoom 20s ease-out both;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 32%;
+    }
   }
 }
 

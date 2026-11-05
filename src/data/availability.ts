@@ -14,7 +14,7 @@ export interface PackageAvailability {
 export const availability: Record<string, AvailabilityStatus> = {
   "mahdia-signature": "open",
   "djerba-total-totality": "limited",
-  "sahara-eclipse-oasis": "open",
+  "sahara-eclipse-oasis": "sold_out",
   "eclipse-breakfast": "open",
   "sfax-signature": "limited",
   "kerkennah-island-escape": "open",

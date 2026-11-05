@@ -15,13 +15,14 @@ export function PageHeader({
 }) {
   return (
     <div className={cn("border-b border-line bg-white", className)}>
-      <Container className="py-14 sm:py-20">
+      <Container className="py-14 sm:py-[90px]">
         {eyebrow ? (
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
+          <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold-600">
+            <span aria-hidden className="h-px w-8 bg-gold/70" />
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
+        <h1 className="max-w-4xl font-display text-[2.5rem] font-semibold leading-[1.03] tracking-tight text-ink text-balance sm:text-6xl lg:text-[4.75rem]">
           {title}
         </h1>
         {description ? (

@@ -1,14 +1,17 @@
 ﻿"use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   Check,
+  ChevronLeft,
+  ChevronRight,
   ExternalLink,
   ImageOff,
   Scale,
   Search,
   Star,
+  X,
 } from "lucide-react";
 import { stays, stayCities, type Stay } from "@/data/stays";
 import { getImage, imageCredit } from "@/data/images";
@@ -22,6 +25,46 @@ export function StaysDirectory() {
   const { t } = useLanguage();
   const [city, setCity] = useState<string | null>(null);
   const [compare, setCompare] = useState<string[]>([]);
+  const [lightbox, setLightbox] = useState<{
+    name: string;
+    index: number;
+    photos: ReturnType<typeof getImage>[];
+  } | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(null);
+      if (event.key === "ArrowRight") {
+        setLightbox((current) =>
+          current
+            ? {
+                ...current,
+                index: (current.index + 1) % current.photos.length,
+              }
+            : current,
+        );
+      }
+      if (event.key === "ArrowLeft") {
+        setLightbox((current) =>
+          current
+            ? {
+                ...current,
+                index:
+                  (current.index - 1 + current.photos.length) %
+                  current.photos.length,
+              }
+            : current,
+        );
+      }
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox]);
 
   const cityLabel = (name: string | null) => {
     if (name === null) return t.stays.all;
@@ -214,41 +257,62 @@ export function StaysDirectory() {
               )}
             >
               <div className="relative">
-                {photos.length > 0 ? (
-                  <div
-                    className={cn(
-                      "grid gap-1",
-                      photos.length > 1 ? "grid-cols-2" : "grid-cols-1",
-                    )}
-                  >
-                    {photos.map((asset) => (
-                      <div
+                <div className="grid aspect-[4/3] grid-cols-3 grid-rows-2 gap-1 bg-sand">
+                  {[0, 1, 2].map((index) => {
+                    const asset = photos[index];
+                    const large = index === 0;
+                    return asset ? (
+                      <button
                         key={asset.key}
-                        className="relative aspect-[4/3] overflow-hidden bg-sand"
+                        type="button"
+                        onClick={() =>
+                          setLightbox({ name: stay.name, index, photos })
+                        }
+                        aria-label={`${t.common.viewGallery}: ${stay.name}`}
+                        className={cn(
+                          "group relative overflow-hidden bg-sand",
+                          large && "col-span-2 row-span-2",
+                        )}
                       >
                         <Image
                           src={asset.url}
                           alt={asset.alt}
                           width={asset.width}
                           height={asset.height}
-                          sizes="(min-width: 768px) 25vw, 90vw"
-                          className="h-full w-full object-cover"
+                          sizes={
+                            large
+                              ? "(min-width: 768px) 30vw, 60vw"
+                              : "(min-width: 768px) 15vw, 30vw"
+                          }
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
+                      </button>
+                    ) : (
+                      <div
+                        key={`placeholder-${index}`}
+                        className={cn(
+                          "flex flex-col items-center justify-center gap-1.5 bg-sand p-2 text-center text-muted",
+                          large && "col-span-2 row-span-2",
+                        )}
+                      >
+                        <ImageOff className="h-5 w-5" aria-hidden />
+                        <span className="text-[0.55rem] font-medium uppercase tracking-[0.12em]">
+                          {t.stays.photoComingSoon}
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex aspect-[16/7] flex-col items-center justify-center gap-2 bg-sand text-muted">
-                    <ImageOff className="h-6 w-6" aria-hidden />
-                    <span className="text-xs font-medium uppercase tracking-[0.14em]">
-                      {t.stays.photoComingSoon}
-                    </span>
-                  </div>
-                )}
+                    );
+                  })}
+                </div>
                 {photos.length > 0 ? (
-                  <p className="absolute bottom-2 start-2 rounded-full bg-navy/75 px-2.5 py-1 text-[0.6rem] font-medium text-ivory">
-                    {t.common.photoCredit}: {imageCredit(photos[0])}
-                  </p>
+                  <>
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-navy/70 to-transparent"
+                    />
+                    <p className="pointer-events-none absolute bottom-2 start-3 text-[0.58rem] font-medium uppercase tracking-[0.1em] text-ivory/80">
+                      {t.common.photoCredit}: {imageCredit(photos[0])}
+                    </p>
+                  </>
                 ) : null}
               </div>
 
@@ -358,6 +422,86 @@ export function StaysDirectory() {
           );
         })}
       </div>
+
+      {lightbox ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.name}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/95 p-4 sm:p-8"
+          onClick={() => setLightbox(null)}
+        >
+          <div
+            className="relative w-full max-w-5xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-3 flex items-center justify-between gap-4 text-ivory">
+              <p className="text-sm font-medium">{lightbox.name}</p>
+              <button
+                type="button"
+                onClick={() => setLightbox(null)}
+                aria-label={t.common.close}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-[2px] border border-white/30 text-ivory transition-colors hover:border-gold hover:text-gold"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="relative overflow-hidden bg-black/30">
+              <Image
+                src={lightbox.photos[lightbox.index].url}
+                alt={lightbox.photos[lightbox.index].alt}
+                width={lightbox.photos[lightbox.index].width}
+                height={lightbox.photos[lightbox.index].height}
+                sizes="90vw"
+                className="max-h-[75vh] w-full object-contain"
+              />
+              {lightbox.photos.length > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLightbox((current) =>
+                        current
+                          ? {
+                              ...current,
+                              index:
+                                (current.index - 1 + current.photos.length) %
+                                current.photos.length,
+                            }
+                          : current,
+                      )
+                    }
+                    aria-label={t.common.previous}
+                    className="absolute start-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[2px] bg-navy/75 text-ivory transition-colors hover:bg-navy"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLightbox((current) =>
+                        current
+                          ? {
+                              ...current,
+                              index: (current.index + 1) % current.photos.length,
+                            }
+                          : current,
+                      )
+                    }
+                    aria-label={t.common.next}
+                    className="absolute end-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[2px] bg-navy/75 text-ivory transition-colors hover:bg-navy"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </>
+              ) : null}
+            </div>
+            <p className="mt-3 text-[0.65rem] uppercase tracking-[0.12em] text-ivory/60">
+              {t.common.photoCredit}: {imageCredit(lightbox.photos[lightbox.index])}
+            </p>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

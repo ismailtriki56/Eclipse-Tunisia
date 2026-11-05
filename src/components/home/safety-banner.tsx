@@ -9,9 +9,9 @@ export function SafetyBanner() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-gold/15 py-14 sm:py-16">
+    <section className="reveal bg-gold/15 py-16 sm:py-[90px]">
       <Container>
-        <div className="flex flex-col gap-6 rounded-2xl border border-gold/40 bg-gold/10 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+        <div className="flex flex-col gap-6 rounded-[4px] border border-gold/40 bg-gold/10 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div className="flex gap-4">
             <span className="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy text-gold">
               <Eye className="h-5 w-5" />

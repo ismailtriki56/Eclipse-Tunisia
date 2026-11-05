@@ -14,15 +14,15 @@ export function Badge({
     neutral: "bg-navy/5 text-navy",
     total: "bg-navy text-gold",
     partial: "bg-gold-100 text-gold-600",
-    sample: "bg-danger/10 text-danger",
+    sample: "border border-line-strong bg-paper/85 text-muted",
     outline: "border border-line-strong text-muted",
-    limited: "bg-gold-100 text-gold-600",
-    soldOut: "bg-navy/10 text-muted line-through decoration-muted/40",
+    limited: "bg-gold text-navy",
+    soldOut: "bg-danger text-white",
   };
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em]",
+        "inline-flex items-center gap-1.5 rounded-[2px] px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em]",
         tones[tone],
         className,
       )}

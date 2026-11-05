@@ -6,7 +6,13 @@ import { cn } from "@/lib/cn";
 import { useLanguage } from "@/context/language-context";
 import { localePath } from "@/lib/locale-path";
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({
+  className,
+  tone = "dark",
+}: {
+  className?: string;
+  tone?: "dark" | "light";
+}) {
   const { locale, t } = useLanguage();
   return (
     <Link
@@ -21,8 +27,13 @@ export function Logo({ className }: { className?: string }) {
         <span className="absolute h-9 w-9 rounded-full bg-ivory shadow-[3px_0_0_0_var(--color-navy)]" />
         <span className="absolute right-1.5 h-4 w-4 rounded-full bg-gold blur-[0.5px]" />
       </span>
-      <span className="font-display text-xl font-semibold tracking-tight text-navy">
-        Eclipse <span className="text-gold-600">Tunisia</span>
+      <span
+        className={cn(
+          "font-display text-xl font-semibold tracking-tight",
+          tone === "light" ? "text-ivory" : "text-navy",
+        )}
+      >
+        Eclipse <span className={tone === "light" ? "text-gold" : "text-gold-600"}>Tunisia</span>
       </span>
     </Link>
   );

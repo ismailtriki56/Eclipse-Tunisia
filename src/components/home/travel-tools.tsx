@@ -12,12 +12,12 @@ export function TravelTools() {
   const { t, locale } = useLanguage();
 
   return (
-    <section className="bg-white py-20 sm:py-24">
+    <section className="reveal bg-white py-16 sm:py-[90px]">
       <Container>
         <div className="grid gap-5 md:grid-cols-2">
           <Link
             href={localePath(locale, "/stays")}
-            className="group relative overflow-hidden rounded-3xl bg-navy p-7 text-ivory shadow-lift transition-transform duration-300 hover:-translate-y-1 sm:p-10"
+            className="group relative overflow-hidden rounded-[4px] bg-navy p-7 text-ivory shadow-lift transition-transform duration-300 hover:-translate-y-1 sm:p-10"
           >
             <div
               aria-hidden
@@ -42,7 +42,7 @@ export function TravelTools() {
 
           <Link
             href={localePath(locale, "/flights")}
-            className="group relative overflow-hidden rounded-3xl bg-sand p-7 text-navy shadow-card transition-transform duration-300 hover:-translate-y-1 sm:p-10"
+            className="group relative overflow-hidden rounded-[4px] bg-sand p-7 text-navy shadow-card transition-transform duration-300 hover:-translate-y-1 sm:p-10"
           >
             <div
               aria-hidden
