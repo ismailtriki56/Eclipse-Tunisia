@@ -2,17 +2,15 @@
 import { notFound } from "next/navigation";
 import { getExperience } from "@/data/experiences";
 import { getDestination } from "@/data/destinations";
-import { experiences } from "@/data/experiences";
 import { Badge } from "@/components/ui/badge";
 import { Card, Container } from "@/components/ui/card";
 import { BookingRequestCard } from "@/components/experiences/booking-request-card";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
 import { destinationText } from "@/lib/destination-text";
 import { categoryText, experienceText } from "@/lib/experience-text";
+import { experiencesEnabled } from "@/lib/features";
 
-export function generateStaticParams() {
-  return experiences.map((e) => ({ slug: e.slug }));
-}
+export const instant = false;
 
 export async function generateMetadata({
   params,
@@ -33,6 +31,7 @@ export default async function ExperienceDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
+  if (!experiencesEnabled) notFound();
   const { locale: localeParam, slug } = await params;
   const locale = isLocale(localeParam) ? localeParam : defaultLocale;
   const t = getDictionary(locale);

@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-shell";
 import { ExperienceCatalog } from "@/components/experiences/experience-catalog";
 import { getDictionary, isLocale, defaultLocale } from "@/i18n";
+import { experiencesEnabled } from "@/lib/features";
+
+export const instant = false;
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -19,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ExperiencesPage({ params }: Props) {
+  if (!experiencesEnabled) notFound();
   const { locale } = await params;
   const t = dictionaryFor(locale);
 
